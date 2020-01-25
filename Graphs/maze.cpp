@@ -90,6 +90,10 @@ int main()
     }
     cout << endl;
   }
+
+  // another method - but could not complete it:
+
+  
   // while(k--)
   // {
   //   int x=0;
