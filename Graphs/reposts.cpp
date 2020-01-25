@@ -1,3 +1,5 @@
+// Problem 522A - Codeforces (dfs and similar / 1700)
+// Solved (dfs)
 #include <bits/stdc++.h>
 using namespace std;
 
