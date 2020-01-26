@@ -1,4 +1,4 @@
-//Problem 510B - Codeforces (dfs and similar / 1500)
+//Problem 510B - Codeforces (dfs and similar / 1500) (different kind of dfs)
 //Solved (forgot to update visited)
 #include <bits/stdc++.h>
 using namespace std;
@@ -56,7 +56,6 @@ void dfs(int node1, int node2)
   }
   if(matrix[node1-1][node2]==x&&!flag)
   {
-
     if(!visited[node1-1][node2])
     {
       dfs(node1-1,node2);c--;
