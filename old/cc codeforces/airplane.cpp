@@ -1,16 +1,14 @@
-// Problem 839B - (Contest / 1700)
-// WA on test 43 (idek at this point)
 #include <iostream>
 using namespace std;
 int main()
 {
-    int n, k;
-    cin >> n >>k;
+  int n, k;
+  cin >> n >>k;
     int arr[k],q[k],r[k];
     int quad=n,c1=0, c2=0, c3=0,duo=2*n;
     for(int i=0;i<k;i++)
     {
-        cin >> arr[i];
+       cin >> arr[i];
         q[i]=arr[i]/4;
         if(quad>=q[i])quad-=q[i];
         else duo-=2*q[i];
@@ -29,7 +27,7 @@ int main()
       if(quad>c3)
       {
         quad-=c3;
-        if(2*duo>=(c1-quad)*2) flag=1;
+        if(4*quad+2*duo>=c1*2) flag=1;
         else flag=0;
       }
       else
