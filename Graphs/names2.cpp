@@ -15,11 +15,6 @@ int main()
   fn(0,0,1);
   if(flag) cout << "Impossible\n";
   else for(auto it = order.begin();it!=order.end();it++) cout << *it;
-  // if(arr[0]=="adjcquqdqcsvixgwglwrrmkhdsbebbjvcgz")
-  // {
-  //   cout << arr[80] << endl;
-  //   for(auto it = order.begin();it!=order.end();it++) cout << *it;
-  // }
 }
 
 void arrange(char a, char b, int check)
@@ -50,10 +45,10 @@ void fn(int t,int no, int check)
     char prev=arr[no][t];
     for(int i=no+1;i<n;i++)
     {
-      if(flag) break;
+      if(flag) return;
       if(arr[i].size()<=t) continue;
       char x=arr[i][t];
-      if(t&&arr[i][t-1]!=arr[i-1][t-1]) break;
+      if(t&&arr[i][t-1]!=arr[i-1][t-1]) return;
       if(x==prev)
       {
         if(arr[i].size()<arr[i-1].size()) {flag=1; return;}
