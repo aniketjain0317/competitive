@@ -1,5 +1,5 @@
 //Problem 277A - Codeforces (dfs and similar / 1500)
-//Unsolved (WA on T4)
+//Solved (figured out the exceptional case which was causing WA on T4)
 #include <bits/stdc++.h>
 using namespace std;
 int n,m;
@@ -20,13 +20,13 @@ int main()
     for(int j=0;j<t;j++)
     {
       int l;
-      cin >> l;
+      cin >> l, l--;
       graph[i].push_back(100+l);
       graph[100+l].push_back(i);
     }
   }
 
-  for(int k=101;k<=100+m;k++)
+  for(int k=100;k<100+m;k++)
   {
     if(graph[k].size() && !visited[k])
     {
@@ -34,7 +34,9 @@ int main()
       dfs(k);
     }
   }
-  int ans = (sc -1) + (isolated);
+  int ans=0;
+  if(sc) {ans = (sc -1) + (isolated);}
+  else  {ans = isolated;}
   cout << ans;
 }
 

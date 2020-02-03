@@ -1,5 +1,5 @@
 //Problem 377A - Codeforces (dfs and similar / 1600)
-//TLE on Test 8
+//TLE on Test 8 (See maze2.cpp / Solved)
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -93,7 +93,7 @@ int main()
 
   // another method - but could not complete it:
 
-  
+
   // while(k--)
   // {
   //   int x=0;
