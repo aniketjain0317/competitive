@@ -1,10 +1,10 @@
 #include "bits/stdc++.h"
 using namespace std;
 int n,flag=0;
-int visited[256]={};
-int cmp[256]={};
-vector<char> adj[256];
-string arr[200];
+int visited[128]={};
+int cmp[128]={};
+vector<char> adj[128];
+string arr[101];
 vector<char>ans;
 void dfs(char);
 void fn(int,int);
@@ -16,7 +16,10 @@ int main()
   {
     char p=arr[i-1][0];
     char c = arr[i][0];
-    if(c==p) fn(0,i);
+    if(c==p)
+    {
+      fn(0,i);
+    }
     else
     {
       adj[p].push_back(c);
