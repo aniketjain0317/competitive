@@ -11,12 +11,32 @@ using namespace std;
 #define ainp(n,arr) int n; read(n); int arr[n]; cinp(n,arr);
 #define N 100000000
 
+#define bd(a,b,adj) adj[a].pb(b); adj[b].pb(a);
+#define ud(a,b,adj) adj[a].pb(b);
+
 typedef long long int ll;
 typedef pair<int,int> pi;
 typedef vector<int> vi;
 typedef vector<pi> vpi;
 
+
+bool visited[N]={};
+vi(graph)[N];
+
+
 int main()
 {
 
+}
+
+void dfs(int node)
+{
+  visited[node]=1;
+  for(auto child: graph[node])
+  {
+    if(!visited[child])
+    {
+      dfs(child);
+    }
+  }
 }
