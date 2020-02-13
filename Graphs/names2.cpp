@@ -1,3 +1,5 @@
+//Problem 510C - Codeforces (dfs and similar / 1800)
+//WA on Test 12 (idk why)(this is a cleaner version of names.cpp)
 #include "bits/stdc++.h"
 using namespace std;
 int n,flag=0;
