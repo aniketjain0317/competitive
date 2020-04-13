@@ -30,8 +30,4 @@ int main()
 {
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
-  vi arr;
-  fr(i,1,11) arr.pb(i);
-  auto id = lb(arr.begin(),arr.end(),2);
-  cnl(lower-arr.begin());
 }
