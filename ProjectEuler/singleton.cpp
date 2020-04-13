@@ -37,10 +37,10 @@ int main()
     if(cnt[i]==1)
     {
       ans++;
-      cout <<ans<< ". "<< i << "\n";
+      // cout <<ans<< ". "<< i << "\n";
     }
   }
   ll ms2 = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
   int time = ms2-ms1;
-  cout << time<< endl;
+  cout << ans<<"   "<<time<< endl;
 }

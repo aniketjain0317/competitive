@@ -14,11 +14,9 @@ using namespace std;
 #define read(x) cin >> x;
 #define fr(i,a,b) for(int i=a;i<b;i++)
 #define frr(i,a,b) for(int i=a;i<=b;i++)
-#define test(t) int t; cin >> t; frr(tno,1,t)
+#define test(t) int t; cin >> t; while(t--)
 #define cinp(n,arr) fr(i,0,n) read(arr[i]);
 #define ainp(n,arr) int n; read(n); int arr[n]; cinp(n,arr);
-#define show1d(n,arr) fr(i,0,n) {csp(arr[i]);cout<<endl;}
-#define show2d(n,m,arr) fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}
 #define N 100000000
 
 typedef long long int ll;
@@ -28,10 +26,18 @@ typedef vector<pi> vpi;
 
 int main()
 {
-  ios_base::sync_with_stdio(false);
-  cin.tie(NULL);
-  vi arr;
-  fr(i,1,11) arr.pb(i);
-  auto id = lb(arr.begin(),arr.end(),2);
-  cnl(lower-arr.begin());
+  test(t)
+  {
+    int n,m; cin >> n >> m;
+    int p[n], f[n], s[m]={};
+    cinp(n,f);
+    cinp(n,p);
+    fr(i,0,n)
+    {
+      s[f[i]-1]+=p[i];
+    }
+    sort(s,s+m);
+    fr(i,0,m) if(s[i]) {cnl(s[i]); break;}
+  }
+
 }

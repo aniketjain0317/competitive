@@ -28,10 +28,43 @@ typedef vector<pi> vpi;
 
 int main()
 {
-  ios_base::sync_with_stdio(false);
-  cin.tie(NULL);
-  vi arr;
-  fr(i,1,11) arr.pb(i);
-  auto id = lb(arr.begin(),arr.end(),2);
-  cnl(lower-arr.begin());
+  test(t)
+  {
+    int n; cin >> n;
+    int arr[n][n];
+    fr(i,0,n) fr(j,0,n) cin >> arr[i][j];
+    // Trace
+    int trace = 0;
+    fr(i,0,n) trace += arr[i][i];
+    // Row
+    int row = 0;
+    fr(i,0,n)
+    {
+      int check[n+1]={};
+      int flag=0;
+      fr(j,0,n)
+      {
+        int x = arr[i][j];
+        if(!check[x]) check[x]++;
+        else {flag=1;break;}
+      }
+      if(flag) row++;
+    }
+    // Column
+    int col = 0;
+    fr(j,0,n)
+    {
+      int check[n+1]={};
+      int flag=0;
+      fr(i,0,n)
+      {
+        int x = arr[i][j];
+        if(!check[x]) check[x]++;
+        else {flag=1;break;}
+      }
+      if(flag) col++;
+    }
+
+    cout << "Case #"<< tno << ": " << trace << " " << row << " " << col << endl;
+  }
 }

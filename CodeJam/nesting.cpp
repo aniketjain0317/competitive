@@ -28,10 +28,25 @@ typedef vector<pi> vpi;
 
 int main()
 {
-  ios_base::sync_with_stdio(false);
-  cin.tie(NULL);
-  vi arr;
-  fr(i,1,11) arr.pb(i);
-  auto id = lb(arr.begin(),arr.end(),2);
-  cnl(lower-arr.begin());
+  test(t)
+  {
+    string s;
+    cin >> s;
+    int n = s.length();
+    string ans = "";
+    int p =0;
+    fr(i,0,n)
+    {
+      char c = s[i];
+      int x = c - 48;
+      if(x>p) fr(i,0,x-p) ans+="(";
+      else if (x<p) fr(i,0,p-x) ans+=")";
+      p=x;
+      ans+=c;
+    }
+    fr(i,0,p) ans+=")";
+
+    cout << "Case #"<< tno << ": " << ans<< endl;
+
+  }
 }
