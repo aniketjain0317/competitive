@@ -51,4 +51,18 @@ int main()
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
 
+  test(t)
+  {
+    int n; cin >> n;
+    if(n%2) fr(i,0,n) {fr(j,0,n) csp(i*n+j+1); cout << endl;}
+    else fr(i,0,n) {fr(j,0,n)
+    {
+      if(i%2)
+      {
+        if(j%2) csp(i*n+j);
+        else csp(i*n+j+2);
+      }
+      else csp(i*n+j+1);
+    } cout << endl;}
+  }
 }

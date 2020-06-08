@@ -51,4 +51,23 @@ int main()
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
 
+  test(t)
+  {
+    ll a,b; cin >> a >> b;
+    ll c=a; ll d=b;
+    ll a2=0,b2=0;
+    while(c%2==0)
+    {
+      c/=2;
+      a2+=1;
+    }
+    while(d%2==0)
+    {
+      d/=2;
+      b2+=1;
+    }
+    if(c!=d) {cnl(-1); continue;}
+    ll x = abs(a2-b2);
+    cnl(ceil(x/3.0));
+  }
 }

@@ -51,4 +51,36 @@ int main()
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
 
+  test(t)
+  {
+    int n,m; cin >> n >> m;
+    int claimedrows[n] = {}, claimedcols[m] = {};
+    int nRC = n; int nCC = m;
+    // show1d(m,claimedcols);
+    fr(i,0,n) fr(j,0,m)
+    {
+      int x; cin >> x;
+      if(x)
+      {
+        if(claimedrows[i]==0) { claimedrows[i]=1; nRC--;}
+        // cnl("!"<<i<<j<<"  "<<claimedcols[1]);
+        if(claimedcols[j]==0) { claimedcols[j]=1; nCC--;}
+        // cnl("!"<<i<<j<<"  "<<claimedcols[1]);
+        // cnl("IJ" << i <<j);
+        // show1d(n,claimedrows);
+        // show1d(m,claimedcols);
+      }
+    }
+    if(nRC<=nCC)
+    {
+      if(nRC%2) cnl("Ashish");
+      else cnl("Vivek");
+    }
+    else
+    {
+      if(nCC%2) cnl("Ashish");
+      else cnl("Vivek");
+    }
+    // cnl("ABC  " << nRC << nCC);
+  }
 }

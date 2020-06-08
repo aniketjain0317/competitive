@@ -40,7 +40,7 @@ using namespace std;
 // #define int int16_t;
 // #define ll int64_t;
 
-typedef long long ll;
+typedef long long int ll;
 typedef pair<int,int> pi;
 typedef vector<int> vi;
 typedef vector<pi> vpi;
@@ -51,4 +51,25 @@ int main()
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
 
+  test(t)
+  {
+    ll a1, k; cin >> a1 >> k;
+    ll ap=a1;
+    for(ll i=0;i<k-1;i++)
+    {
+      ll x = ap;
+      int mx=-1, mn=10;
+      fr(j,0,18)
+      {
+        int y = x%10;
+        if(mx<y) mx=y;
+        if(y<mn) mn=y;
+        x=x/10;
+        if(x==0) break;
+      }
+      ap = ap + mn*mx;
+      // cnl(ap);
+    }
+    cnl(ap);
+  }
 }

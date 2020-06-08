@@ -51,4 +51,30 @@ int main()
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
 
+  test(t)
+  {
+    ainp(n,arr);
+    int chef[3]={};
+    int flag=0;
+    fr(i,0,n)
+    {
+      if(arr[i]==5) {chef[0]++;}
+      else if(arr[i]==10)
+      {
+        if(chef[0]==0) {cnl("NO"); flag=1; break;}
+        else {chef[0]--; chef[1]++;}
+      }
+      else if(arr[i]==15)
+      {
+        if(chef[1]==0)
+        {
+          if(chef[0]>=2) {chef[0]-=2; chef[2]++;}
+          else {cnl("NO"); flag=1; break;}
+        }
+        else {chef[1]--; chef[2]++;}
+      }
+    }
+    if(flag) continue;
+    else cnl("YES");
+  }
 }

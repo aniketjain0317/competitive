@@ -50,5 +50,20 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
-
+  test(t)
+  {
+    ll ts; cin >> ts;
+    if(ts==1) {cnl(0); continue;}
+    ll x = ts;
+    int p2=1;
+    while(x%2==0)
+    {
+      x/=2;
+      p2++;
+    }
+    ll jsm = 1 << p2;
+    if(jsm>=ts) {cnl(0); continue;}
+    ll ans = ts/jsm;
+    cnl(ans); 
+  }
 }

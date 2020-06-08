@@ -1,5 +1,5 @@
 // Problem
-//
+//Unoptimised /shrug
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -51,4 +51,26 @@ int main()
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
 
+  test(t)
+  {
+    string str; cin >> str;
+    int n = str.size();
+    int ans=0,streak=1;
+    fr(i,0,n)
+    {
+      char c = str[i], cp='n',cn='n';
+      if(i) cp=str[i-1];
+      if(i<n-1) cn=str[i+1];
+
+      if(i && c==cp)
+      {
+        ans+=streak/2;
+        streak=1;
+       }
+       else if(i && c!=cp) streak++;
+       // cnl(i<<"S"<<streak<<"A"<<ans);
+    }
+    ans+=streak/2;
+    cnl(ans);
+  }
 }

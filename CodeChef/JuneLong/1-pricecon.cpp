@@ -51,4 +51,14 @@ int main()
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
 
+  test(t)
+  {
+    int n,k,ans=0; cin >> n >> k;
+    fr(i,0,n)
+    {
+      int x; cin >> x;
+      if(x>k) ans+=x-k;
+    }
+    cnl(ans);
+  }
 }

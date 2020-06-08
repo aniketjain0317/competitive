@@ -1,5 +1,5 @@
 // Problem
-//
+// BRUTE FORCING
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -51,4 +51,39 @@ int main()
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
 
+  test(t)
+  {
+    ainp(n,arr);
+    int mxm = *max_element(arr,arr+n);
+    int mxm2 = mxm, mxp=0;
+    while(mxm2>0)
+    {
+      mxm2/=2;
+      mxp+=1;
+      // cnl(mxm2);
+    }
+    int chm = pow(2,mxp)-1;
+    // cnl(chm);
+    int flag=1;
+    frr(i,1,chm)
+    {
+      int check[chm]={};
+      fr(i,0,n) check[arr[i]]=1;
+      int arr2[n]={};
+      fr(j,0,n) {arr2[j]=arr[j]^i;}
+      fr(j,0,n) check[arr2[j]]+=1;
+      fr(j,0,chm)
+      {
+        if(check[j]!=0 && check[j]!=2) {flag=0;break;}
+      }
+      // if(chm<100)
+      // {
+      //   cnl("DEBUG: ");
+      //   show1d(n,arr2);
+      // }
+      if(flag) {cnl(i);flag=0; break;}
+      else flag=1;
+    }
+    if(flag) cnl(-1);
+  }
 }

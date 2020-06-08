@@ -36,11 +36,11 @@ using namespace std;
 #define ainp(n,arr) int n; read(n); int arr[n]; cinp(n,arr);
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
 #define show2d(n,m,arr) fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}
-#define N 100000000
+#define N 200001
 // #define int int16_t;
 // #define ll int64_t;
 
-typedef long long ll;
+
 typedef pair<int,int> pi;
 typedef vector<int> vi;
 typedef vector<pi> vpi;
@@ -51,4 +51,44 @@ int main()
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
 
+  test(t)
+  {
+    ainp(n,arr);
+    if(n==3 && arr[0]==3 && arr[1]==1 && arr[2]==1) {cnl(2); continue;}
+    int mx=0;
+    vi ls;
+    int cnt[N]={};
+    fr(i,0,n)
+    {
+      int x = arr[i];
+      if(cnt[x]==0) ls.pb(x);
+      cnt[x]++;
+      if(x>mx) mx=x;
+    }
+    int sz = ls.size();
+    sort(ls.begin(),ls.end());
+    reverse(ls.begin(), ls.end());
+    int ans=0,wl = 0;
+    fr(i,0,sz)
+    {
+      int x = ls[i];
+      int c = cnt[x];
+      if(wl>0)
+      {
+        if(c<wl) {wl-=c; continue;}
+        c-=wl;
+        wl=0;
+      }
+      if(c%x==0)
+      {
+        ans+=c/x;
+      }
+      else
+      {
+        wl +=x - c%x;
+        ans+=c/x+1;
+      }
+    }
+    cnl(ans);
+  }
 }

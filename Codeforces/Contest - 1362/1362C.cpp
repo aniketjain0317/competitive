@@ -50,5 +50,16 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
+  test(t)
+  {
+    ll a; cin >> a;
+    ll b=a, mxp = 0;
 
+    while(b>0)
+    {
+      mxp+=b%2;
+      b/=2;
+    }
+    cnl(2*a-mxp);
+  }
 }
