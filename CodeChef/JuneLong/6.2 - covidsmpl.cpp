@@ -28,15 +28,15 @@ using namespace std;
 #define sn second
 #define cnl(x) cout << x << endl
 #define csp(x) cout << x << " "
+#define con(rl,cl,rr,cr) cout << 1 << " " << rl << " " << cl << " " << rr << " " << cr <<endl;
 #define read(x) cin >> x;
 #define fr(i,a,b) for(int i=a;i<b;i++)
 #define frr(i,a,b) for(int i=a;i<=b;i++)
 #define test(t) int t; cin >> t; frr(tno,1,t)
 #define cinp(n,arr) fr(i,0,n) read(arr[i]);
 #define ainp(n,arr) int n; read(n); int arr[n]; cinp(n,arr);
-#define vshow1d(arr) {int n = arr.size(); fr(i,0,n) {csp(arr[i]);}cout<<endl;}
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
-#define show2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
+#define show2d(n,m,arr) fr(i,0,n) {fr(j,0,m) {csp(arr[i][j]); fflush(stdout); cout.flush();} cout << endl;}
 #define N 100000000
 // #define int int16_t;
 // #define ll int64_t;
@@ -51,4 +51,44 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
+
+  test(t)
+  {
+    int n,p; cin >> n >> p;
+    int truemat[n][n]={};
+    vi cummat[4][n+1];
+    fr(k,0,4) fr(i,0,n+1) cummat[k][i].resize(n+1,0);
+    fr(i,0,n/2+1) fr(j,0,n/2+1) {con(i+1,j+1,n,n); cin >> cummat[0][i][j];}
+
+
+
+    fr(i,0,n/2) fr(j,0,n/2) truemat[i][j]=(cummat[0][i][j]-cummat[0][i+1][j]) - (cummat[0][i][j+1]-cummat[0][i+1][j+1]);
+
+    fr(i,0,n/2+1) fr(j,0,n/2+1)
+    {
+      con(i+1,j+1,n,n); cin >> cummat[0][i][j];
+      if(!i && !j)
+      {
+        fr(k,1,4) cummat[k][i][j]=cummat[0][i][j];
+        continue;
+      }
+      con(i+1,1,n,n-j); cin >> cummat[1][i][j];
+      con(1,1,n-i,n-j); cin >> cummat[2][i][j];
+      con(1,j+1,n-i,n); cin >> cummat[3][i][j];
+    }
+    fr(k,0,4) fr(i,0,n/2) fr(j,0,n/2)
+    {
+      int x = (cummat[k][i][j]-cummat[k][i+1][j]) - (cummat[k][i][j+1]-cummat[0][i+1][j+1]);
+      if(k==0) truemat[i][j]=x;
+      if(k==1) truemat[i][n-j-1]=x;
+      if(k==2) truemat[n-i-1][n-j-1]=x;
+      if(k==3) truemat[n-i-1][j]=x;
+    }
+
+
+    cnl(2);
+    show2d(n,n,truemat);
+    int x; cin >> x;
+    if(x==-1) exit(-1);
+  }
 }
