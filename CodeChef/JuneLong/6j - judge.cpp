@@ -38,7 +38,7 @@ using namespace std;
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
 #define vshow2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
-#define N 1000
+#define N 100000000
 // #define int int16_t;
 // #define ll int64_t;
 
@@ -52,4 +52,30 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
+  int n=4;
+  int truemat[n][n] =
+  {
+    {0,0,1,1},
+    {1,0,0,1},
+    {0,0,1,0},
+    {1,0,0,0}
+  };
+  // fr(i,0,n) fr(j,0,n) truemat[i][j]=(i+j)%2;
+  cnl(1);
+  cnl(n);
+  cnl(2);
+
+  int x = 0;
+  while(true)
+  {
+    cin >> x;
+    if(x==2) break;
+    if(x==3) continue;
+    int ra,rb,ca,cb,ans=0;
+    cin >> ra >> ca >> rb >> cb;
+    fr(i,ra-1,rb) fr(j,ca-1,cb) ans+=truemat[i][j];
+    cnl(ans);
+  }
+  while(true) cin >> x;
 }
+// python croupier.py "6.3 - covidsmpl.exe" "6j - judge.exe"

@@ -39,12 +39,13 @@ using namespace std;
 #define vshow2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define N 1000
+#define INF 1000000001
 // #define int int16_t;
 // #define ll int64_t;
 
 typedef long long ll;
 typedef pair<int,int> pi;
-typedef vector<int> vi;
+typedef vector<ll> vi;
 typedef vector<pi> vpi;
 
 int main()
@@ -52,4 +53,47 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
+  test(t)
+  {
+    int n; ll x; cin >> n >> x;
+    vi arr(n); vi arr2(n);
+    if(n==100000) fr(i,0,n) arr[i]=INF-1;
+    else fr(i,0,n) cin >> arr[i];
+    sort(arr.begin(),arr.end());
+    copy(arr.begin(),arr.end(),arr2.begin());
+    int c =0,bf=0,bfc=0;
+    int ans=1;
+    while(true)
+    {
+      // cnl(ans << ": " << c << ", "<<arr[c] <<", "<< x);
+      // arr[c]-=x;
+      // if(arr[c]<=0) {x+=x+arr[c];arr[c]=0; c++;}
+      // else
+      // {
+      //   arr[c]*=2;
+      //   if(arr[c]>arr2[c]) arr[c]=arr2[c];
+      //   x*=2;
+      // }
+      int maxl=0,maxlid=c-1;
+      fr(i,c,n)
+      {
+        if(arr[i]>x) break;
+        if(arr[i]>maxl) {maxl=arr[i]; maxlid=i;bfc++;}
+      }
+      c=maxlid+1;
+      if(c==n) break;
+      if(maxl>=x/2.0) {x=2*maxl; bf+=bfc-1;bfc=0;}
+      else
+      {
+        bf+=bfc; bfc=0;
+        x*=2;
+        arr[c]-=x;
+        arr[c]*=2;
+        if(arr[c]>arr2[c]) arr[c]=arr2[c];
+      }
+      ans++;
+    }
+    ans+=bfc+bf;
+    cnl(ans);
+  }
 }

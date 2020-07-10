@@ -1,5 +1,5 @@
 // Problem
-//
+//50/100 (TLE on test #8)
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -52,4 +52,28 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
+
+  test(t)
+  {
+    int n; cin >> n;
+    ll m = 4*n-1;
+    ll arr[2][m];
+    unordered_map<ll,ll> cnt[2];
+    ll x,y;
+    fr(i,0,m)
+    {
+      cin >> arr[0][i] >> arr[1][i];
+      cnt[0][arr[0][i]]+=1;
+      cnt[1][arr[1][i]]+=1;
+    }
+    for(auto p: cnt[0])
+    {
+      if(p.sn%2) {x=p.fs;break;}
+    }
+    for(auto p: cnt[1])
+    {
+      if(p.sn%2) {y=p.fs;break;}
+    }
+    csp(x);cnl(y);
+  }
 }

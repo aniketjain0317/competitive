@@ -1,5 +1,6 @@
 // Problem
-//
+// AC
+//Should have given TLE acc to constraints (time 10^11) but it gave ac, so \(-_-)/
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -47,9 +48,37 @@ typedef pair<int,int> pi;
 typedef vector<int> vi;
 typedef vector<pi> vpi;
 
+ll sod(ll num);
 int main()
 {
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
+  test(t)
+  {
+    int n; cin >> n;
+    ll ac[n],bc[n];
+    fr(i,0,n) cin >> ac[i] >> bc[i];
+    int a=0,b=0;
+    fr(i,0,n)
+    {
+      ll acs = sod(ac[i]), bcs = sod(bc[i]);
+      if(acs>=bcs) a++;
+      if(bcs>=acs) b++;
+    }
+    if(a>b) {csp(0); cnl(a);}
+    if(a<b) {csp(1); cnl(b);}
+    if(a==b) {csp(2); cnl(a);}
+  }
+}
+
+ll sod(ll num)
+{
+  ll ans=0;
+  while(num>0)
+  {
+    ans+=num%10;
+    num/=10;
+  }
+  return ans;
 }

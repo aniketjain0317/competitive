@@ -47,9 +47,89 @@ typedef pair<int,int> pi;
 typedef vector<int> vi;
 typedef vector<pi> vpi;
 
+
+#define bd(a,b,adj) adj[a-1].pb(b-1); adj[b-1].pb(a-1);
+#define ud(a,b,adj) adj[a].pb(b);
+
+vi adj[2][N];
+vi tree[2][N];
+int visited[2][N]={};
+
+void dfs(int node, int k);
+vi treeCenters(int n, int k);
+string encode(int root, int k);
 int main()
 {
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
+
+  int n[2];
+  vi center[2];
+  string s[2];
+  fr(k,0,2)
+  {
+    cin >> n[k];
+    fr(i,0,n[k]-1) {int a,b; cin >> a >> b; bd(a,b,adj[k]);}
+    center[k]=treeCenters(n[k],k);
+  }
+  if(n[1]!= n[2]) {cnl("NOT");return 0;}
+  dfs(center[0][0],0);
+  s[0] = encode(center[0][0],0);
+  int flag=0;
+  for(auto c: center[1])
+  {
+    dfs(c,1);
+    s[1]= encode(c,1);
+    if(s[0]==s[1]) {flag=1;break;}
+    fr(i,0,n[1]) {tree[1][i].clear(); visited[1][i]=0;}
+  }
+  if(flag) cnl("ISO");
+  else cnl("NOT");
+}
+
+void dfs(int node, int k)
+{
+  visited[k][node]=1;
+  for(auto child: adj[k][node])
+  {
+    if(!visited[k][child])
+    {
+      tree[k][node].pb(child);
+      dfs(child,k);
+    }
+  }
+}
+
+vi treeCenters(int n, int k)
+{
+  vi leaves;
+  int nbs[n]={};
+  fr(i,0,n) {nbs[i]=adj[k][i].size(); if(nbs[i]==1) leaves.pb(i);}
+  int count = leaves.size();
+  while(count<n)
+  {
+    for(auto x: leaves) {for(auto y: adj[k][x]) nbs[y]--; nbs[x]=-1;}
+    leaves.clear();
+    fr(i,0,n) if(nbs[i]==1) leaves.pb(i);
+    if(leaves.empty()) fr(i,0,n) if(nbs[i]==0) leaves.pb(i);
+    count+=leaves.size();
+    // show1d(n,nbs);
+  }
+  return leaves;
+}
+
+string encode(int root, int k)
+{
+  vector<string> labels;
+  // if(tree[k][root].empty()) return "()";
+  for(auto child: tree[k][root])
+  {
+    labels.pb(encode(child,k));
+  }
+  sort(labels.begin(),labels.end());
+  string ans="(";
+  for(auto lb: labels) ans+=lb;
+  ans+=")";
+  return ans;
 }

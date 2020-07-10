@@ -1,5 +1,5 @@
 // Problem
-//
+//PC (15/100)
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -29,7 +29,7 @@ using namespace std;
 #define cnl(x) cout << x << endl
 #define csp(x) cout << x << " "
 #define read(x) cin >> x;
-#define fr(i,a,b) for(int i=a;i<b;i++)
+#define fr(i,a,b) for(ll i=a;i<b;i++)
 #define frr(i,a,b) for(int i=a;i<=b;i++)
 #define test(t) int t; cin >> t; frr(tno,1,t)
 #define cinp(n,arr) fr(i,0,n) read(arr[i]);
@@ -39,12 +39,13 @@ using namespace std;
 #define vshow2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define N 1000
+#define INF -1000000000
 // #define int int16_t;
 // #define ll int64_t;
 
 typedef long long ll;
 typedef pair<int,int> pi;
-typedef vector<int> vi;
+typedef vector<ll> vi;
 typedef vector<pi> vpi;
 
 int main()
@@ -52,4 +53,51 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
+
+  test(t)
+  {
+    ll n,flag=0; cin >> n;
+    ll arr[2][n];
+    // if(n%100==69)
+    // {
+    //   fr(i,0,n) {arr[0][i]=i*5000;arr[1][i]=i*5000;}
+    // }
+    // else
+    {
+      fr(i,0,n) cin >> arr[0][i];
+      fr(i,0,n) cin >> arr[1][i];
+    }
+    vi change;
+    map<ll,ll> cnt;
+    fr(i,0,n)
+    {
+      cnt[arr[0][i]]++;
+      cnt[arr[1][i]]--;
+    }
+    ll buff = 0;
+    for(auto p: cnt)
+    {
+      // cnl(p.fs<<": "<<p.sn);
+      if(p.sn)
+      {
+        if(p.sn%2) {flag=1; break;}
+        fr(i,0,abs(p.sn)/2) change.pb(p.fs);
+      }
+      else
+      {
+        if(!buff || buff>p.fs) buff=p.fs;
+      }
+    }
+
+    ll k = change.size(), ans=0;
+    if(k%2) flag=1;
+    if(flag==1) {cnl(-1); continue;}
+    fr(i,0,k/2)
+    {
+      int x = change[i];
+      if(buff && 2*buff < x) {x=2*buff;}
+      ans+=x;
+    }
+    cnl(ans);
+  }
 }

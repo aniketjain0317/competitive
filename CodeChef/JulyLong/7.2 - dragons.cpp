@@ -44,7 +44,7 @@ using namespace std;
 
 typedef long long ll;
 typedef pair<int,int> pi;
-typedef vector<int> vi;
+typedef vector<ll> vi;
 typedef vector<pi> vpi;
 
 int main()
@@ -52,4 +52,49 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
+
+  nt n,q; cin >> n >> q;
+  ll height[n];
+  cinp(n,height);
+  ll taste[n];
+  cinp(n,taste);
+
+  int next[2][n]={};
+  vi adj[2][n];
+  fr(i,0,n)
+  {
+    next[0][i]=-1;
+    fr(j,i+1,n)
+    {
+      if(height[i]<height[j])
+      {
+
+          next[0][i]=j;
+          break;
+      }
+    }
+  }
+  for(int i=n-1;i>=0;i--)
+  {
+    next[1][i]=-1;
+    for(int j=i-1;j>=0;j++)
+    {
+      if(height[i]<height[j])
+      {
+          next[1][i]=j;
+          break;
+      }
+    }
+  }
+
+
+
+  fr(i,0,q)
+  {
+    int a,b,c; cin >> a >> b >> c;
+    if(a==1)
+    {
+
+    }
+  }
 }

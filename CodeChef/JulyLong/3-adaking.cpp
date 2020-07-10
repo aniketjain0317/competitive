@@ -52,4 +52,18 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
+  test(t)
+  {
+    int k; cin >> k;
+    int a,b;
+    a = ceil(k/8.0)-1;
+    b=k%8;
+    cout << "O";
+    if(!b) fr(i,0,7) cout << ".";
+    else {fr(i,0,b-1) cout << "."; fr(i,0,8-b) cout << "X";}
+    cout << endl;
+
+    fr(i,0,a) {fr(j,0,8) cout << "."; cout << endl;}
+    fr(i,0,7-a) {fr(j,0,8) cout << "X"; cout << endl;}
+  }
 }

@@ -21,7 +21,6 @@ using namespace std;
 // #define M_SQRT1_2  0.707106781186547524401
 // #endif
 #define pb push_back
-#define mp make_pair
 #define lb lower_bound
 #define bs binary_search
 #define fs first
@@ -44,7 +43,7 @@ using namespace std;
 
 typedef long long ll;
 typedef pair<int,int> pi;
-typedef vector<int> vi;
+typedef vector<ll> vi;
 typedef vector<pi> vpi;
 
 int main()
@@ -52,4 +51,75 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
+  int n,q; cin >> n >> q;
+  ll height[n];
+  cinp(n,height);
+  ll taste[n];
+  cinp(n,taste);
+  int nextr[n]={},nextl[n]={};
+  unordered_map<ll,int> mapr[n],mapl[n];
+  fr(i,0,n)
+  {
+    nextr[i]=-1;
+    fr(j,i+1,n)
+    {
+      if(height[i]<height[j])
+      {
+          nextr[i]=j;
+          nextl[j]=i;
+          break;
+      }
+    }
+  }
+  for(int i=n-1;i>=0;i--)
+  {
+    nextl[i]=-1;
+    for(int j=i-1;j>=0;j++)
+    {
+      if(height[i]<height[j])
+      {
+          nextl[i]=j;
+          break;
+      }
+    }
+  }
+
+  for(int i=n-1;i>=0;i--)
+  {
+    int nx = nextr[i];
+    if(nx==-1) continue;
+    mapr[i][nx]=height[i]+height[nx];
+    if(!mapr[nx].empty()) for(auto p: mapr[nx])
+    {
+      mapr[i][p.fs]=height[i]+p.sn;
+    }
+  }
+  for(int i=0;i<n;i++)
+  {
+    int nx = nextl[i];
+    if(nx==-1) continue;
+    mapl[i][nx]=height[i]+height[nx];
+    if(!mapl[nx].empty()) for(auto p: mapl[nx])
+    {
+      mapl[i][p.fs]=height[i]+p.sn;
+    }
+  }
+
+  fr(i,0,q)
+  {
+    int a,b,c; cin >> a >> b >> c;
+    if(a==2)
+    {
+      if(b>c)
+      {
+        if(mapl[c-1].find(b-1)==mapl[c-1].end()) cnl(-1);
+        else cnl(mapl[c-1][b-1]);
+      }
+      else
+      {
+        if(mapr[b-1].find(c-1)==mapl[b-1].end()) cnl(-1);
+        else cnl(mapl[b-1][c-1]);
+      }
+    }
+  }
 }

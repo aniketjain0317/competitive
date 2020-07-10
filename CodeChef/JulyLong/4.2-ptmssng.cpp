@@ -1,5 +1,5 @@
 // Problem
-//
+//AC LESSSSSSSSSSSSSSSSSSSSSSGOOOOOOOOOO
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -52,4 +52,19 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
+
+  test(t)
+  {
+    int n; cin >> n;
+    ll m = 4*n-1;
+    ll arr[2][m];
+    ll x=0,y=0;
+    fr(i,0,m)
+    {
+      cin >> arr[0][i] >> arr[1][i];
+      x=x^arr[0][i];
+      y=y^arr[1][i];
+    }
+    csp(x);cnl(y);
+  }
 }

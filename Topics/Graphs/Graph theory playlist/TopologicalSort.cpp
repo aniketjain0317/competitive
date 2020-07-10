@@ -1,5 +1,5 @@
 // Problem
-//
+// Complete
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -34,7 +34,7 @@ using namespace std;
 #define test(t) int t; cin >> t; frr(tno,1,t)
 #define cinp(n,arr) fr(i,0,n) read(arr[i]);
 #define ainp(n,arr) int n; read(n); int arr[n]; cinp(n,arr);
-#define vshow1d(arr) {int n = arr.size(); fr(i,0,n) {csp(arr[i]);}cout<<endl;}
+#define vshow1d(arr) {int n = arr.size(); fr(i,0,n) {char x = arr[i]+65;csp(x);}cout<<endl;}
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
 #define vshow2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
@@ -47,9 +47,38 @@ typedef pair<int,int> pi;
 typedef vector<int> vi;
 typedef vector<pi> vpi;
 
+#define bd(a,b,adj) adj[a-1].pb(b-1); adj[b-1].pb(a-1);
+#define ud(a,b,adj) adj[a-1].pb(b-1);
+
+
+vi adj[N];
+int visited[N]={};
+vi sorted;
+
+void dfs(int node);
+
 int main()
 {
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
+  int n,m; cin >> n >> m;
+  fr(i,0,m) {int a,b; cin >> a >> b; ud(a,b,adj);}
+
+  fr(i,0,n) if(!visited[i]) dfs(i);
+  reverse(sorted.begin(),sorted.end());
+  vshow1d(sorted);
+}
+
+void dfs(int node)
+{
+  visited[node]=1;
+  for(auto child: adj[node])
+  {
+    if(!visited[child])
+    {
+      dfs(child);
+    }
+  }
+  sorted.pb(node);
 }

@@ -20,6 +20,7 @@ using namespace std;
 // #define M_SQRT2    1.41421356237309504880
 // #define M_SQRT1_2  0.707106781186547524401
 // #endif
+#define N 1000
 #define pb push_back
 #define mp make_pair
 #define lb lower_bound
@@ -36,9 +37,8 @@ using namespace std;
 #define ainp(n,arr) int n; read(n); int arr[n]; cinp(n,arr);
 #define vshow1d(arr) {int n = arr.size(); fr(i,0,n) {csp(arr[i]);}cout<<endl;}
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
-#define vshow2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
+#define vshow2d(arr) {int n=7;   fr(i,0,n) {int m = arr[i].size();csp(i+1<<":"); fr(j,0,m) csp(arr[i][j]+1); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
-#define N 1000
 // #define int int16_t;
 // #define ll int64_t;
 
@@ -47,9 +47,60 @@ typedef pair<int,int> pi;
 typedef vector<int> vi;
 typedef vector<pi> vpi;
 
+
+#define bd(a,b,adj) adj[a-1].pb(b-1); adj[b-1].pb(a-1);
+#define ud(a,b,adj) adj[a-1].pb(b-1);
+
+vi tree[N];
+int visited[N]={};
+vi adj[N];
+vi path;
+vi depth;
+int last[N]={};
+int cn=0;
+void visit(int,int);
+void dfs(int,int);
+int rmq(int l, int r);
 int main()
 {
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
+
+  int n,root; cin >> n >> root;
+  fr(i,0,n-1) {int a,b; cin >> a >> b; ud(a,b,tree); bd(a,b,adj);}
+  int x,y; cin >> x >> y;
+  x--; y--; root--;
+
+  dfs(root,0);
+  int xi = min(last[x],last[y]), yi = max(last[x],last[y]);
+  cnl(rmq(xi,yi)+1);
+};
+
+void dfs(int node, int nd)
+{
+  visit(node,nd);
+  for(auto child: tree[node])
+  {
+    dfs(child,nd+1);
+    visit(node,nd+1);
+  }
+}
+
+void visit(int node, int nd)
+{
+  path.pb(node);
+  depth.pb(nd);
+  last[node]=cn;
+  cn++;
+}
+
+int rmq(int l, int r)
+{
+  int mini=-1;
+  frr(i,l,r)
+  {
+    if(mini==-1 || depth[mini]>depth[i]) mini=i;
+  }
+  return path[mini];
 }

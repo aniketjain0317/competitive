@@ -19,15 +19,15 @@ using namespace std;
 #define ainp(n,arr) int n; read(n); int arr[n]; cinp(n,arr);
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);cout<<endl;}
 #define show2d(n,m,arr) fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}
-#define N 100000000
+#define N 1000
 
 typedef long long int ll;
 typedef pair<int,int> pi;
 typedef vector<int> vi;
 typedef vector<pi> vpi;
 
-#define bd(a,b,adj) adj[a].pb(b); adj[b].pb(a);
-#define ud(a,b,adj) adj[a].pb(b);
+#define bd(a,b,adj) adj[a-1].pb(b-1); adj[b-1].pb(a-1);
+#define ud(a,b,adj) adj[a-1].pb(b-1);
 
 
 

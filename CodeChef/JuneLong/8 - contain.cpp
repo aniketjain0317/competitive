@@ -271,7 +271,7 @@ vector<vpi> convexHull(vpi points, int n)
        onHull.pb(p);
        S.pop();
    }
-   //
+
    // cnl("INTERVAL");
    // pshow1d(onHull);
    // pshow1d(maybe);

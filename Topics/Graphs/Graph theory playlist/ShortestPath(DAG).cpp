@@ -1,5 +1,5 @@
 // Problem
-//
+// Complete
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -34,11 +34,12 @@ using namespace std;
 #define test(t) int t; cin >> t; frr(tno,1,t)
 #define cinp(n,arr) fr(i,0,n) read(arr[i]);
 #define ainp(n,arr) int n; read(n); int arr[n]; cinp(n,arr);
-#define vshow1d(arr) {int n = arr.size(); fr(i,0,n) {csp(arr[i]);}cout<<endl;}
+#define vshow1d(arr) {int n = arr.size(); fr(i,0,n) {char x = arr[i]+65;csp(x);}cout<<endl;}
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
 #define vshow2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define N 1000
+#define INF 100000
 // #define int int16_t;
 // #define ll int64_t;
 
@@ -47,9 +48,62 @@ typedef pair<int,int> pi;
 typedef vector<int> vi;
 typedef vector<pi> vpi;
 
+#define bd(a,b,adj) adj[a-1].pb(b-1); adj[b-1].pb(a-1);
+#define ud(a,b,c,adj) adj[a-1].pb({b-1,c});
+
+
+vpi adj[N];
+int visited[N]={};
+vi sorted;
+int dp[N]={};
+
+int shortestPath(int start, int end, int l=0);
+void dfs(int node);
+
 int main()
 {
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
+  int n,m; cin >> n >> m;
+  fr(i,0,m) {int a,b,c; cin >> a >> b >> c; ud(a,b,c,adj);}
+  int start,end; cin >> start >> end;
+  start--; end--;
+
+  cnl(shortestPath(start,end,1));
+  show1d(n,dp);
+}
+
+void dfs(int node)
+{
+  visited[node]=1;
+  for(auto child: adj[node])
+  {
+    if(!visited[child.fs])
+    {
+      dfs(child.fs);
+    }
+  }
+  sorted.pb(node);
+}
+
+int shortestPath(int start, int end, int l)
+{
+  dfs(start);
+  reverse(sorted.begin(),sorted.end());
+  int n = sorted.size();
+  fr(i,0,n) dp[i]=INF;
+  dp[start]=0;
+  for(auto v: sorted)
+  {
+    for(auto e: adj[v])
+    {
+      int x=dp[v];
+      if(!l) x+=e.sn;
+      else x-=e.sn;
+      dp[e.fs]=min(dp[e.fs],x);
+    }
+  }
+  if(l) fr(i,0,n) dp[i]=-dp[i];
+  return dp[end];
 }

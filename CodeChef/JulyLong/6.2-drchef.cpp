@@ -1,5 +1,5 @@
 // Problem
-//
+//AAAAAAAAAAAAAAAAAAAAAAAACCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCc
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -39,12 +39,13 @@ using namespace std;
 #define vshow2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define N 1000
+#define INF 1000000001
 // #define int int16_t;
 // #define ll int64_t;
 
 typedef long long ll;
 typedef pair<int,int> pi;
-typedef vector<int> vi;
+typedef vector<ll> vi;
 typedef vector<pi> vpi;
 
 int main()
@@ -52,4 +53,40 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
+  test(t)
+  {
+    int n; ll x; cin >> n >> x;
+    vi arr(n); vi arr2(n);
+    // if(n==100000) fr(i,0,n) arr[i]=INF-1;
+    fr(i,0,n) cin >> arr[i];
+    sort(arr.begin(),arr.end());
+    copy(arr.begin(),arr.end(),arr2.begin());
+    int ans=0, c=0;
+    int bf=0;
+    ll maxl=-1, maxlid=-1;
+    while(true)
+    {
+      if(c==n) break;
+      if(c==n-1 && x>=arr[c]) {ans++; arr[c]=0; break;}
+      if(arr[c]<x/2.0) {c++; continue;}
+      if(arr[c]<=x) if(maxl<arr[c]) {maxl=arr[c]; maxlid=c++; continue;}
+      if(maxl!=-1)
+      {
+        arr[maxlid]=0;
+        x=2*maxl;
+      }
+      else
+      {
+        arr[n-1]-=x;
+        x*=2;
+        arr[n-1]*=2;
+        if(arr[n-1]>arr2[n-1]) arr[n-1]=arr2[n-1];
+      }
+      ans++;
+      maxl=-1;
+      maxlid=-1;
+    }
+    fr(i,0,n) if(arr[i]) ans++;
+    cnl(ans);
+  }
 }
