@@ -52,6 +52,9 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
-  // freopen("myans.txt","w",stdout);
-  // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    ll n; cin >> n;
+    cnl(ceil(n/2.0));
+  }
 }

@@ -1,5 +1,6 @@
 // Problem
-//
+//AC
+// Input 25 & 26 are not exactly in the correct format
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -47,11 +48,69 @@ typedef pair<int,int> pi;
 typedef vector<int> vi;
 typedef vector<pi> vpi;
 
+int ctoi(char c)
+{
+  int x = c-65;
+  return x;
+}
+
+char itoc(int x)
+{
+  char c = x+65;
+  return c;
+}
+
 int main()
 {
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
-  // freopen("myans.txt","w",stdout);
-  // freopen("input.txt","r",stdin);
+  freopen("myans.txt","w",stdout);
+  freopen("input.txt","r",stdin);
+  while(true)
+  {
+    // INPUT
+    vi adj[26];
+    string inp; cin >> inp;
+    if(inp[0]=='#') break;
+    int seek=0,end=inp.size(),flag=0;
+    while(seek<end)
+    {
+      int x = ctoi(inp[seek++]);
+      char gb = inp[seek++];
+      if(gb==';') continue;
+      while(inp[seek]!=';' && seek<end-1)
+      {
+        int y=ctoi(inp[seek++]);
+        adj[x].pb(y);
+      }
+      seek++;
+    }
+    int m,t,k;
+    char gb;
+    cin >> gb; m=ctoi(gb);
+    cin >> gb; t=ctoi(gb);
+    cin >> k;
+    // INPUT END
+
+
+    int candle[26]={};
+    int kc=0;
+    vi ans;
+    while(true)
+    {
+      int next=-1;
+      for(auto node: adj[m])
+      {
+        if(node==t) continue;
+        if(candle[node]) continue;
+        next=node; break;
+      }
+      if(next==-1) break;
+      t=m;m=next;
+      if(++kc % k==0) {candle[t]=1; ans.pb(t);}
+    }
+    for(auto x: ans) csp(itoc(x));
+    cnl("/"<<itoc(m));
+  }
 }

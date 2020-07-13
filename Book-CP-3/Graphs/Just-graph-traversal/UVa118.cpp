@@ -1,5 +1,5 @@
 // Problem
-//
+// AC
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -52,6 +52,56 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
-  // freopen("myans.txt","w",stdout);
-  // freopen("input.txt","r",stdin);
+  freopen("myans.txt","w",stdout);
+  freopen("input.txt","r",stdin);
+
+  int n,m; cin >> n >> m;
+  // N , E , S , W
+  int xdir[4]={0,1,0,-1};
+  int ydir[4]={1,0,-1,0};
+  char itodir[4]={'N','E','S','W'};
+  map<char,int> dirtoi;
+  dirtoi['N']=0;
+  dirtoi['E']=1;
+  dirtoi['S']=2;
+  dirtoi['W']=3;
+  int ind=0;
+  bool lost[n+1][m+1]={};
+  while(true)
+  {
+    ind++;
+    int flag=0;
+    int x,y; char c;
+    cin >> x>>y >> c;
+    string s; cin >> s;
+    int xn=x,yn=y;
+    int q=dirtoi[c];
+    if(s.size()) flag=2;
+    for(auto ch: s)
+    {
+      if(ch=='R') {q++; if(q==4) q=0;}
+      if(ch=='L') {q--; if(q==-1) q=3;}
+      if(ch=='F')
+      {
+        xn=x+xdir[q];yn=y+ydir[q];
+        if(xn<0||xn>n||yn<0||yn>m)
+        {
+          if(lost[x][y]) {
+            // cnl("Aaaaaaaaaaaaaaaaa "<<ind);
+            continue;}
+          lost[x][y]=1;
+          // cnl("Bbbbbbbbbbbbbbbb"<<ind);
+          // show2d(n+1,m+1,lost);
+          csp(x); csp(y); csp(itodir[q]); cnl("LOST");
+          flag=1;break;
+        }
+        else
+        {
+          x=xn;y=yn;
+        }
+      }
+      // if(ind==58) {csp(ch<<":"<<q); csp(x); csp(y); cnl(itodir[q]);}
+    }
+    if(flag==2) {csp(x); csp(y); cnl(itodir[q]);}
+  }
 }

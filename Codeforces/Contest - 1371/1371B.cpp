@@ -42,7 +42,7 @@ using namespace std;
 // #define int int16_t;
 // #define ll int64_t;
 
-typedef long long ll;
+typedef unsigned long long int ll;
 typedef pair<int,int> pi;
 typedef vector<int> vi;
 typedef vector<pi> vpi;
@@ -52,6 +52,18 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
-  // freopen("myans.txt","w",stdout);
-  // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    ll n,r; cin >> n >> r;
+    ll ans;
+    if(r<n)
+    {
+      ans=r*(r+1)/2;
+    }
+    else
+    {
+      ans=n*(n-1)/2+1;
+    }
+    cnl(ans);
+  }
 }
