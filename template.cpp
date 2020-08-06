@@ -46,6 +46,8 @@ typedef long long ll;
 typedef pair<int,int> pi;
 typedef vector<int> vi;
 typedef vector<pi> vpi;
+typedef vector<vi> vvi;
+
 
 int main()
 {
