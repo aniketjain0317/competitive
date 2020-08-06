@@ -3,7 +3,7 @@
 
 /* IO FORMAT
 INPUT:
-n m
+n m k
 (m lines of (a,b,c) where a,b are vertices and c is the weight) (a,b -> 1-n)
 s
 
@@ -55,10 +55,11 @@ using namespace std;
 // #define ll int64_t;
 
 typedef long long ll;
-typedef pair<int,int> pi;
+typedef pair<float,int> pi;
 typedef vector<int> vi;
 typedef vector<pi> vpi;
 typedef vector<vi> vvi;
+typedef pair<float,pair<int,int>> ppi;
 
 
 #define bd(a,b,c,adj) adj[a-1].pb(mp(c,b-1)); adj[b-1].pb(mp(c,a-1));
@@ -66,47 +67,70 @@ typedef vector<vi> vvi;
 
 
 vector<vpi> adj;
-vi dist;
+vector<float> dist;
+vi vagueness;
 
-void djikstra(int s);
+// void showpq(priority_queue <ppi,vector<ppi>> gq)
+// {
+//     priority_queue <ppi,vector<ppi>> g = gq;
+//     while (!g.empty())
+//     {
+//       ppi node=g.top();
+//       cnl("A "<<node.sn.fs+1<<" "<<node.sn.sn<<" "<<node.fs);
+//       g.pop();
+//     }
+//     cout << '\n';
+// }
+
+void djikstra(int s, int k);
 int main()
 {
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
-  cout.precision(numeric_limits<double>::max_digits10);
+  // cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
-  int n,m; cin >> n >> m;
+  int n,m,k; cin >> n >> m >> k;
   adj.resize(n);
   dist.resize(n,0);
+  vagueness.resize(n,INF);
   fr(i,0,m)
   {
-    int a,b,c; cin >> a >> b >> c;
+    int a,b; float c; cin >> a >> b >> c;
     bd(a,b,c,adj);
   }
 
   int s; cin >> s;
-  djikstra(--s);
+  djikstra(--s,k);
   vshow1d(dist);
 }
 
-void djikstra(int s)
+void djikstra(int s, int k)
 {
-   priority_queue<pi,vpi> pq;
-   pq.push(mp(1,s));
+   priority_queue<ppi,vector<ppi>> pq;
+   pq.push(mp(1,mp(s,0)));
    dist[s]=1;
+   vagueness[s]=0;
    while(!pq.empty())
    {
-     pi node=pq.top();
+     // showpq(pq);
+     ppi node=pq.top();
+     int u = node.sn.fs;
+     int vg = node.sn.sn;
      pq.pop();
-     for(auto child: adj[node.sn])
+     if(vg<k) for(auto child: adj[u])
      {
        int v=child.sn;
-       int nwt = dist[node.sn]*child.fs;
+       float nwt = node.fs*child.fs ;
        if(dist[v]<nwt)
        {
          dist[v]=nwt;
-         pq.push(mp(dist[v],v));
+         vagueness[v]=vg+1;
+         pq.push(mp(nwt,mp(v,vg+1)));
+       }
+       else if(vg+1<vagueness[v])
+       {
+         pq.push(mp(nwt,mp(v,vg+1)));
        }
      }
    }
