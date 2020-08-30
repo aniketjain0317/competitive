@@ -1,5 +1,5 @@
 // Problem
-//
+//AC
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -57,4 +57,15 @@ int main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    int pc,pr; cin >> pc >> pr;
+    int dc,dr;
+    dc=ceil(pc/9.0);
+    dr=ceil(pr/9.0);
+
+    if(dr<=dc) csp(1);
+    else csp(0);
+    cnl(min(dc,dr));
+  }
 }

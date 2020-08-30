@@ -40,6 +40,7 @@ using namespace std;
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define N 1000
 #define INF 1000000
+#define modp 1000000007
 // #define int int16_t;
 // #define ll int64_t;
 
@@ -49,6 +50,41 @@ typedef vector<int> vi;
 typedef vector<pi> vpi;
 typedef vector<vi> vvi;
 
+long long binpow(int a, int b, long long m) {
+    a %= m;
+    long long res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a % m;
+        a = a * a % m;
+        b >>= 1;
+    }
+    return res;
+}
+
+long long modInverse(int n, long long p)
+{
+    return binpow(n, p - 2, p);
+}
+
+long long nCrModPFermat(int n,
+                                 int r, long long p)
+{
+    // Base case
+    if (r == 0)
+        return 1;
+
+    // Fill factorial array so that we
+    // can find all factorial of r, n
+    // and n-r
+    long long fac[n + 1];
+    fac[0] = 1;
+    for (int i = 1; i <= n; i++)
+        fac[i] = (fac[i - 1] * i) % p;
+
+    return (fac[n] * modInverse(fac[r], p) % p * modInverse(fac[n - r], p) % p) % p;
+}
+
 
 int main()
 {
@@ -57,4 +93,33 @@ int main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    ainp(n,arr);
+    map<int,int> freq;
+    int maxf=0;
+    fr(i,0,n) if(++freq[arr[i]] > maxf) maxf=freq[arr[i]];
+    vi nobyf[maxf+1];
+    for(auto p: freq) nobyf[p.sn].pb(p.fs);
+
+    ll ans[n+1]={};
+    frr(i,1,maxf)
+    {
+      int sz = nobyf[i].size();
+      fr(j,0,sz)
+      {
+        int x = nobyf[i][j];
+        ll a = nCrModPFermat(freq[x],i,modp);
+        ll b = binpow(i+1,sz-1-j,modp)%modp;
+
+        // cnl("i "<<i<<" j "<<j);
+        // cnl("A "<<a);
+        // cnl("B "<<b);
+        ans[x]+=(a*b)%modp;
+        ans[x]=ans[x]%modp;
+      }
+    }
+    frr(i,1,n) csp(ans[i]);
+    cout << endl;
+  }
 }

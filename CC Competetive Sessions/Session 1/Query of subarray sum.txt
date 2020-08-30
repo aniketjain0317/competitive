@@ -1,0 +1,34 @@
+Paragraph:
+Given an array of N integers, answer Q (i,j given as input) queries about the sum of a
+subarray starting from the ith element to the jth element. (inclusive)
+
+
+Input:
+The first line contains 2 integers n and q.
+The next line contains n elements of the array, separated by a space.
+The next q lines each contain 2 integers m & n.
+
+Constraints:
+1<=n<=10^5 (n is the size of the array)
+1<=q<=10^5 (q is the number of queries)
+1<=a<=1000 (a is a element in the array)
+0<=i<=j<=n-1 (i,j are the indexes between which the sum is required)
+
+Output:
+For each query, output a line containing the required sum
+between the ith and the jth element of the array.
+
+
+Time Limit: 3 seconds
+Memory Limit: 256 MB
+
+
+Example Input:
+5 2
+1 2 2 3 100
+1 5
+2 3
+
+Example Output:
+108
+4

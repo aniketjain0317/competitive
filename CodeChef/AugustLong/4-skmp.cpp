@@ -57,4 +57,29 @@ int main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    string s,p; cin >> s >> p;
+    int arr[26]={};
+
+    for(int c: s) arr[c-97]++;
+    for(int c: p) arr[c-97]--;
+
+    // show1d(26,arr);
+
+    int st = p[0]-97, st2 = st;
+    for(char c: p)
+    {
+      if(c==p[0]) continue;
+      st2=c-97;
+      break;
+    }
+    fr(i,0,26)
+    {
+      if(i==st && st2<i) cout << p;
+      fr(j,0,arr[i]) cout << (char)(i+97);
+      if(i==st && st2>=i) cout << p;
+    }
+    cout << endl;
+  }
 }

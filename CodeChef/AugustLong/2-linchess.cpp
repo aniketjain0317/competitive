@@ -1,5 +1,5 @@
 // Problem
-//
+// AC
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -39,7 +39,7 @@ using namespace std;
 #define vshow2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define N 1000
-#define INF 1000000
+#define INF 1000000000
 // #define int int16_t;
 // #define ll int64_t;
 
@@ -57,4 +57,21 @@ int main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    int n; ll k; cin >> n >> k;
+    ll arr[n];
+    cinp(n,arr) ;
+    ll ans=-1, mna=INF;
+    fr(i,0,n)
+    {
+      if(k%arr[i])continue;
+      if(mna> k/arr[i])
+      {
+        mna=k/arr[i];
+        ans=arr[i];
+      }
+    }
+    cnl(ans);
+  }
 }

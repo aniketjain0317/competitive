@@ -1,0 +1,18 @@
+General array:
+158B
+
+Sort/Search:
+492B
+
+Seive:
+230B
+
+Tricky Cases with simple logic:
+466A,25A
+
+XOR:
+519B
+
+Good-ish Implementation Problems:
+82A
+
