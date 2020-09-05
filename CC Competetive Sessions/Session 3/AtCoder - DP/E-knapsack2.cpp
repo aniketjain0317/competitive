@@ -25,13 +25,15 @@ int main()
 
   for(int i=1;i<=vmax;i++) dp[i]=INF;
   // Base case already done: dp[0]=0;
-
+  // 3 8
+  // 3 30
+  // 4 50
+  // 5 60
 
   for(int i=1;i<=n;i++)
   {
     for(int k = vmax; k>=val[i]; k--)
     {
-      // dp[k] = is the max val with weight exactly k, and upto i items included
       dp[k] = min(dp[k],dp[k-val[i]]+wt[i]);
       // cout << k << " " << val[i] << " " << dp[k] << endl;
     }

@@ -21,7 +21,7 @@ int main()
 
   for(int i=1;i<=n;i++)
   {
-    for(int k = w; k>=wt[i]; k--)
+    for(int k = wt[i]; k<=w; k++)
     {
       // dp[k] = is the max val with weight k, and upto i items included
       dp[k] = max(dp[k],dp[k-wt[i]]+val[i]);

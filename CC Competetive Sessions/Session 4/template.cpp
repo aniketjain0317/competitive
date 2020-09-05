@@ -33,7 +33,7 @@ using namespace std;
 #define fs first
 #define sn second
 #define cnl(x) cout << x << endl
-#define csp(x) cout << x << " "
+#define csp(x) cout << x << " \n"
 #define read(x) cin >> x
 #define fr(i,a,b) for(int i=a;i<b;i++)
 #define frr(i,a,b) for(int i=a;i<=b;i++)
@@ -59,6 +59,6 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL); cout.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
-  // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  // freopen("myans.txt","w",stdout);
 }
