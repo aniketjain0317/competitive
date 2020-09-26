@@ -61,4 +61,51 @@ int main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("input.txt","r",stdin);
   // freopen("myans.txt","w",stdout);
+  string s; cin >> s;
+  int n; cin >> n;
+  int finp[n]={}; fr(i,0,n) cin >> finp[i];
+  vi orderc;
+  int freq[26]={};
+  for(auto c: s)
+  {
+    int a = c-97;
+    if(!freq[a]) orderc.pb(a);
+    freq[a]++;
+  }
+
+  int sz = orderc.size();
+
+  for(auto a: orderc) cout << (char)(a+97) << " " << freq[a] << " "; cout << endl;
+
+  fr(i,0,n)
+  {
+    int x = finp[i];
+    int xfs = -1;
+    int xls = -1;
+    fr(j,0,sz) if(freq[orderc[j]]==x)
+    {
+      if(xfs==-1) xfs=j;
+      xls=j;
+    }
+    int rearranged[26]={};
+    fr(j,xfs+1,xls)
+    {
+      int a = orderc[j];
+      if(freq[a]<x) rearranged[a]=1;
+      if(freq[a]>x) rearranged[a]=2;
+    }
+
+    vi neworder;
+    for(int i = sz-1; i>=0; i--) {int a = orderc[i]; if(rearranged[a]==1) neworder.pb(a);}
+    for(auto a: orderc) if(rearranged[a]==0) neworder.pb(a);
+    for(auto a: orderc) if(rearranged[a]==2) neworder.pb(a);
+
+    orderc = neworder;
+
+    for(auto a: orderc) cout << (char)(a+97) << " " << freq[a] << " "; cout << endl;
+  }
 }
+
+// nomatterhowbusyyoumaythinkyouareyoumustfindtimeforreadingorsurrenderyourselftoselfchosenignorance
+// 3
+// 3 1 6

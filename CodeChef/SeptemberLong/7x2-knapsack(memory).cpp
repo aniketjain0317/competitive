@@ -53,12 +53,85 @@ typedef vector<int> vi;
 typedef vector<pi> vpi;
 typedef vector<vi> vvi;
 
+int n=0;
+unordered_map<ll,int> dp[60];
+// Returns the value of maximum profit
+void display(vi p)
+{
+  int ans[n]={};
+  for(auto x: p) ans[x-1]=1;
+  for(auto x: ans) cout << x;
+  cout << endl;
+}
+ll knapSackRec(ll W, ll wt[], ll val[],
+				int i)
+{
+	// base condition
+	if (i < 0)
+		return 0;
+	if (dp[i].count(W))
+		return dp[i][W];
+
+	if (wt[i] > W) {
+
+		// Store the value of function call
+		// stack in table before return
+		dp[i][W] = knapSackRec(
+W, wt, val, i - 1);
+		return dp[i][W];
+	}
+	else {
+
+		// Store value in a table before return
+		dp[i][W] = max(
+			val[i] + knapSackRec(
+						W - wt[i], wt, val, i - 1),
+			knapSackRec(W, wt, val, i - 1));
+
+		// Return value of table after storing
+		return dp[i][W];
+	}
+}
+
+int knaparr(ll wt[], int n, ll w, vi p)
+{
+  // vshow1d(p);
+  if(n==0)
+  {
+    // for(int i=0;i<p.size();i++) cout << p[i] << endl;
+    display(p);
+    return 1;
+  }
+  // else if(!K[n][w]) return 0;
+  int next=0;
+  for(int i =n;i>=0;i--)
+  {
+    if(knapSackRec(w, wt, wt, n-1)==knapSackRec(w,wt,wt,i)) continue;
+    p.push_back(i+1);
+    next=i;
+    break;
+  }
+  knaparr(wt,next,w-wt[next],p);
+  return 1;
+}
 
 int main()
 {
-  ios_base::sync_with_stdio(false);
-  cin.tie(NULL); cout.tie(NULL);
-  cout.precision(numeric_limits<double>::max_digits10);
-  // freopen("input.txt","r",stdin);
-  // freopen("myans.txt","w",stdout);
+  n=45;
+  int k=4;
+  ll wt[n]={};
+  ll sumtt=0;
+  frr(i,1,n)
+  {
+    int j = 1;
+    fr(aarwd,0,k) j*=i;
+    wt[i-1]=j;
+    sumtt+=j;
+  }
+  ll sum=sumtt/2;
+	ll sf = knapSackRec(sum, wt, wt, n-1);
+  vi p;
+  knaparr(wt,n,sum,p);
+  cnl(sumtt-2*sf);
+  return 0;
 }

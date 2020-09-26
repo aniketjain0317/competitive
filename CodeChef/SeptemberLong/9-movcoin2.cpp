@@ -61,4 +61,55 @@ int main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("input.txt","r",stdin);
   // freopen("myans.txt","w",stdout);
+  // test(t)
+  {
+    int n; n=20;
+    // vi adj[n];
+    // fr(i,0,n-1)
+    // {
+    //   int u=i;
+    //   int v=i+1;
+    //   adj[u].pb(v);
+    //   adj[v].pb(u);
+    // }
+    // int box[n]={};
+    // fr(i,0,n)
+    // {
+    //   if(i==4||i==11||i==15)
+    //   {
+    //     box[i]=1;
+    //   }
+    // }
+    // int gm[3]={4,11,15};
+    // int r=0;
+    map<multiset<int> ,int> dp;
+    dp[{0,0,0,0}]=2;
+    fr(i,0,n) fr(j,i,n) fr(k,j,n) fr(u,k,n)
+    {
+      int ch=-1, ch2=-1;
+      fr(l,0,i) if(dp[{l,j,k,u}]==2) {ch=l; ch2=1; dp[{i,j,k,u}]=1; break;}
+      fr(l,0,j) if(dp[{l,i,k,u}]==2) {ch=l; ch2=2; dp[{i,j,k,u}]=1; break;}
+      fr(l,0,k) if(dp[{i,j,l,u}]==2) {ch=l; ch2=3; dp[{i,j,k,u}]=1; break;}
+      fr(l,0,u) if(dp[{i,j,k,l}]==2) {ch=l; ch2=3; dp[{i,j,k,u}]=1; break;}
+
+      // cnl(flag << i << j << k);
+
+      if(ch2==-1) dp[{i,j,k,u}]=2;
+    }
+    fr(i,0,n)
+    {
+      cnl("I << " << i);
+      csp(i<<" ");
+      fr(k,0,n) csp(k);
+      cout << endl << endl;
+      fr(j,i,n)
+      {
+        csp(j<<" ");
+        fr(k,0,j) cout << "0 ";
+        fr(k,j,n) cout << dp[{1,i,j,k}] << " ";
+        cout << endl; 
+      }
+    }
+    cout << "ANS " << dp[{4,11,11}];
+  }
 }

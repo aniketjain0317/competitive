@@ -1,5 +1,5 @@
-// Problem
-//
+// Problem 1 - no of unique elements in array
+//AC (WA first time - forgot 0 should be excluded)
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -33,13 +33,13 @@ using namespace std;
 #define fs first
 #define sn second
 #define cnl(x) cout << x << endl
-#define csp(x) cout << x << " "
+#define csp(x) cout << x << " \n"
 #define read(x) cin >> x
 #define fr(i,a,b) for(int i=a;i<b;i++)
 #define frr(i,a,b) for(int i=a;i<=b;i++)
 #define test(t) int t; cin >> t; frr(tno,1,t)
 #define cinp(n,arr) fr(i,0,n) read(arr[i]);
-#define ainp(n,arr) int n; read(n); int arr[n]; cinp(n,arr);
+#define ainp(n,arr) int n; read(n); ll arr[n]; cinp(n,arr);
 #define vshow1d(arr) {int n = arr.size(); fr(i,0,n) {csp(arr[i]);}cout<<endl;}
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
 #define vshow2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
@@ -61,4 +61,11 @@ int main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("input.txt","r",stdin);
   // freopen("myans.txt","w",stdout);
+  test(t)
+  {
+    ainp(n,arr);
+    unordered_set<ll> s1;
+    fr(i,0,n) if(arr[i]) s1.insert(arr[i]);
+    cnl(s1.size());
+  }
 }

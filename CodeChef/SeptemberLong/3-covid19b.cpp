@@ -61,4 +61,20 @@ int main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("input.txt","r",stdin);
   // freopen("myans.txt","w",stdout);
+  test(t)
+  {
+    ainp(n,arr);
+    vi inf(n,1);
+    int dist[n]={};
+    int done[n][n]={};
+    fr(i,0,n) {dist[i]=i+1; done[i][i]=1;}
+    for(double )
+    {
+      fr(i,0,n) dist[i]+=arr[i];
+      fr(i,0,n) fr(j,0,n) if(dist[i]==dist[j] && !done[i][j]) {inf[i]++; done[i][j]=1;}
+    }
+    int mn = *min_element(inf.begin(),inf.end());
+    int mx = *max_element(inf.begin(),inf.end());
+    csp(mn); cnl(mx);
+  }
 }

@@ -46,14 +46,36 @@ using namespace std;
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define N 1e5
 #define INF 1e9+5
-
 typedef long long ll;
 typedef pair<int,int> pi;
 typedef vector<int> vi;
 typedef vector<pi> vpi;
 typedef vector<vi> vvi;
 
+int xxx=0;
+int pr = 1e9+7;
+ll power(int x, ll y, ll p)
+{
+    ll res = 1;     // Initialize result
 
+    x = x % p; // Update x if it is more than or
+                // equal to p
+
+    if (x == 0) return 0; // In case x is divisible by p;
+
+    while (y > 0)
+    {
+        // If y is odd, multiply x with result
+        if (y & 1)
+            res = (res*x) % p;
+
+        // y must be even now
+        y = y>>1; // y = y/2
+        x = (x*x) % p;
+    }
+    return res;
+}
+int dfs(int node, vi adj[], int arr[],int visited[], vi p);
 int main()
 {
   ios_base::sync_with_stdio(false);
@@ -61,4 +83,52 @@ int main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("input.txt","r",stdin);
   // freopen("myans.txt","w",stdout);
+  test(t)
+  {
+    xxx=0;
+    int n; cin >> n;
+    vi adj[n];
+    ll ans=0;
+    fr(i,0,n-1)
+    {
+      int u,v; cin >> u >> v;
+      u--; v--;
+      adj[u].pb(v); adj[v].pb(u);
+    }
+    int arr[n]={};
+    fr(i,0,n)
+    {
+      int a; cin >> a;
+      if(a%2) arr[i]=1;
+    }
+    fr(i,0,n)
+    {
+      xxx=0;
+      vi p(n,0);
+      int visited[n]={};
+      int a = dfs(i,adj,arr,visited,p);
+      if(!a)
+      {
+        ll md = power(2,i+1,pr);
+        if(md<0) md+=pr;
+        ans=(ans+md)%pr;
+      }
+    }
+    cnl(ans);
+  }
+}
+
+int dfs(int node, vi adj[], int arr[],int visited[], vi p)
+{
+  visited[node]=1;
+  for(auto child: adj[node])
+  {
+    if(!visited[child])
+    {
+      p[child]=p[node]+1;
+      if(arr[child]) xxx=xxx^p[child];
+      dfs(child,adj,arr,visited,p);
+    }
+  }
+  return xxx;
 }

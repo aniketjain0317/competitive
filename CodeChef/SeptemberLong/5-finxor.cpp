@@ -59,6 +59,37 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL); cout.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
-  // freopen("input.txt","r",stdin);
   // freopen("myans.txt","w",stdout);
+  // freopen("input.txt","r",stdin);
+  int p=20;
+
+  test(t)
+  {
+    int n; cin >> n;
+    int f = (1<<p)-1;
+    csp(1); cnl(f);
+    int ret[p]={};
+    int ans[p]={};
+    cin >> ret[0];
+    fr(i,0,p-1)
+    {
+      int f2 = f^(1<<i);
+      csp(1); cnl(f2);
+      cin >> ret[i+1];
+      int diff = ret[i+1] - ret[0];
+      int omz = diff >> i;
+      ans[i]= (omz + n)/2;
+    }
+
+    int ls = 0;
+    fr(i,0,p-1) ls+= (n-ans[i])<<i;
+    int d2 = ret[0]-ls;
+    int z = d2 >> (p-1);
+    ans[p-1]= n - z;
+
+    int oop = 0;
+    fr(i,0,p) oop+= (ans[i]%2)<<i;
+    csp(2); cnl(oop);
+    int cr; cin >> cr;
+  }
 }

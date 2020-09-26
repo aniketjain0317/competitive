@@ -59,6 +59,21 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL); cout.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
-  // freopen("input.txt","r",stdin);
-  // freopen("myans.txt","w",stdout);
+  freopen("input.txt","r",stdin);
+  freopen("myans.txt","w",stdout);
+  frr(t,1,50)
+  {
+    int d; cin >> d;
+    string s; cin >> s;
+    int n = s.size();
+    int ans=0,ch=0;
+    frr(i,1,n)
+    {
+
+      if(s[i-1]=='1') {ans+=i*i*i; ch+=i*i*i; if(n==24) cnl("1 "<<t<<" "<<i<<" "<<ch);}
+      else ans-=i*i*i;
+      // cnl(n << " " << ans << " "<<s[]);
+    }
+    if(abs(ans)!=d) cnl("BRUH "<<n<<" "<<ans << " " <<d);
+  }
 }

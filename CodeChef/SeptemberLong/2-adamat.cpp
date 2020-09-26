@@ -1,5 +1,6 @@
-// Problem
-//
+// Problem 2
+// AC
+// (WA first time - slightly wrong algo - didnt take the exception when flag should be turned 0 but not cnt++ at j==1)
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -33,7 +34,7 @@ using namespace std;
 #define fs first
 #define sn second
 #define cnl(x) cout << x << endl
-#define csp(x) cout << x << " "
+#define csp(x) cout << x << " \n"
 #define read(x) cin >> x
 #define fr(i,a,b) for(int i=a;i<b;i++)
 #define frr(i,a,b) for(int i=a;i<=b;i++)
@@ -61,4 +62,30 @@ int main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("input.txt","r",stdin);
   // freopen("myans.txt","w",stdout);
+  test(t)
+  {
+    int n; cin >> n;
+    int arr[n][n];
+    fr(i,0,n) fr(j,0,n) cin >> arr[i][j];
+    int flag=1;
+    int cnt=0;
+    for(int j=0;j<n;j++)
+    {
+      if(arr[0][j]==j+1)
+      {
+        if(flag==1) continue;
+        cnt++; flag=1;
+      }
+      else
+      {
+        if(flag==0) continue;
+        flag=0;
+        if(j==1) continue;
+        cnt++;
+      }
+
+    }
+    if(!flag) cnt++;
+    cnl(cnt);
+  }
 }

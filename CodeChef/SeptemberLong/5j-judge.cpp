@@ -59,6 +59,29 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL); cout.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
-  // freopen("input.txt","r",stdin);
   // freopen("myans.txt","w",stdout);
+  // freopen("input.txt","r",stdin);
+  int t = 1;
+  int n = 4;
+  int ans[n] = {90,2,34,67};
+  cnl(t);
+  cnl(n);
+  int q[20]={};
+  int i = 0;
+  int buff=0;
+  for(i=0;i<20;i++)
+  {
+    cin >> buff >> q[i];
+    if(buff==2) break;
+    int op = 0;
+    fr(j,0,n) op+=ans[j]^q[i];
+    cnl(op);
+  }
+  if(buff==2)
+  {
+    int fin = 0;
+    fr(i,0,n) fin=fin^ans[i];
+    cnl("YA: "<<(q[i]-fin));
+  }
 }
+// python croupier.py "/mnt/Development/Competetive Solutions/CodeChef/SeptemberLong/5-finxor.out" "/mnt/Development/Competetive Solutions/CodeChef/SeptemberLong/5j-judge.out"

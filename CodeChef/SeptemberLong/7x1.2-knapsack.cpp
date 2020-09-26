@@ -53,12 +53,92 @@ typedef vector<int> vi;
 typedef vector<pi> vpi;
 typedef vector<vi> vvi;
 
+int n=0;
+// map <int,int> m1[60];
+// A utility function that returns
+// maximum of two integers
+void display(vi p)
+{
+  int ans[n]={};
+  for(auto x: p) ans[x-1]=1;
+  for(auto x: ans) cout << x;
+  cout << endl;
+}
+int max(int a, int b)
+{
+	return (a > b) ? a : b;
+}
+// int K[49][(int)1e7]={};
+unordered_map<int,int> K[60];
+// Returns the maximum value that
+// can be put in a knapsack of capacity W
+int dp(int n, int w)
+{
+  if(K[n].count(w)) return K[n][w];
+  else return dp(n-1,w);
+}
+
+int knapSack(int W, int wt[], int val[], int n)
+{
+	int i, w;
+
+	// Build table K[][] in bottom up manner
+	for (i = 0; i <= n; i++)
+  {
+		for (w = 0; w <= W; w++)
+    {
+			if (i == 0 || w == 0)	K[i][w] = 0;
+			else if (wt[i - 1] <= w)
+			{
+          int x = max(val[i - 1] + dp(i - 1,w - wt[i - 1]), dp(i - 1,w));
+          if(x==dp(i-1,w)) continue;
+          K[i][w]=x;
+          csp(i); csp(w); cnl(x);
+      }
+		}
+	}
+	return K[n][W];
+}
+
+int knaparr(int wt[], int n, int w, vi p)
+{
+  // vshow1d(p);
+  if(n==0)
+  {
+    // for(int i=0;i<p.size();i++) cout << p[i] << endl;
+    display(p);
+    return 1;
+  }
+  // else if(!K[n][w]) return 0;
+  int next=0;
+  for(int i =n;i>=0;i--)
+  {
+    if(!K[i].count(w)) continue;
+    p.push_back(i+1);
+    next=i;
+    break;
+  }
+  knaparr(wt,next,w-wt[next],p);
+  return 1;
+}
 
 int main()
 {
-  ios_base::sync_with_stdio(false);
-  cin.tie(NULL); cout.tie(NULL);
-  cout.precision(numeric_limits<double>::max_digits10);
-  // freopen("input.txt","r",stdin);
-  // freopen("myans.txt","w",stdout);
+  n=30;
+  int k = 1;
+  int wt[n]={};
+  ll sumtt=0;
+  frr(i,1,n)
+  {
+    int j = 1;
+    fr(aarwd,0,k) j*=i;
+    wt[i-1]=j;
+    sumtt+=j;
+  }
+  int sum=sumtt/2;
+	int sf = knapSack(sum, wt, wt, n);
+  vi p;
+  knaparr(wt,n,sum,p);
+  cnl(sumtt-2*sf);
+	return 0;
 }

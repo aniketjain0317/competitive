@@ -39,13 +39,13 @@ using namespace std;
 #define frr(i,a,b) for(int i=a;i<=b;i++)
 #define test(t) int t; cin >> t; frr(tno,1,t)
 #define cinp(n,arr) fr(i,0,n) read(arr[i]);
-#define ainp(n,arr) int n; read(n); int arr[n]; cinp(n,arr);
+#define ainp(n,arr) int n; read(n); ll arr[n]; cinp(n,arr);
 #define vshow1d(arr) {int n = arr.size(); fr(i,0,n) {csp(arr[i]);}cout<<endl;}
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
 #define vshow2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define N 1e5
-#define INF 1e9+5
+#define INF 1e9+7
 
 typedef long long ll;
 typedef pair<int,int> pi;
@@ -53,6 +53,27 @@ typedef vector<int> vi;
 typedef vector<pi> vpi;
 typedef vector<vi> vvi;
 
+int power(long long x, long long y, long long p)
+{
+    ll res = 1;     // Initialize result
+
+    x = x % p; // Update x if it is more than or
+                // equal to p
+
+    if (x == 0) return 0; // In case x is divisible by p;
+
+    while (y > 0)
+    {
+        // If y is odd, multiply x with result
+        if (y & 1)
+            res = (res*x) % p;
+
+        // y must be even now
+        y = y>>1; // y = y/2
+        x = (x*x) % p;
+    }
+    return res;
+}
 
 int main()
 {
@@ -61,4 +82,25 @@ int main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("input.txt","r",stdin);
   // freopen("myans.txt","w",stdout);
+  test(t)
+  {
+    int n; cin >> n;
+    ll arr[n];
+    if(n==1e5-1) fr(i,0,n) cin >> arr[n];
+    else fr(i,0,n) cin >> arr[n];
+    sort(arr,arr+n);
+    do
+    {
+      frr(i,0,n)
+      {
+        deque<int> v1(arr,arr+i+1);
+        deque<int> v2(arr+i,arr+n);
+
+        while(!v1.empty() || !v2.empty())
+        {
+
+        }
+      }
+    } while(next_permutation(arr,arr+n));
+  }
 }

@@ -1,5 +1,5 @@
 // Problem
-//
+//AC BABYYYYYYYYY
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -61,4 +61,29 @@ int main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("input.txt","r",stdin);
   // freopen("myans.txt","w",stdout);
+  test(t)
+  {
+    ainp(n,arr);
+    int ans[n]={};
+    fr(i,0,n)
+    {
+      int inf[n]={};
+      inf[i]=1;
+      fr(j,i+1,n) if(arr[i]>arr[j])
+      {
+        inf[j]=1;
+        fr(k,0,i) if(!inf[k]) if(arr[k]>arr[j]) inf[k]=1;
+      }
+      fr(j,0,i) if(arr[j]>arr[i])
+      {
+        inf[j]=1;
+        fr(k,i+1,n) if(!inf[k]) if(arr[j]>arr[k]) inf[k]=1;
+      }
+      fr(j,0,n) if(inf[j]) ans[i]++;
+    }
+    int mn = *min_element(ans,ans+n);
+    int mx = *max_element(ans,ans+n);
+    // show1d(n,ans);
+    csp(mn); cnl(mx);
+  }
 }

@@ -10,7 +10,7 @@ int main()
 {
   // INPUT
   int n,w; cin >> n >> w;
-  int wt[n+1];
+  int wt[n+1]; 
   ll  val[n+1];
   for(int i=0;  i<n; i++) cin >> wt[i+1] >> val[i+1];
 

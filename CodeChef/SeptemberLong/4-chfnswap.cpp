@@ -44,15 +44,14 @@ using namespace std;
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
 #define vshow2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
-#define N 1e5
 #define INF 1e9+5
 
 typedef long long ll;
+typedef long double ld;
 typedef pair<int,int> pi;
 typedef vector<int> vi;
 typedef vector<pi> vpi;
 typedef vector<vi> vvi;
-
 
 int main()
 {
@@ -60,5 +59,47 @@ int main()
   cin.tie(NULL); cout.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("input.txt","r",stdin);
-  // freopen("myans.txt","w",stdout);
+  freopen("myans.txt","w",stdout);
+  // fr(t,1,1000)
+  test(t)
+  {
+    ll n;
+    n=tno;
+    // cin >> n;
+    ll n2 = n*n;
+    ld a1 = (-1.0 + (ld)sqrt(2*n2 + 2*n + 1))/2;
+    ld a2 = (-1.0 + (ld)sqrt(2*n2 - 6*n + 9))/2;
+    ll ans=0;
+    ll s = (n2 + n)/4;
+    ll ma = ceil(a2);
+    ll mb = floor(a1);
+    for(ll m=ma;m<=mb;m++)
+    {
+      ll m2 = m*m;
+      ll d = s - (m+m2)/2;
+      ll mn=max(m,d);
+      ll mx = min(m+d,n);
+      ll a=0;
+      if(!d) {a=((m2-m) + (n-m)*(n-m-1))/2;}
+      else a=mx-mn;
+      ans+=a;
+      // csp(n); csp(m); csp(d); cnl(mx-mn);
+    }
+    if(n%4==1 || n%4==2)
+    {
+      ans=0;
+      // continue;
+    }
+    // csp(m); cnl(d);
+    printf("%lld\n",ans);
+  }
 }
+/*
+d+1 - 1
+.
+(m+1) - (m+1-d)  [if(m>d)]
+.
+(m+d) - m
+.
+n - n-d
+*/
