@@ -61,51 +61,40 @@ int main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("input.txt","r",stdin);
   // freopen("myans.txt","w",stdout);
-  string s; cin >> s;
-  int n; cin >> n;
-  int finp[n]={}; fr(i,0,n) cin >> finp[i];
-  vi orderc;
-  int freq[26]={};
-  for(auto c: s)
+  test(t)
   {
-    int a = c-97;
-    if(!freq[a]) orderc.pb(a);
-    freq[a]++;
-  }
+    int n;ll l; cin >> n >> l;
+    ll a[n];
+    cinp(n,a);
+    long double dist[n+1]={};
+    dist[0]=a[0];
+    dist[n]=l-a[n-1];
+    fr(i,1,n) dist[i]=a[i]-a[i-1];
 
-  int sz = orderc.size();
+    long double inc[n+2]={};
+    long double dec[n+2]={};
+    inc[0]=0; dec[n+1]=0;
+    fr(i,1,n+2) inc[i]=inc[i-1]+dist[i-1]/(i);
+    for(int i=n;i>=0;i--) dec[i]=dec[i+1]+dist[i]/(n-i+1);
 
-  for(auto a: orderc) cout << (char)(a+97) << " " << freq[a] << " "; cout << endl;
-
-  fr(i,0,n)
-  {
-    int x = finp[i];
-    int xfs = -1;
-    int xls = -1;
-    fr(j,0,sz) if(freq[orderc[j]]==x)
+    int r=-4;
+    fr(i,0,n+2)
     {
-      if(xfs==-1) xfs=j;
-      xls=j;
+      if(dec[i]==inc[i]) {cnl(inc[i]); r=-5; break;}
+      if(dec[i]<inc[i]) {r=i-2; break;}
     }
-    int rearranged[26]={};
-    fr(j,xfs+1,xls)
+    if(r==-5) continue;
+
+    // csp("(Z)"); show1d(n+1,dist);
+    // csp("A"); show1d(n+2,inc);
+    // csp("B"); show1d(n+2,dec);
+    // cnl("C "<< r);
+    long double ans=dec[r+1];
+    if(r!=-4) ans+=(inc[r+1]-dec[r+1])*(r+2)/(n+2);
+    else
     {
-      int a = orderc[j];
-      if(freq[a]<x) rearranged[a]=1;
-      if(freq[a]>x) rearranged[a]=2;
+      ans=inc[n] * (n+1)/(n+2);
     }
-
-    vi neworder;
-    for(int i = sz-1; i>=0; i--) {int a = orderc[i]; if(rearranged[a]==1) neworder.pb(a);}
-    for(auto a: orderc) if(rearranged[a]==0) neworder.pb(a);
-    for(auto a: orderc) if(rearranged[a]==2) neworder.pb(a);
-
-    orderc = neworder;
-
-    for(auto a: orderc) cout << (char)(a+97) << " " << freq[a] << " "; cout << endl;
+    cnl(ans);
   }
 }
-
-// nomatterhowbusyyoumaythinkyouareyoumustfindtimeforreadingorsurrenderyourselftoselfchosenignorance
-// 3
-// 3 1 6

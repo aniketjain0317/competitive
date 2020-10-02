@@ -53,116 +53,43 @@ typedef vector<int> vi;
 typedef vector<pi> vpi;
 typedef vector<vi> vvi;
 
+class Name
+{
+private:
+  string m_fname;
+  string m_mname;
+  string m_lname;
+public:
+  Name(string str)
+  {
+    // constructor is only used for calling the tokenizer and storing the values now
+    vector<string> v = tokenizeString(str);
+    // error checking that v.size()>=3 should be present here
+    assert(v.size()>=3);
+    m_fname= v[0];
+    m_mname = v[1];
+    m_lname = v[2];
+  }
 
-struct Node {
-   int data;
-   struct Node *next;
-   struct Node *prev;
+  // function to split a string (idk a native function so made my own)
+  vector<string> tokenizeString(string str)
+  {
+    vector<string> ans;
+    string a="";
+    for(auto c: str)
+    {
+      if(c==' ') { ans.pb(a); a=""; }
+      else a=a+c;
+    }
+    if(a!="") ans.pb(a);
+    return ans;
+  }
+
+  // string get_fname() return m_fname;     THIS DOESNT WORK??? WHY? (error: cannot return named values)
+  string get_fname() {return m_fname;}
+  string get_mname() {return m_mname;}
+  string get_lname() {return m_lname;}
 };
-
-Node* head = NULL;
-vector<Node *> branches;
-int mode=0;
-Node *final=NULL;
-
-void insert0(int x)
-{
-   struct Node *newnode = (struct Node *)malloc(sizeof(struct Node));
-   struct Node *ptr = head;
-
-   newnode->data = x;
-   newnode->next = final;
-   if (head!= NULL)
-   {
-      while (ptr->next != final) ptr = ptr->next;
-      ptr->next = newnode;
-      newnode->prev=ptr;
-      head->prev=newnode;
-   }
-   else
-   {
-     newnode->next = final;
-     newnode->prev = newnode;
-     head = newnode;
-   }
-}
-
-void insert1(int y, int x, int mode=0)
-{
-  struct Node *newnode = (struct Node *)malloc(sizeof(struct Node));
-  struct Node *ptr = head;
-  int flag=0;
-  for(auto ptr: branches)
-  {
-    while (ptr->next != head)
-    {
-      if(ptr->data==y)
-      {
-        newnode->data=x;
-        newnode->next=ptr->next;
-        newnode->prev=ptr;
-        ptr->next=newnode;
-        flag=1; break;
-      }
-      if(ptr->data==x)
-      {
-        newnode->data=y;
-        newnode->prev=ptr->prev;
-        newnode->next=ptr;
-        ptr->prev=newnode;
-        flag=1; break;
-      }
-      ptr=ptr->next;
-    }
-    if(flag) break;
-  }
-}
-
-void insert2(int z, int y, int x)
-{
-  struct Node *newnode = (struct Node *)malloc(sizeof(struct Node));
-  Node *ptr = head;
-  Node *zptr = head;
-  int flag=0;
-  for(auto ptr: branches)
-  {
-    int diff=0;
-    while (ptr->next != final)
-    {
-      if(ptr->data==z) {zptr=ptr;flag=1; break;}
-      ptr=ptr->next;
-    }
-    if(flag==1) while(ptr->next!=zptr)
-    {
-      if(ptr->data==y)
-      {
-        flag=2;
-        break;
-      }
-      diff++;
-      ptr=ptr->next;
-    }
-    diff/=2;
-    if(flag==2)
-    {
-      while(diff--) zptr=zptr->next;
-      newnode->data=x;
-      newnode->next=zptr->next;
-      newnode->prev=zptr;
-      break;
-    }
-  }
-}
-
-void display() {
-   struct Node* ptr;
-   ptr = head;
-   do {
-      cout<<ptr->data <<" ";
-      ptr = ptr->next;
-   } while(ptr != head);
-}
-
 
 int main()
 {
@@ -171,5 +98,6 @@ int main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("input.txt","r",stdin);
   // freopen("myans.txt","w",stdout);
-
+  Name aniket("Aniket RandomWord Jain");
+  cnl(aniket.get_lname());
 }
