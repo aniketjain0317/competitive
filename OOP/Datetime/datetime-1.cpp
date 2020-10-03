@@ -61,14 +61,13 @@ class Datetime
 {
 private:
   int m_datetime;
-  vi m_data;
   const int blen[6]={7,4,5,5,6,5};
 public:
   Datetime(int t)
   {
     m_datetime=t;
-    m_data = deconstructInt(t);
-    verifyData(m_data);
+    // m_data = deconstructInt(t);
+    // verifyData(m_data);
   }
 
   Datetime(vi data)
@@ -82,6 +81,8 @@ public:
     vi ans(6,0);
     std::bitset<32> x(t);
     int start=32;
+    // const int blen[6]={7,4,5,5,6,5};
+    // 25,21,16,11,5,0
     fr(i,0,6)
     {
       bitset<8> y(0);
@@ -122,19 +123,19 @@ public:
   int change_data(int val, int unit)
   {
     if(unit>=MAX_VAL) return -1;
-    vi newdata(m_data); newdata[unit]=val;
-    verifyData(newdata);
-    int ans = constructInt(newdata);
+    if(unit==YEAR) val-=1980;
+    if(unit==SECOND) val/=2;
 
-    m_data=newdata;
-    m_datetime=ans;
-    return ans;
+    vi newdata = deconstructInt(m_datetime);
+    verifyData(newdata);
+    m_datetime = constructInt(newdata);
+    return m_datetime;
   }
 
-  int get_int() {return m_datetime;}
-  vi get_data() {return m_data;}
-  void print_date() {cout << m_data[DAY] << "/" << m_data[MONTH] << "/" << m_data[YEAR]+1980<< endl;}
-  void print_time() {cout << m_data[HOUR] << ":" << m_data[MINUTE] << ":" << 2 * m_data[SECOND] << endl;}
+  int get_datetime() {return m_datetime;}
+  // vi get_data() {return m_data;}
+  // void print_date() {cout << m_data[DAY] << "/" << m_data[MONTH] << "/" << m_data[YEAR]+1980<< endl;}
+  // void print_time() {cout << m_data[HOUR] << ":" << m_data[MINUTE] << ":" << 2 * m_data[SECOND] << endl;}
 };
 
 int main()
