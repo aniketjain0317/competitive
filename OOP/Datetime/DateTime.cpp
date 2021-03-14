@@ -2,30 +2,29 @@
 #include <cassert>
 using namespace std;
 
-bool getBit(int n, int k) {return (n>>k)&1;}
-void modifyBit(int &n, int k, bool b) {n=(n & ~(1<<k)) | ((b << k) & (1<<k));}
+
 
 class DateTime
 {
 	int Entry=0;
 
+	static bool getBit(int n, int k) {return (n>>k)&1;}
+	static void modifyBit(int &n, int k, bool b) {n=(n & ~(1<<k)) | ((b << k) & (1<<k));}
 	static bool IsValidDate(const int &year, const int &month, const int &day)
 	{
 		// 1980 + (0,127) <- range of the year
-		int flag=1;
-		if(year>=1980 && year<=2107) flag=0;
-		if(month>=1 && month<=12) flag=0;
-		if(day>=0 && day<=31) flag=0;
-		return 1;
+		if(!(year>=1980 && year<=2107)) return false;
+		if(!(month>=1 && month<=12)) return false;
+		if(!(day>=0 && day<=31)) return false;
+		return true;
 	}
 	static bool IsValidTime(const int& hour, const int& minute, const int& second)
 	{
 		// minute/second cannot be 60 as 60===0
-		int flag=1;
-		if(0<=hour && hour <= 23) flag=0;
-		if(0<=minute && minute <= 59) flag=0;
-		if(0<=second && second <= 59) flag=0;
-		return 1;
+		if (!(0<=hour && hour <= 23)) return false;
+		if(!(0<=minute && minute <= 59)) return false;
+		if(!(0<=second && second <= 59)) return false;
+		return true;
 	}
 	static int MapDate(const int& year, const int& month, const int& day)
 	{
@@ -52,7 +51,7 @@ public:
 		const int& Hour = 0, const int& Minute = 0, const int& Second = 0)
 	{
 		if (!IsValidDate(Year, Month, Day) || !IsValidTime(Hour, Minute, Second))
-			throw "Invaid Timing!!";
+			cout << "Invaid Timing!!" << endl;
 
 		Entry = MapDate(Year, Month, Day) << 16 | MapTime(Hour, Minute, Second);
 		cout << Entry << endl;

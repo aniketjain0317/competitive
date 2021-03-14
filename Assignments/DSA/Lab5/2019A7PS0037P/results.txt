@@ -1,0 +1,31 @@
+RESULTS: 8
+Time Taken: 0.000000 ms
+Stack space used: 756
+
+RESULTS: 10
+Time Taken: 0.000000 ms
+Stack space used: 916
+
+RESULTS: 64
+Time Taken: 0.000000 ms
+Stack space used: 5236
+
+RESULTS: 100
+Time Taken: 0.000000 ms
+Stack space used: 8116
+
+RESULTS: 512
+Time Taken: 1.006000 ms
+Stack space used: 41076
+
+RESULTS: 1000
+Time Taken: 6.038000 ms
+Stack space used: 80116
+
+RESULTS: 4096
+Time Taken: 94.027000 ms
+Stack space used: 327796
+
+RESULTS: 10000
+Time Taken: 493.041000 ms
+Stack space used: 800116

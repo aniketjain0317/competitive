@@ -2,4 +2,5 @@
 **/*.exe
 *.exe
 *.out
+*.o
 Assignments/ArnavDSA

@@ -41,11 +41,9 @@ int main()
     {
       frr(j,1,w)
       {
-        int a=0;
+        int a=0, b=0, c=0;
         if(i>0) a=dp[i-1][j];
-        int b=0;
         if(j>wt[i]&&i) b = dp[i-1][j-wt[i]]+val[i];
-        int c=0;
         if(j==wt[i]) c=val[i];
         dp[i][j]=max({a,b,c});
       }
