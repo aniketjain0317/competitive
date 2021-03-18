@@ -50,9 +50,9 @@ using namespace std;
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
 #define vshow2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
+#define endl '\n'
 #define intt int32_t
-// #define int long long
-// #define endl '\n'
+#define int long long
 
 typedef long long ll;
 typedef pair<int,int> pi;
@@ -70,4 +70,26 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    int n,m; cin >> n >> m;
+    int arr[n];
+    cinp(n,arr);
+    int md[n];
+    fr(i,0,n) md[i]=arr[i]%m;
+    map<int,int> mp,mp2,ls;
+    fr(i,0,n)
+    {
+      ls[min(md[i],m-md[i])]++;
+      mp[md[i]]++;
+    }
+    int ans=0;
+    for(auto p: ls)
+    {
+      int x = p.fs;
+      int x1 = mp[x]; int x2 = mp[(m-x)%m]; int x3 = abs(x1-x2);
+      ans+=max(1ll,x3);
+    }
+    cnl(ans);
+  }
 }

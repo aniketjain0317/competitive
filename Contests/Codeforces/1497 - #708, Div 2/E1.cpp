@@ -50,9 +50,9 @@ using namespace std;
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
 #define vshow2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
+#define endl '\n'
 #define intt int32_t
 // #define int long long
-// #define endl '\n'
 
 typedef long long ll;
 typedef pair<int,int> pi;
@@ -61,7 +61,34 @@ typedef vector<pi> vpi;
 typedef vector<vi> vvi;
 
 const ll INF = 1000000007;
-const int N = 100005;
+const int N = 10000005;
+
+const long long MAX_SIZE = N+5;
+
+vector<long long >isprime(MAX_SIZE , true);
+vector<long long >prime;
+vector<long long >SPF(MAX_SIZE);
+
+void manipulated_seive(int N)
+{
+    isprime[0] = isprime[1] = false ;
+    for (long long int i=2; i<N ; i++)
+    {
+        if (isprime[i])
+        {
+            prime.push_back(i);
+            SPF[i] = i;
+        }
+        for (long long int j=0;
+             j < (int)prime.size() &&
+             i*prime[j] < N && prime[j] <= SPF[i];
+             j++)
+        {
+            isprime[i*prime[j]]=false;
+            SPF[i*prime[j]] = prime[j] ;
+        }
+    }
+}
 
 intt main()
 {
@@ -70,4 +97,36 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  manipulated_seive(N);
+  test(t)
+  {
+    int n,k; cin >> n >> k;
+    int arr[n]; cinp(n,arr);
+    int marr[n];
+    fr(i,0,n)
+    {
+      int x = arr[i];
+      int y = 1;
+      while(x>1)
+      {
+        int z = SPF[x];
+        x/=z;
+        if(y%z) y*=z;
+        else y/=z;
+      }
+      marr[i]=y;
+    }
+    int ans=1;
+    map<int,int> mp;
+    fr(i,0,n)
+    {
+      if(mp[marr[i]]>0)
+      {
+        ans++;
+        mp.clear();
+      }
+      mp[marr[i]]++;
+    }
+    cnl(ans);
+  }
 }

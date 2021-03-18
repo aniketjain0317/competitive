@@ -1,0 +1,17 @@
+In the era of online examination, there have been cases of rampart cheating. It is known that if two people are friends with each other, they will share all the answers they solve themselves or receive from somewhere else, and hence get the same marks.
+The number of students enrolled, as well as all the existing friendships are also known.
+
+Paul is a senior who knows all the students enrolled in the course, and since the course is graded absolutely (not relatively), he wishes that every student scores as high as possible. He has the ability to connect 2 people and make them friends, but being lazy, he only wants to make the minimum amount of 'new' friendships required.
+Find out the minimum amount of 'new' friendships that Paul has to facilitate.
+
+Input:
+N F
+a1 b1
+..
+af bf
+N (1<=N<=1e5): The number of students enrolled in the group
+F (0<=F<=2e5):  The amount of friendships already present among the students.
+a,b (1<=a,b<=N)(a!=b): There exists a friendship between a and b
+
+Output:
+Print a single number: the minimum number of new friendships required.

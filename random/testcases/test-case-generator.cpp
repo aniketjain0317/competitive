@@ -50,9 +50,10 @@ using namespace std;
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
 #define vshow2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
+#define endl '\n'
 #define intt int32_t
+#define randb(lower,upper) (rand() % (upper - lower + 1)) + lower
 // #define int long long
-// #define endl '\n'
 
 typedef long long ll;
 typedef pair<int,int> pi;
@@ -68,6 +69,41 @@ intt main()
   ios_base::sync_with_stdio(false);
   cin.tie(NULL); cout.tie(NULL);
   cout.precision(numeric_limits<double>::max_digits10);
-  // freopen("myans.txt","w",stdout);
+  freopen("input8","w",stdout);
   // freopen("input.txt","r",stdin);
+  srand(time(0));
+  int n = randb(60000,100000);
+  int k = randb(1,n/10);
+  vi ls[k+1];
+  vpi edges;
+  frr(i,1,n)
+  {
+    int c = randb(1,k);
+    ls[c].pb(i);
+  }
+  // frr(i,1,k)
+  // {
+  //   csp(i);
+  //   csp(ls[i].size());
+  //   csp(":");
+  //   for(auto x: ls[i]) csp(x);
+  //   cout << endl;
+  // }
+  frr(i,1,k)
+  {
+    int sz = ls[i].size();
+    if(sz<=1) continue;
+    fr(j,0,sz-1)
+    {
+      int a = randb(j+1,sz-1);
+      int b = randb(j+1,sz-1);
+      if(a>=0 && a<sz) edges.pb({ls[i][j],ls[i][a]});
+      if(a!=b) if(b>=0 && b<sz) edges.pb({ls[i][j],ls[i][b]});
+    }
+  }
+  cout << n <<" " << edges.size() << endl;
+  for(auto p: edges)
+  {
+    csp(p.fs); cnl(p.sn);
+  }
 }

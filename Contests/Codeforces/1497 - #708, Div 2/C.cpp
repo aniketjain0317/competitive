@@ -50,9 +50,9 @@ using namespace std;
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
 #define vshow2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
-#define intt int32_t
-// #define int long long
 // #define endl '\n'
+#define intt int32_t
+#define int long long
 
 typedef long long ll;
 typedef pair<int,int> pi;
@@ -63,6 +63,17 @@ typedef vector<vi> vvi;
 const ll INF = 1000000007;
 const int N = 100005;
 
+int findLargestFactor(int n)
+{
+  int m = sqrt(n);
+  if(n%2==0) return 2;
+  for(int i = 3; i<=m; i+=2)
+  {
+    if(n%i==0) return i;
+  }
+  return n;
+}
+
 intt main()
 {
   ios_base::sync_with_stdio(false);
@@ -70,4 +81,22 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    int n,k; cin >> n >> k;
+    int x = findLargestFactor(n);
+    int y = n/x;
+    int cnt = k;
+    while(y<cnt)
+    {
+      n--; cnt--;
+      x = findLargestFactor(n);
+      y = n/x;
+      csp("AAAAAAAAA");
+      csp(x); csp(y); cnl(cnt);
+    }
+    fr(i,0,k-cnt) csp(1);
+    fr(i,0,cnt-1) csp(x);
+    cnl(y-(cnt-1));
+  }
 }

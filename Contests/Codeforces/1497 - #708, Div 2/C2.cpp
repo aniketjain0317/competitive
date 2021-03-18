@@ -50,9 +50,9 @@ using namespace std;
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
 #define vshow2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
+#define endl '\n'
 #define intt int32_t
 // #define int long long
-// #define endl '\n'
 
 typedef long long ll;
 typedef pair<int,int> pi;
@@ -70,4 +70,21 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    int n,k; cin >> n >> k;
+    int x = n%2;
+    int y = k%2;
+    vi ans;
+    if(x==y)
+    {
+      fr(i,0,k-2)  ans.pb(1);
+      ans.pb((n-k+2)/2);
+      ans.pb((n-k+2)/2);
+    }
+    else
+    {
+      int z = n%4;
+    }
+  }
 }
