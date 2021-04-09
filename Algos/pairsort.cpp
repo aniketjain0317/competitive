@@ -7,7 +7,7 @@ void pairsort(int a[], int b[], int n)
         pairt[i].second = b[i];
     }
     sort(pairt, pairt + n);
-    reverse(pairt,pairt+n);
+    // reverse(pairt,pairt+n);
     for (int i = 0; i < n; i++)
     {
         a[i] = pairt[i].first;

@@ -46,204 +46,70 @@ using namespace std;
 #define ainp(n,arr) int n; read(n); int arr[n]; cinp(n,arr);
 #define ainpl(n,arr) ll n; read(n); ll arr[n]; cinp(n,arr);
 #define cinp(n,arr) fr(i,0,n) read(arr[i]);
-#define vshow1d(arr) {int n = arr.size(); fr(i,0,n) {csp((complex<int>)arr[i]);}cout<<endl;}
+#define vshow1d(arr) {int n = arr.size(); fr(i,0,n) {csp(arr[i]);}cout<<endl;}
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
 #define vshow2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
-#define endl '\n'
 #define intt int32_t
 #define int long long
-#define am(a,b) MOD(MOD(a)+MOD(b))
-#define mm(a,b) MOD(MOD(a)*MOD(b))
-#define dm(a,b) MOD(MOD(a)*modInverse(b))
+// #define endl '\n'
 
 typedef long long ll;
 typedef pair<int,int> pi;
 typedef vector<int> vi;
 typedef vector<pi> vpi;
 typedef vector<vi> vvi;
-typedef complex<double> cd;
-typedef vector<cd> vcd;
 
-const ll INF = 998244353;
-const int N = 200005;
-const int B = 32;
-const double PI = acos(-1);
+const ll INF = 1000000007;
+const int N = 100005;
 
-map<double,ll> minv;
-map<pi,ll> mncr;
+int n,m,k;
+vvi cum;
+vvi arr;
+vi arr2(N,0);
 
-ll fac[N]={};
-
-ll MOD(ll a)
+bool check(int i, int j, int l)
 {
-  a = a%INF;
-  while(a<0) a+=INF;
-  return a;
+  int sum = cum[i][j] - cum[i][j-l] - cum[i-l][j] + cum[i-l][j-l];
+  // int kav = k*l*l;
+  // if(sum<kav) return -1;
+  // if(sum==kav) return 0;
+  // if(sum>kav) return 1;
+  return sum;
 }
-double MOD(double a)
+
+int upperb(int i, int l)
 {
-  a = fmod(a,INF);
-  while(a<0) a+=INF;
-  return a;
-}
-cd MOD(cd a)
-{
-  return cd(MOD(real(a)), MOD(imag(a)));
-}
+    int j;
+    int kav = l;
+    // Initialise starting index and
+    // ending index
+    int low = 0;
+    int high = m;
 
-long long binpow(long long a, long long b) {
-    long long res = 1;
-    while (b > 0) {
-        if (b & 1)
-            res = mm(res, a);
-        a = mm(a,a);
-        b >>= 1;
-    }
-    return res;
-}
-double binpow(double a, long long b) {
-    double res = 1;
-    while (b > 0) {
-        if (b & 1)
-            res = mm(res, a);
-        a = mm(a,a);
-        b >>= 1;
-    }
-    return res;
-}
-double modInverse(ll a)
-{
-  if(minv.find(a)==minv.end()) minv[a]=binpow(a,INF-2);
-  return minv[a];
-}
-// ll modInverse(ll a)
-// {
-//   if(minv.find(a)==minv.end()) minv[a]=binpow(a,INF-2);
-//   return minv[a];
-// }
-
-int cnt=0;
-// void fft(vector<cd> & a, bool invert)
-// {
-//     int n = a.size();
-//     if (n == 1)
-//         return;
-//
-//     vector<cd> a0(n / 2), a1(n / 2);
-//     for (int i = 0; 2 * i < n; i++) {
-//         a0[i] = a[2*i];
-//         a1[i] = a[2*i+1];
-//     }
-//     fft(a0, invert);
-//     fft(a1, invert);
-//
-//     double ang = 2 * PI / n * (invert ? -1 : 1);
-//     cd w(1), wn(cos(ang), sin(ang));
-//     for (int i = 0; 2 * i < n; i++) {
-//         a[i] = am(a0[i], mm( w , a1[i]));
-//         a[i + n/2] = am(a0[i],mm( w ,-a1[i]));
-//         if (invert) {
-//             dm(a[i], 2);
-//             dm(a[i + n/2], 2);
-//         }
-//         w =mm(w,wn);
-//     }
-// }
-
-void fft(vector<cd> & a, bool invert)
-{
-    int n = a.size();
-    if (n == 1)
-        return;
-
-    vector<cd> a0(n / 2), a1(n / 2);
-    for (int i = 0; 2 * i < n; i++) {
-        a0[i] = a[2*i];
-        a1[i] = a[2*i+1];
-    }
-    fft(a0, invert);
-    fft(a1, invert);
-
-    double ang = 2 * PI / n * (invert ? -1 : 1);
-    cd w(1), wn(cos(ang), sin(ang));
-    for (int i = 0; 2 * i < n; i++) {
-        a[i] = a0[i] + w * a1[i];
-        a[i + n/2] = a0[i] - w * a1[i];
-        if (invert) {
-            a[i] /= 2;
-            a[i + n/2] /= 2;
+    // Till low is less than high
+    while (low < high) {
+        // Find the middle index
+        j = low + (high - low) / 2;
+        csp("AAAAAAAAAA"); csp(l); csp(i); cnl(j);
+        // If X is greater than or equal
+        // to arr[mid] then find
+        // in right subarray
+        if (kav <= arr2[j]) {
+            high = j;
         }
-        w *= wn;
+
+        // If X is less than arr[mid]
+        // then find in left subarray
+        else {
+            low = j+1;
+        }
     }
-}
-vector<int> multiply(vector<int> const& a, vector<int> const& b) {
-    cnt++;
-    vector<cd> fa(a.begin(), a.end()), fb(b.begin(), b.end());
-    int n = 1;
-    while (n < a.size() + b.size())
-        n <<= 1;
-    fa.resize(n,0);
-    fb.resize(n,0);
 
-    // // if(cnt==2)
-    // {
-    //   cnl("BEFORE");
-    //   csp("A   ");
-    //   vshow1d(fa);
-    //   csp("B   ");
-    //   vshow1d(fb);
-    // }
-    fft(fa, false);
-    fft(fb, false);
-    // if(cnt==2)
-    // {
-    //   cnl("AFTER");
-    //   csp("A   ");
-    //   vshow1d(fa);
-    //   csp("B   ");
-    //   vshow1d(fb);
-    // }
-    for (int i = 0; i < n; i++)
-        fa[i]= (fa[i]*fb[i]);
-    fft(fa, true);
-
-    vector<int> result(n);
-    for (int i = 0; i < n; i++)
-        result[i] = round(fa[i].real());
-    cnt--;
-    return result;
+    // Return the lower_bound index
+    return low;
 }
 
-void calcFac(int n)
-{
-  fac[0]=1;
-  frr(i,1,n) fac[i]=mm(fac[i-1],i);
-}
-ll ncr(int n, int r)
-{
-  pi p(n,r);
-  if(r>n) return 0;
-  if(mncr.find(p)==mncr.end()) mncr[p]=dm(fac[n], mm(fac[r], fac[n-r]));
-  return mncr[p];
-}
-
-ll binomialCoeff(int n, int k)
-{
-    ll res = 1;
-
-    // Since C(n, k) = C(n, n-k)
-    if (k > n - k)
-        k = n - k;
-
-    // Calculate value of
-    // [n * (n-1) *---* (n-k+1)] / [k * (k-1) *----* 1]
-    for (int i = 0; i < k; ++i) {
-        res = mm(res,(n - i));
-        res = mm(res,modInverse(i + 1));
-    }
-    return res;
-}
 
 intt main()
 {
@@ -252,12 +118,25 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
-  int x = 10;
-  x = !x&1;
+  test(t)
+  {
+    cin >> n >> m;
+    fr(i,0,m) cin >> arr2[i];
+    cnl(upperb(0,n));
+    // arr.clear(); arr.resize(n+1,vi(m+1,0));
+    // cum.clear(); cum.resize(n+1,vi(m+1,0));
+    // frr(i,1,n) frr(j,1,m) cin >> arr[i][j];
+    //
+    // frr(i,1,n) frr(j,1,m) cum[i][j]=cum[i][j-1]+arr[i][j];
+    // frr(i,1,n) frr(j,1,m) cum[i][j]=cum[i-1][j]+cum[i][j];
+    //
+    // frr(l,1,min(n,m))
+    // {
+    //   frr(i,l,n)
+    //   {
+    //     int j = upperb(i,l);
+    //     csp(l); csp(i); cnl(j);
+    //   }
+    // }
+  }
 }
-// 4
-// 1 3 5 2
-// 2
-// 1
-// 2
-// 001,011, 101, 010

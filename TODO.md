@@ -5,13 +5,14 @@
 - Restart RL
 - Watch MuP
 - DBMS(?)
-- Write Qs for ACM  
 
 
 Distractions:
 - Play Valorant
-- Watch Masters
-- Read MoL
+- Watch Valorant
+- Read webnovels
+- Reddit
+- IG
 
 
 IMMEDIATE:

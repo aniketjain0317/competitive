@@ -1,0 +1,14 @@
+# cache/gen
+*.pyc
+__pycache__/
+/readme.html
+tests/outputs2/
+
+# Trash
+*~
+*.sw[po]
+*.db
+Desktop.ini
+.DS_Store
+.AppleDouble
+.LSOverride

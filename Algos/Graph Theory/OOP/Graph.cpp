@@ -25,7 +25,7 @@ public:
     fr(i,0,N) visited[i]=0;
   }
 
-  void bfsCalcDist()
+  void bfsCalcDist(int first)
   {
     dist.resize(n,0);
     parent.resize(n,-1);
@@ -51,7 +51,7 @@ public:
     clearVisited();
   }
 
-  void findPath(int start, int end)
+  vi findPath(int start, int end)
   {
     bfsCalcDist(start);
     vi result;
