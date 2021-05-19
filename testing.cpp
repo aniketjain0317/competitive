@@ -4,28 +4,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
-
-#if defined(_USE_MATH_DEFINES) && !defined(_MATH_DEFINES_DEFINED)
-#define _MATH_DEFINES_DEFINED
-
-#define M_E        2.71828182845904523536
-#define M_LOG2E    1.44269504088896340736
-#define M_LOG10E   0.434294481903251827651
-#define M_LN2      0.693147180559945309417
-#define M_LN10     2.30258509299404568402
-#define M_PI       3.14159265358979323846
-#define M_PI_2     1.57079632679489661923
-#define M_PI_4     0.785398163397448309616
-#define M_1_PI     0.318309886183790671538
-#define M_2_PI     0.636619772367581343076
-#define M_2_SQRTPI 1.12837916709551257390
-#define M_SQRT2    1.41421356237309504880
-#define M_SQRT1_2  0.707106781186547524401
-
-#endif  /* _USE_MATH_DEFINES */
-
-
 #define pb push_back
 #define mp make_pair
 #define lb lower_bound
@@ -46,9 +24,9 @@ using namespace std;
 #define ainp(n,arr) int n; read(n); int arr[n]; cinp(n,arr);
 #define ainpl(n,arr) ll n; read(n); ll arr[n]; cinp(n,arr);
 #define cinp(n,arr) fr(i,0,n) read(arr[i]);
-#define vshow1d(arr) {int n = arr.size(); fr(i,0,n) {csp(arr[i]);}cout<<endl;}
+#define showVI(arr) {for(auto &xxx: arr) csp(xxx); cout << endl;}
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
-#define vshow2d(arr) {int n=arr.size();   fr(i,0,n) {int m = arr[i].size(); fr(j,0,m) csp(arr[i][j]); cout << endl;}}
+#define showVVI(arr) {for(auto &vvv: arr) {for(auto &xxxx: vvv) csp(xxxx); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
 #define intt int32_t
 #define int long long
@@ -63,54 +41,6 @@ typedef vector<vi> vvi;
 const ll INF = 1000000007;
 const int N = 100005;
 
-int n,m,k;
-vvi cum;
-vvi arr;
-vi arr2(N,0);
-
-bool check(int i, int j, int l)
-{
-  int sum = cum[i][j] - cum[i][j-l] - cum[i-l][j] + cum[i-l][j-l];
-  // int kav = k*l*l;
-  // if(sum<kav) return -1;
-  // if(sum==kav) return 0;
-  // if(sum>kav) return 1;
-  return sum;
-}
-
-int upperb(int i, int l)
-{
-    int j;
-    int kav = l;
-    // Initialise starting index and
-    // ending index
-    int low = 0;
-    int high = m;
-
-    // Till low is less than high
-    while (low < high) {
-        // Find the middle index
-        j = low + (high - low) / 2;
-        csp("AAAAAAAAAA"); csp(l); csp(i); cnl(j);
-        // If X is greater than or equal
-        // to arr[mid] then find
-        // in right subarray
-        if (kav <= arr2[j]) {
-            high = j;
-        }
-
-        // If X is less than arr[mid]
-        // then find in left subarray
-        else {
-            low = j+1;
-        }
-    }
-
-    // Return the lower_bound index
-    return low;
-}
-
-
 intt main()
 {
   ios_base::sync_with_stdio(false);
@@ -118,25 +48,7 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
-  test(t)
-  {
-    cin >> n >> m;
-    fr(i,0,m) cin >> arr2[i];
-    cnl(upperb(0,n));
-    // arr.clear(); arr.resize(n+1,vi(m+1,0));
-    // cum.clear(); cum.resize(n+1,vi(m+1,0));
-    // frr(i,1,n) frr(j,1,m) cin >> arr[i][j];
-    //
-    // frr(i,1,n) frr(j,1,m) cum[i][j]=cum[i][j-1]+arr[i][j];
-    // frr(i,1,n) frr(j,1,m) cum[i][j]=cum[i-1][j]+cum[i][j];
-    //
-    // frr(l,1,min(n,m))
-    // {
-    //   frr(i,l,n)
-    //   {
-    //     int j = upperb(i,l);
-    //     csp(l); csp(i); cnl(j);
-    //   }
-    // }
-  }
+  vi nums1({2,4,6,8}), nums2({0,1});
+  auto it = nums1.begin(); it++;
+  nums1.erase(it);
 }

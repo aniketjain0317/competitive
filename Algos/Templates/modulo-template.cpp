@@ -17,32 +17,18 @@ ll MOD(ll a)
   return a;
 }
 
-// C function for extended Euclidean Algorithm
-ll gcdExtended(ll a, ll b, ll &x, ll &y)
-{
-  if (b == 0) {
-      x = 1;
-      y = 0;
-      return a;
-  }
-  ll x1, y1;
-  ll d = gcdExtended(b, a % b, x, y);
-  x1 = y;
-  y1 = x - y * (a / b);
-  return d;
+ll binpow(ll a, ll b) {
+    ll res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = mm(res, a);
+        a = mm(a,a);
+        b >>= 1;
+    }
+    return res;
 }
 
-// Function to find modulo inverse of a
-ll modInverse(ll a, ll m)
+ll modInverse(ll a)
 {
-    ll x, y;
-    ll g = gcdExtended(a, m, x, y);
-    if (g != 1)
-      return 0;
-    else
-    {
-        // m is added to handle negative x
-        ll res = (x % m + m) % m;
-        return res;
-    }
+  return binpow(a,INF-2);
 }

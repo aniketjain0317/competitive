@@ -1,0 +1,61 @@
+
+An objective comparison between CS:GO and Valorant.
+
+Framework for comparison:
+
+In this post, I'll be using two metrics to compare these two games: Skill floor, and skill ceiling.
+The definition of both of these definitions is somewhat contested, so I'll be making up my own :p.
+
+1. Skill Floor:
+  The amount of knowledge or skill a player must have to use the mechanism effectively.
+  Alternatively, in a fight between two good players, both of them are expected to possess this skill.
+  Furthermore, the difference between them will NOT be determined because of this skill.
+
+  E.G: Because of the ease of usage of smokes in Valorant, the skill floor for smokes is lower.
+  E.G: Because of the introduction of agents in Valorant, you must know about every agent and their abilities in order to be a good player. Hence, the skill floor is higher.
+
+2. Skill Ceiling:
+  The amount of knowledge or skill that a player can possess *above the skill floor*.
+  Alternatively, this refers to the maximum possible difference between the skill of two good players at using this mechanic.
+
+  E.G: Because of the lower movement speed in Valorant, the operator has a lower skill ceiling.
+  E.G: Because Valorant has info-gathering utility, the skill ceiling is higher.
+
+3. Notable Effects:
+  Several new mechanisms introduced in Valorant also create side-effects whose impact cannot be entirely captured by the above two metrics.
+  a) Randomness:
+        Valorant has a lot of randomness in it, and it is mostly considered to be a negative thing.
+        While randomness can lead to exciting fights because everything is possible,
+        it is generally unsatisfying to lose to a less-skilled player because of it.
+        Randomness is a vital part of any game as it introduces asymmetry, but too much of it is definitely a bad thing.
+
+  b) New Dimension:
+        Because our baseline (CS:GO) is such a basic/pure game, we need to consider the impact of introducing entirely new dimensions into the game.
+        While new dimensions are generally considered to be positive because of the possibility of skill difference they introduce,
+        they also often diminish the impact of the existing dimensions (e.g. gunplay).
+
+
+THE COMPARISON:
+
+1. Smokes -
+    Difference:
+      a) Smokes are much more easier to use, and the need to remember lineups is extinguished.
+      b) Smokes can be used globally, which can lead to using smokes for faking executes and denying info more effective.
+    Skill Floor: Lower
+    Skill Ceiling: Higher
+      Some might contest that because smokes can be used globally, the strategic and temporal impact of smoke usage has decreased.
+      I believe that this is a minor issue, and the overall impact is positive.
+
+2. Recoil Pattern:
+    Difference:
+      a) The recoil, while following a loose pattern of direction, is much more random.
+      b) Instead of recoil control being memory-based, the method of control is reactive.
+    Skill Floor: Lower
+      The skill floor is lower because time learning the recoil pattern is not required,
+      and only the need to understand how to reactively control the spray is present.
+    Skill Ceiling: Unchanged
+      A possible argument is that the reactive spray control can lead to a difference in skill and hence raise the skill ceiling,
+      but I believe that learning the mechanism is easy enough to make it almost a non-factor in high-level gunfights.
+    Other Effects: Randomness, New Dimension
+      It should also be noted that the developers can easily tweak the randomness of the spray,
+      if they think an imbalance is present. As of now, most people consider the negatives to outweigh the positives.
