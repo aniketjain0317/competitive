@@ -5,6 +5,7 @@
 using namespace std;
 
 #define pb push_back
+#define mp make_pair
 #define lb lower_bound
 #define ub upper_bound
 #define bs binary_search
@@ -71,5 +72,17 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    int n; cin >> n;
+    vi arr(n+2,0);
+    frr(i,1,n) cin >> arr[i];
+    int ans = 0;
+    frr(i,1,n+1) ans += abs(arr[i] - arr[i-1]);
 
+    frr(i,1,n)
+      if(arr[i]>arr[i-1] && arr[i]>arr[i+1])
+        ans -= arr[i] - max(arr[i-1], arr[i+1]);
+    cnl(ans);
+  }
 }

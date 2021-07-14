@@ -10,7 +10,7 @@
 // is '2' so we put SPF[8] = 2 , SPF[16] = 2 ]
 const long long MAX_SIZE = 1000001;
 
-vector<long long >isprime(MAX_SIZE , true);
+vector<bool>      isprime(MAX_SIZE , true);
 vector<long long >prime;
 vector<long long >SPF(MAX_SIZE);
 
@@ -33,6 +33,22 @@ void manipulated_seive(int N)
         }
     }
 }
+
+void sieve(int N)
+{
+  isprime[0] = isprime[1] = 0;
+  for(ll i = 2; i<N; i++)
+  {
+    if(isprime[i]) prime.push_back(i), SPF[i] = i;
+    for(auto &p: prime)
+    {
+      if(i*p>=N || p>SPF[i]) break;
+      isprime[i*p]=0;
+      SPF[i*p] = p;
+    }
+  }
+}
+
 
 // function generate all prime number less then N in O(n)
 void manipulated_seive(int N)

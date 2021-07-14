@@ -5,6 +5,7 @@
 using namespace std;
 
 #define pb push_back
+#define mp make_pair
 #define lb lower_bound
 #define ub upper_bound
 #define bs binary_search
@@ -64,6 +65,90 @@ const ll MOD = 1000000007;
 const ll INF = 1000000007;
 const int N = 100005;
 
+class DisjSet
+{
+	int *size, *parent, n;
+
+public:
+	DisjSet(int n)
+	{
+		size = new int[n];
+		parent = new int[n];
+		this->n = n;
+		makeSet();
+	}
+
+	void makeSet()
+	{
+		for (int i = 0; i < n; i++)
+    {
+      parent[i] = i;
+      size[i]=1;
+    }
+	}
+
+	int find(int x)
+	{
+		if (parent[x] != x) parent[x] = find(parent[x]);
+		return parent[x];
+	}
+
+	int merge(int x, int y)
+	{
+		int xset = find(x);
+		int yset = find(y);
+		if (xset == yset)
+			return 0;
+		if (size[xset] < size[yset]) swap(xset,yset);
+		parent[yset] = xset;
+		size[xset] += size[yset];
+		return 1;
+	}
+
+  int getSize(int x)
+  {
+    int xset = find(x);
+    return size[xset];
+  }
+};
+
+struct Modular {
+  int value;
+  int mod(int &v) {return (v % MOD + MOD)%MOD;}
+
+  Modular(int v = 0) { value = mod(v);}
+  Modular(int a, int b) : value(0){ *this += a; *this /= b;}
+
+  Modular& operator+=(Modular const& b) {value = value + b.value; value = mod(value); return *this;}
+  Modular& operator-=(Modular const& b) {value = value - b.value; value = mod(value); return *this;}
+  Modular& operator*=(Modular const& b) {value = (long long)value * b.value; value = mod(value); return *this;}
+
+  friend Modular mexp(Modular a, int e)
+  {
+    Modular res = 1; while (e) { if (e&1) res *= a; a *= a; e >>= 1; }
+    return res;
+  }
+  friend Modular inverse(Modular a) { return mexp(a, MOD - 2); }
+  Modular& operator/=(Modular const& b) { return *this *= inverse(b); }
+
+  friend Modular operator+(Modular a, Modular const b) { return a += b; }
+  friend Modular operator-(Modular a, Modular const b) { return a -= b; }
+  friend Modular operator-(Modular const a) { return 0 - a; }
+  friend Modular operator*(Modular a, Modular const b) { return a *= b; }
+  friend Modular operator/(Modular a, Modular const b) { return a /= b; }
+  friend std::ostream& operator<<(std::ostream& os, Modular const& a) {return os << a.value;}
+  friend bool operator==(Modular const& a, Modular const& b) {return a.value == b.value;}
+  friend bool operator!=(Modular const& a, Modular const& b) {return a.value != b.value;}
+
+  friend Modular& operator++(Modular& a, intt) {return a += 1;}
+  friend Modular operator++(Modular const& a, intt) {return Modular(a)++;}
+  friend Modular& operator--(Modular& a, intt) {return a -= 1;}
+  friend Modular operator--(Modular const& a, intt) {return Modular(a)--;}
+};
+typedef Modular mo;
+
+
+
 intt main()
 {
   ios_base::sync_with_stdio(false);
@@ -71,5 +156,17 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
-
+  test(t)
+  {
+    int n; cin >> n;
+    vvi v(2,vi(n)); cin >> v; --v;
+    DisjSet dsu(n);
+    fr(i,0,n) dsu.merge(v[0][i], v[1][i]);
+    map<int,int> mp;
+    fr(i,0,n) mp[dsu.find(i)]++;
+    int x = mp.size();
+    mo ans = 2;
+    ans = mexp(ans, x);
+    cnl(ans.value);
+  }
 }

@@ -71,5 +71,30 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    int mat[3][3];
+    fr(i,0,3) cin >> mat[0][i];
+    cin >> mat[1][0] >> mat[1][2];
+    fr(i,0,3) cin >> mat[2][i];
 
+    int ans = 0;
+    // Rows
+    ans += (2*mat[0][1]==(mat[0][0]+mat[0][2]));
+    ans += (2*mat[2][1]==(mat[2][0]+mat[2][2]));
+    // Cols
+    ans += (2*mat[1][0]==(mat[0][0]+mat[2][0]));
+    ans += (2*mat[1][2]==(mat[0][2]+mat[2][2]));
+    // middle
+    map<int,int> mp;
+    if((mat[1][0]+mat[1][2])%2==0) mp[(mat[1][0]+mat[1][2])]++;
+    if((mat[0][1]+mat[2][1])%2==0) mp[(mat[0][1]+mat[2][1])]++;
+    if((mat[0][0]+mat[2][2])%2==0) mp[(mat[0][0]+mat[2][2])]++;
+    if((mat[2][0]+mat[0][2])%2==0) mp[(mat[2][0]+mat[0][2])]++;
+    int mx = 0;
+    for(auto p: mp) mx = max(mx, p.sn);
+    csp("Case #"<<tno<<":");
+    cnl(ans+mx);
+
+  }
 }

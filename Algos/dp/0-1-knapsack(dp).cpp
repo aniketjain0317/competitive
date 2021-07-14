@@ -22,3 +22,15 @@ void knapsack(int n, int w, int wt[], int val[])
     }
   }
 }
+
+
+// dp[n][wt]=val;
+int knapsack(int n, int w, int wt[], int val[])
+{
+  fr(i,0,n) frr(j,1,w)
+  {
+    if(j>=wt[i]) dp[i+1][j] = max(dp[i][j], dp[i][j-wt[i]] + val[i]);
+    else dp[i+1][j] = dp[i][j];
+  }
+  return dp[n][w];
+}

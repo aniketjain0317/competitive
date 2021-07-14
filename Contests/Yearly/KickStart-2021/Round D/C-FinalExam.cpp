@@ -61,7 +61,7 @@ typedef vector<pi> vpi;
 typedef vector<vi> vvi;
 
 const ll MOD = 1000000007;
-const ll INF = 1000000007;
+const ll INF = 1LL<<62;
 const int N = 100005;
 
 intt main()
@@ -71,5 +71,52 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    int n,m; cin >> n >> m;
+    vpi prob(n); cin >> prob;
+    set<pi> s; for(auto p: prob) s.insert(p);
+    vi stu(m), ans; cin >> stu;
 
+    for(auto k: stu)
+    {
+      auto next = s.upper_bound({k,INF});
+      int r = next->fs; auto it = next;
+      if(it!=s.begin())
+      {
+        auto prev = next; prev--;
+        int ch = min(k,prev->sn);
+        if(next==s.end() || (r-k)>=(k-ch)) r=ch, it=prev;
+      }
+
+      ans.pb(r);
+      pi p = *it;
+      s.erase(it);
+      if(p.fs<r) s.insert({p.fs,r-1});
+      if(p.sn>r) s.insert({r+1,p.sn});
+    }
+
+    csp("Case #"<<tno<<":"); cnl(ans);
+  }
+}
+
+// {1,2} {3,5} {7,8};
+// {3,-1}
+// if()
+// prev element
+// 010100001
+// dp[0] = 1
+// dp[1] = 1
+// dp[2] = 2*dp[0]
+// dp[3] = 2*dp[1]
+dp[i] = number of values with total i bits and ith bit=1;
+int curr = k; string ans;
+fr(bit,n-1,0):
+{
+    if(dp[bit]<=curr)
+    {
+        curr-=dp[bit]
+        ans += 'Z'
+    }
+    else ans += 'O';
 }

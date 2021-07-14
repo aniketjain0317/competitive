@@ -5,6 +5,7 @@
 using namespace std;
 
 #define pb push_back
+#define mp make_pair
 #define lb lower_bound
 #define ub upper_bound
 #define bs binary_search
@@ -28,13 +29,14 @@ using namespace std;
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
 #define showVVI(arr) {for(auto &vvv: arr) {for(auto &xxxx: vvv) csp(xxxx); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
-#define sum(a)     ( accumulate ((a).begin(), (a).end(), 0ll))
-#define mine(a)    (*min_element((a).begin(), (a).end()))
-#define maxe(a)    (*max_element((a).begin(), (a).end()))
-#define mini(a)    ( min_element((a).begin(), (a).end()) - (a).begin())
-#define maxi(a)    ( max_element((a).begin(), (a).end()) - (a).begin())
-#define lowb(a, x) ( lower_bound((a).begin(), (a).end(), (x)) - (a).begin())
-#define uppb(a, x) ( upper_bound((a).begin(), (a).end(), (x)) - (a).begin())
+#define intt int32_t
+#define int long long
+
+typedef long long ll;
+typedef pair<int,int> pi;
+typedef vector<int> vi;
+typedef vector<pi> vpi;
+typedef vector<vi> vvi;
 
 template<typename T>             vector<T>& operator--            (vector<T> &v){for (auto& i : v) --i;            return  v;}
 template<typename T>             vector<T>& operator++            (vector<T> &v){for (auto& i : v) ++i;            return  v;}
@@ -49,21 +51,54 @@ template<typename T, typename U> pair<T,U> operator+(pair<T,U> a, pair<T,U> b){r
 template<typename T, typename U> bool chmin(T& a, U b){if (a > b) {a = b; return true;} return false;}
 template<typename T, typename U> bool chmax(T& a, U b){if (a < b) {a = b; return true;} return false;}
 
-
-#define intt int32_t
-#define int long long
-// #define endl '\n'
-
-typedef long long ll;
-typedef pair<int,int> pi;
-typedef vector<int> vi;
-typedef vector<pi> vpi;
-typedef vector<vi> vvi;
-
 const ll MOD = 1000000007;
 const ll INF = 1000000007;
 const int N = 100005;
 
+string ch = "haha";
+int countFreq(string &pat, string &txt)
+{
+    int M = pat.length();
+    int N = txt.length();
+    int res = 0;
+
+    /* A loop to slide pat[] one by one */
+    for (int i = 0; i <= N - M; i++)
+    {
+        /* For current index i, check for
+           pattern match */
+        int j;
+        for (j = 0; j < M; j++)
+            if (txt[i+j] != pat[j])
+                break;
+
+        // if pat[0...M-1] = txt[i, i+1, ...i+M-1]
+        if (j == M)
+        {
+           res++;
+           j = 0;
+        }
+    }
+    return res;
+}
+
+vi init(string s)
+{
+  vi v(4,0);
+  int sz = s.size();
+  v[3] = sz;
+  v[0] = countFreq(ch, s);
+  if(sz>=1 && s[0]=='a') v[1]=1;
+  if(sz>=2 && s[0]=='h' && s[1]=='a') v[1]=2;
+  if(sz>=3 && s[0]=='a' && s[1]=='h' && s[2]=='a') v[1]=3;
+
+  if(sz>=1 && s[sz-1]=='h') v[2]=3;
+  if(sz>=2 && s[sz-1]=='a' && s[sz-2]=='h') v[2]=2;
+  if(sz>=3 && s[sz-1]=='h' && s[sz-2]=='a' && s[sz-3]=='h') v[2]=1;
+  return v;
+}
+
+// #define endl '\n'
 intt main()
 {
   ios_base::sync_with_stdio(false);
@@ -71,5 +106,51 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
-
+  test(t)
+  {
+    int n; cin >> n;
+    map<string, int> mp;
+    map<string, string> b;
+    map<string, string> e;
+    map<string, int> sizes;
+    fr(i,0,n)
+    {
+      string s, var;
+      cin >> s; var = s;
+      cin >> s;
+      if(s==":=")
+      {
+        cin >> s;
+        int sz = s.size();
+        mp[var] = countFreq(ch, s);
+        b[var] = ""; e[var] = "";
+        fr(i,0,3) if(sz>i) b[var]+= s[i];
+        fr(i,0,3) if(sz>i) e[var]+= s[n-i];
+      }
+      else
+      {
+        string var2, var3;
+        cin >> var2; cin >> s; cin >> var3;
+        if(v[3]<10)
+        {
+          smol[var] = smol[var2] + smol[var3];
+          v = init(smol[var]);
+        }
+        else
+        {
+          int cond = (mp[var2][2]==mp[var3][1] && mp[var2][2]);
+          v[0] = mp[var2][0] + mp[var3][0] + cond;
+          v[1] = mp[var2][1];
+          v[2] = mp[var3][2];
+        }
+      }
+      mp[var] = v;
+      if(i==n-1)
+        cnl(v[0]);
+    }
+  }
 }
+// item
+// val: haha
+// begin: 0=-,1=a,2=ha,3=aha
+// end: 0=-, 1=hah,2=ha,3=h

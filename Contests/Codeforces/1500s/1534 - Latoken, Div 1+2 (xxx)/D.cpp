@@ -5,6 +5,7 @@
 using namespace std;
 
 #define pb push_back
+#define mp make_pair
 #define lb lower_bound
 #define ub upper_bound
 #define bs binary_search
@@ -71,5 +72,39 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  int n; cin >> n;
+  if(n==2)
+  {
+    cnl("!");
+    csp(1); cnl(2);
+    return 0;
+  }
+  vi parent(n+1, 0); int cnt = 0;
+  vvi layers(n+1);
+  cnl("? 1");
+  vi posn(n+1,0), temp(n+1,0);
+  frr(i,1,n) cin >> posn[i];
+  frr(i,1,n) layers[posn[i]].pb(i);
+  int mx =  maxe(posn);
+  frrb(mk,mx,0) for(auto &x: layers[mk]) if(!parent[x])
+  {
+    if(cnt==n-1) break;
+    csp("?"); cnl(x);
+    frr(i,1,n) cin >> temp[i];
 
+    vi ups(n+1,0);
+    frr(i,1,n)
+      if(posn[x] - posn[i] == temp[i])
+        ups[temp[i]] = i;
+
+    for(int i = 0; ups[i]!=0; i++)
+      if(!parent[ups[i]] && ups[i]!=1)
+        parent[ups[i]]=ups[i+1], cnt++;
+
+    frr(i,1,n)
+      if(temp[i] - posn[x] + posn[i]==2 && !parent[i] && i!=1)
+        parent[i] = ups[temp[i] - 1], cnt++;
+  }
+  cnl("!");
+  frr(i,2,n) csp(i), cnl(parent[i]);
 }

@@ -1,6 +1,11 @@
+// Problem
+//
+
 #include <bits/stdc++.h>
 using namespace std;
+
 #define pb push_back
+#define mp make_pair
 #define lb lower_bound
 #define ub upper_bound
 #define bs binary_search
@@ -32,35 +37,54 @@ using namespace std;
 #define lowb(a, x) ( lower_bound((a).begin(), (a).end(), (x)) - (a).begin())
 #define uppb(a, x) ( upper_bound((a).begin(), (a).end(), (x)) - (a).begin())
 
+#define intt int32_t
+#define int long long
+// #define endl '\n'
 
-const int N = 1005;
-int main()
+typedef long long ll;
+typedef pair<int,int> pi;
+typedef vector<char> vi;
+typedef vector<pi> vpi;
+typedef vector<vi> vvi;
+
+const ll MOD = 1000000007;
+const ll INF = 1000000007;
+const int N = 100005;
+
+
+
+intt main()
 {
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL); cout.tie(NULL);
+  cout.precision(numeric_limits<double>::max_digits10);
+  // freopen("myans.txt","w",stdout);
+  // freopen("input.txt","r",stdin);
   test(t)
   {
-    int n; cin >> n;
-    string s; cin >> s;
-    int cnt[2][26]={};
-    int cum[2][26]={};
-    for(int i = 0; i<n; i++)
+    int n,m; cin >> n >> m;
+    vvi grid(n, vi(m));
+    fr(i,0,n) fr(j,0,m) cin >> grid[i][j];
+
+    char cs[3] = {'R', 'W', 'R'};
+    int flag = 0;
+    fr(k,0,2)
     {
-      if((i+1)<=(n/2)) cnt[0][s[i]-'a']++;
-      else cnt[1][s[i]-'a']++;
+      vvi check(grid);
+      fr(i,0,n) fr(j,0,m) check[i][j] = (i+j)%2?cs[k]:cs[k+1];
+      fr(i,0,n) fr(j,0,m) if(grid[i][j]!='.' && grid[i][j]!=check[i][j]) goto failed;
+
+      cnl("YES");
+      fr(i,0,n)
+      {
+        fr(j,0,m) cout << check[i][j];
+        cout << endl;
+      }
+      break;
+      
+      failed:
+      flag++;
     }
-    cum[0][0]=cnt[0][0];
-    cum[1][0]=cnt[1][0];
-    for(int i = 1; i<26; i++)
-    {
-      cum[1][i]=cum[1][i-1]+cnt[1][i];
-      cum[0][i]=cum[0][i-1]+cnt[0][i];
-    }
-    // s[i] < s[j]
-    int ans = INT_MAX;
-    for(int c = 0; c<25; c++)
-    {
-      // [0...c] sirf first half me h
-      // [c+1...25] sirf second half me h
-      // second half me [0...c]
-    }
+    if(flag==2) cnl("NO");
   }
 }

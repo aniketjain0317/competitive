@@ -71,5 +71,16 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
-
+  test(t)
+  {
+    int n; cin >> n; vi arr(n); cin >> arr;
+    int s = sum(arr);
+    // csp("AAA"); cnl(s);
+    int a = s/n, b = s%n;
+    if(!b) cnl(0);
+    else
+    {
+      cnl(b*(n-b));
+    }
+  }
 }

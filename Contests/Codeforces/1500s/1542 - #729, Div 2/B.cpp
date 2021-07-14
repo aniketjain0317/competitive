@@ -71,5 +71,31 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    int n,a,b;
+    cin >> n >> a >> b;
+    if(a==1)
+    {
+      if((n-1)%b) cnl("No");
+      else cnl("Yes");
+      continue;
+    }
+    int c = 1;
+    while(c<=n)
+    {
+      int d = n-c;
+      if(d%b==0) goto yes;
+      c*=a;
+    }
 
+    if(0)
+    {
+      yes:
+      cnl("Yes");
+      continue;
+    }
+    no:
+    cnl("No");
+  }
 }

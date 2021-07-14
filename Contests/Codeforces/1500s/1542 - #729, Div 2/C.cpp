@@ -52,7 +52,7 @@ template<typename T, typename U> bool chmax(T& a, U b){if (a < b) {a = b; return
 
 #define intt int32_t
 #define int long long
-// #define endl '\n'
+#define endl '\n'
 
 typedef long long ll;
 typedef pair<int,int> pi;
@@ -64,6 +64,43 @@ const ll MOD = 1000000007;
 const ll INF = 1000000007;
 const int N = 100005;
 
+// CREDITS: CF - madhur4127
+struct Modular {
+  int value;
+  int mod(int &v) {return (v % MOD + MOD)%MOD;}
+
+  Modular(int v = 0) { value = mod(v);}
+  Modular(int a, int b) : value(0){ *this += a; *this /= b;}
+
+  Modular& operator+=(Modular const& b) {value = value + b.value; value = mod(value); return *this;}
+  Modular& operator-=(Modular const& b) {value = value - b.value; value = mod(value); return *this;}
+  Modular& operator*=(Modular const& b) {value = (long long)value * b.value; value = mod(value); return *this;}
+
+  friend Modular mexp(Modular a, int e)
+  {
+    Modular res = 1; while (e) { if (e&1) res *= a; a *= a; e >>= 1; }
+    return res;
+  }
+  friend Modular inverse(Modular a) { return mexp(a, MOD - 2); }
+  Modular& operator/=(Modular const& b) { return *this *= inverse(b); }
+
+  friend Modular operator+(Modular a, Modular const b) { return a += b; }
+  friend Modular operator-(Modular a, Modular const b) { return a -= b; }
+  friend Modular operator-(Modular const a) { return 0 - a; }
+  friend Modular operator*(Modular a, Modular const b) { return a *= b; }
+  friend Modular operator/(Modular a, Modular const b) { return a /= b; }
+  friend std::ostream& operator<<(std::ostream& os, Modular const& a) {return os << a.value;}
+  friend bool operator==(Modular const& a, Modular const& b) {return a.value == b.value;}
+  friend bool operator!=(Modular const& a, Modular const& b) {return a.value != b.value;}
+
+  friend Modular& operator++(Modular& a, intt) {return a += 1;}
+  friend Modular operator++(Modular const& a, intt) {return Modular(a)++;}
+  friend Modular& operator--(Modular& a, intt) {return a -= 1;}
+  friend Modular operator--(Modular const& a, intt) {return Modular(a)--;}
+};
+typedef Modular mo;
+
+
 intt main()
 {
   ios_base::sync_with_stdio(false);
@@ -71,5 +108,23 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
-
+  test(t)
+  {
+    int n; cin >> n;
+    int curr=0;
+    int x = 2;
+    mo ans = 0;
+    for(int i =3; i<10000; i++)
+    {
+      int y = n/x;
+      int z = n-y-curr;
+      mo z2 = z;
+      ans += z2*(i-1);
+      curr += z;
+      if(curr==n) break;
+      int g = __gcd(x,i);
+      x = x*(i/g);
+    }
+    cnl(ans);
+  }
 }

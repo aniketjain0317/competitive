@@ -1,8 +1,12 @@
+// Problem
+//
+
 #include <bits/stdc++.h>
 using namespace std;
+
 #define pb push_back
+#define mp make_pair
 #define lb lower_bound
-#define ub upper_bound
 #define bs binary_search
 #define fs first
 #define sn second
@@ -24,43 +28,60 @@ using namespace std;
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
 #define showVVI(arr) {for(auto &vvv: arr) {for(auto &xxxx: vvv) csp(xxxx); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
-#define sum(a)     ( accumulate ((a).begin(), (a).end(), 0ll))
-#define mine(a)    (*min_element((a).begin(), (a).end()))
-#define maxe(a)    (*max_element((a).begin(), (a).end()))
-#define mini(a)    ( min_element((a).begin(), (a).end()) - (a).begin())
-#define maxi(a)    ( max_element((a).begin(), (a).end()) - (a).begin())
-#define lowb(a, x) ( lower_bound((a).begin(), (a).end(), (x)) - (a).begin())
-#define uppb(a, x) ( upper_bound((a).begin(), (a).end(), (x)) - (a).begin())
+#define intt int32_t
+#define int long long
+// #define endl '\n'
 
+typedef long long ll;
+typedef pair<int,int> pi;
+typedef vector<int> vi;
+typedef vector<pi> vpi;
+typedef vector<vi> vvi;
 
-const int N = 1005;
-int main()
+const ll MOD = 1000000007;
+const int N = 100005;
+
+void reduceFraction(pi &p)
 {
+    if(p.sn==0)
+    {
+      p.fs = -1; p.sn = -1; return;
+    }
+    if(!p.fs) {p.sn=0; return;}
+    int d;
+    d = __gcd(p.fs, p.sn);
+
+    p.fs /= d;
+    p.sn /= d;
+}
+
+intt main()
+{
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL); cout.tie(NULL);
+  cout.precision(numeric_limits<double>::max_digits10);
+  // freopen("myans.txt","w",stdout);
+  // freopen("input.txt","r",stdin);
   test(t)
   {
     int n; cin >> n;
     string s; cin >> s;
-    int cnt[2][26]={};
-    int cum[2][26]={};
-    for(int i = 0; i<n; i++)
+    map<pi, int> mp;
+    int k = 0, d= 0;
+    fr(i,0,n)
     {
-      if((i+1)<=(n/2)) cnt[0][s[i]-'a']++;
-      else cnt[1][s[i]-'a']++;
+      if(s[i]=='K') k++;
+      else d++;
+
+      pi p(k,d);
+      reduceFraction(p);
+
+      mp[p]++;
+      csp(mp[p]);
+      // for(auto &p: mp) {csp(p.fs.fs); csp(p.fs.sn); cnl(p.sn);}
+      // cout << endl;
     }
-    cum[0][0]=cnt[0][0];
-    cum[1][0]=cnt[1][0];
-    for(int i = 1; i<26; i++)
-    {
-      cum[1][i]=cum[1][i-1]+cnt[1][i];
-      cum[0][i]=cum[0][i-1]+cnt[0][i];
-    }
-    // s[i] < s[j]
-    int ans = INT_MAX;
-    for(int c = 0; c<25; c++)
-    {
-      // [0...c] sirf first half me h
-      // [c+1...25] sirf second half me h
-      // second half me [0...c]
-    }
+    cout << endl;
+
   }
 }

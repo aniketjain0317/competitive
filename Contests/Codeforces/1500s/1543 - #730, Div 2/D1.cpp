@@ -71,5 +71,17 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
-
+  test(t)
+  {
+    int n,k; cin >> n >> k;
+    int curr = 0;
+    for(int i = 0; i<n; i++)
+    {
+      int ch = (i+curr)%k;
+      cnl(ch);
+      int r; cin >> r;
+      if(r) break;
+      else curr = (curr+ch)%k;
+    }
+  }
 }

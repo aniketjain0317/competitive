@@ -71,5 +71,17 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
-
+  test(t)
+  {
+    int a,b; cin >> a >> b;
+    if(a>b) swap(a,b);
+    if(a==b) {cout << "0 0" << endl; continue;}
+    int ans = b-a;
+    csp(ans);
+    if(a%ans==b%ans)
+    {
+      int k = a%ans;
+      cnl(min(k,ans-k));
+    }
+  }
 }

@@ -55,14 +55,53 @@ template<typename T, typename U> bool chmax(T& a, U b){if (a < b) {a = b; return
 // #define endl '\n'
 
 typedef long long ll;
-typedef pair<int,int> pi;
 typedef vector<int> vi;
-typedef vector<pi> vpi;
 typedef vector<vi> vvi;
 
-const ll MOD = 1000000007;
-const ll INF = 1000000007;
+const ll MOD = 998244353;
+const ll INF = 998244353;
 const int N = 100005;
+
+
+// CREDITS: CF - madhur4127
+struct Modular {
+  int value;
+  int mod(int &v) {return (v % MOD + MOD)%MOD;}
+
+  Modular(int v = 0) { value = mod(v);}
+  Modular(int a, int b) : value(0){ *this += a; *this /= b;}
+
+  Modular& operator+=(Modular const& b) {value = value + b.value; value = mod(value); return *this;}
+  Modular& operator-=(Modular const& b) {value = value - b.value; value = mod(value); return *this;}
+  Modular& operator*=(Modular const& b) {value = (long long)value * b.value; value = mod(value); return *this;}
+
+  friend Modular mexp(Modular a, int e)
+  {
+    Modular res = 1; while (e) { if (e&1) res *= a; a *= a; e >>= 1; }
+    return res;
+  }
+  friend Modular inverse(Modular a) { return mexp(a, MOD - 2); }
+  Modular& operator/=(Modular const& b) { return *this *= inverse(b); }
+
+  friend Modular operator+(Modular a, Modular const b) { return a += b; }
+  friend Modular operator-(Modular a, Modular const b) { return a -= b; }
+  friend Modular operator-(Modular const a) { return 0 - a; }
+  friend Modular operator*(Modular a, Modular const b) { return a *= b; }
+  friend Modular operator/(Modular a, Modular const b) { return a /= b; }
+  friend std::ostream& operator<<(std::ostream& os, Modular const& a) {return os << a.value;}
+  friend bool operator==(Modular const& a, Modular const& b) {return a.value == b.value;}
+  friend bool operator!=(Modular const& a, Modular const& b) {return a.value != b.value;}
+
+  friend Modular& operator++(Modular& a, intt) {return a += 1;}
+  friend Modular operator++(Modular const& a, intt) {return Modular(a)++;}
+  friend Modular& operator--(Modular& a, intt) {return a -= 1;}
+  friend Modular operator--(Modular const& a, intt) {return Modular(a)--;}
+};
+typedef Modular mo;
+
+typedef pair<int,mo> pi;
+typedef vector<pi> vpi;
+
 
 intt main()
 {
@@ -71,5 +110,64 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  mo ncr[501][501]={};
+  frr(j,0,500) ncr[0][j]=1;
+  frr(i,1,500) ncr[i][0]=i;
+  frr(i,1,500) frr(j,0,i)
+  {
+    ncr[i][j]=ncr[i][j-1];
+    ncr[i][j]*=(i+1-j);
+    ncr[i][j]/=j;
+  }
 
+  int n; cin >> n;
+  vi arr(n,-1);
+  fr(i,0,n)
+  {
+    char c; cin >> c; if(c=='-') continue;
+    cin >> arr[i];
+  }
+  int cnt = 0;
+  vi sorted;
+  mo ans = 0;
+  map<int,mo> mp, mp2;
+  mo tt = 1;
+  fr(i,0,n) // till ith term.
+  {
+    vpi addn;
+    if(arr[i]==-1)
+    {
+      auto prev = mp.begin();
+      for(auto it = mp.begin(); it!=mp.end(); it++)
+      {
+        pi p1 = *it, p2 = *prev;
+        if(it==prev) addn.pb({p1.fs,tt/2});
+        addn.pb({p1.fs,p2.sn});
+        prev = it;
+      }
+    }
+    else
+    {
+      if(!mp)
+      auto it = mp.upper_bound(arr[i]);
+      it--;
+      addn.pb({arr[i], (*it).sn});
+      ans[arr[i]]+=tt/2;
+    }
+
+    for(auto p: mp) mp[p.fs]*=2;
+    for(auto p: addn) mp[p.fs]+=p.sn;
+    cnl("THE MAP:");
+    for(auto p: mp) cout << p.fs <<" "<<p.sn.value<<endl;
+    tt*=2;
+  }
+  for(auto p: mp) ans+=(p.fs*(tt-p.sn));
+  cnl(ans.value);
 }
+// for i: xth posn;
+// for j:
+// 1: 12
+// 2: 10
+
+// mp[i] = no element <=i is present in the array.
+// ans[i] = i is present until now.

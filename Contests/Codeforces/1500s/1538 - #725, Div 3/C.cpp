@@ -5,6 +5,7 @@
 using namespace std;
 
 #define pb push_back
+#define mp make_pair
 #define lb lower_bound
 #define ub upper_bound
 #define bs binary_search
@@ -28,13 +29,15 @@ using namespace std;
 #define show1d(n,arr) fr(i,0,n) {csp(arr[i]);}cout<<endl;
 #define showVVI(arr) {for(auto &vvv: arr) {for(auto &xxxx: vvv) csp(xxxx); cout << endl;}}
 #define show2d(n,m,arr) {fr(i,0,n) {fr(j,0,m) csp(arr[i][j]); cout << endl;}}
-#define sum(a)     ( accumulate ((a).begin(), (a).end(), 0ll))
-#define mine(a)    (*min_element((a).begin(), (a).end()))
-#define maxe(a)    (*max_element((a).begin(), (a).end()))
-#define mini(a)    ( min_element((a).begin(), (a).end()) - (a).begin())
-#define maxi(a)    ( max_element((a).begin(), (a).end()) - (a).begin())
-#define lowb(a, x) ( lower_bound((a).begin(), (a).end(), (x)) - (a).begin())
-#define uppb(a, x) ( upper_bound((a).begin(), (a).end(), (x)) - (a).begin())
+#define intt int32_t
+#define int long long
+#define endl '\n'
+
+typedef long long ll;
+typedef pair<int,int> pi;
+typedef vector<int> vi;
+typedef vector<pi> vpi;
+typedef vector<vi> vvi;
 
 template<typename T>             vector<T>& operator--            (vector<T> &v){for (auto& i : v) --i;            return  v;}
 template<typename T>             vector<T>& operator++            (vector<T> &v){for (auto& i : v) ++i;            return  v;}
@@ -49,17 +52,6 @@ template<typename T, typename U> pair<T,U> operator+(pair<T,U> a, pair<T,U> b){r
 template<typename T, typename U> bool chmin(T& a, U b){if (a > b) {a = b; return true;} return false;}
 template<typename T, typename U> bool chmax(T& a, U b){if (a < b) {a = b; return true;} return false;}
 
-
-#define intt int32_t
-#define int long long
-// #define endl '\n'
-
-typedef long long ll;
-typedef pair<int,int> pi;
-typedef vector<int> vi;
-typedef vector<pi> vpi;
-typedef vector<vi> vvi;
-
 const ll MOD = 1000000007;
 const ll INF = 1000000007;
 const int N = 100005;
@@ -71,5 +63,21 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    int n,l,r; cin >> n >> l >> r;
+    vi v(n); cin >> v;
+    sort(all(v));
+    int ans = 0;
+    for(auto it = v.begin(); it!= v.end(); it++)
+    {
+      int x = *it;
+      if(x>=r) break;
 
+      int b = lb(it+1, v.end(), l-x) - v.begin();
+      int e = ub(it+1, v.end(), r-x) - v.begin() - 1;
+      ans += e-b+1;
+    }
+    cnl(ans);
+  }
 }

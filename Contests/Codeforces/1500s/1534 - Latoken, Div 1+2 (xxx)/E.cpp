@@ -5,6 +5,7 @@
 using namespace std;
 
 #define pb push_back
+#define mp make_pair
 #define lb lower_bound
 #define ub upper_bound
 #define bs binary_search
@@ -71,5 +72,92 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  int n,k,x; cin >> n >> k;
+  if(n%2==1 && k%2==0) {cnl(-1); return 0;}
+  int r = n%k;
 
+  if(n%k==0)
+  {
+    int ans = 0;
+    for(int i = 1; i<=n; i+=k)
+    {
+      csp("?");
+      fr(j,0,k) csp(i+j);
+      cout << endl; cin >> x; ans^=x;
+    }
+    csp("!"); cnl(ans); return 0;
+  }
+
+  if(k%2==0)
+  {
+    int ans = 0;
+    for(int i = 1; i<=n; i+=k)
+    {
+      csp("?");
+      fr(j,0,k) csp(i+j);
+      cout << endl; cin >> x; ans^=x;
+    }
+    int r1 = n - r + 1;
+    int r2 = r1 + r/2;
+    int rx = k - r/2;
+    csp("?");
+    fr(i,r1,r2) csp(i);
+    cout << endl; cin >> x; ans^=x;
+
+    csp("?");
+    frr(i,r2,n) csp(i);
+    cout << endl; cin >> x; ans^=x;
+
+    csp("!"); cnl(ans); return 0;
+  }
+  else
+  {
+    int r = n%k;
+    int ans = 0;
+    for(int i = 1; i<=n; i+=k)
+    {
+      csp("?");
+      fr(j,0,k) csp(i+j);
+      cout << endl; cin >> x; ans^=x;
+    }
+
+    if(r%2==0)
+    {
+      int r1 = n - r + 1;
+      int r2 = r1 + r/2;
+      int rx = k - r/2;
+      csp("?");
+      fr(i,r1,r2) csp(i);
+      cout << endl; cin >> x; ans^=x;
+
+      csp("?");
+      frr(i,r2,n) csp(i);
+      cout << endl; cin >> x; ans^=x;
+
+      csp("!"); cnl(ans); return 0;
+    }
+    else
+    {
+      int rr = k - r;
+      csp("?");
+      frr(i,1,rr/2) csp(i);
+      cout << endl; cin >> x; ans^=x;
+
+      csp("?");
+      frr(i,rr/2+1,rr) csp(i);
+      cout << endl; cin >> x; ans^=x;
+
+
+    }
+  }
 }
+
+// 11%5: 1
+// 1, 2, 3, 4, 5
+
+//
+
+// even, odd
+// odd, odd
+// odd, even
+// even, even

@@ -1,3 +1,8 @@
+/*
+    author:  Maksim1744
+    created: 04.06.2021 18:19:42
+*/
+
 // Problem
 //
 
@@ -5,6 +10,7 @@
 using namespace std;
 
 #define pb push_back
+#define mp make_pair
 #define lb lower_bound
 #define ub upper_bound
 #define bs binary_search
@@ -60,6 +66,7 @@ typedef vector<int> vi;
 typedef vector<pi> vpi;
 typedef vector<vi> vvi;
 
+
 const ll MOD = 1000000007;
 const ll INF = 1000000007;
 const int N = 100005;
@@ -71,5 +78,4 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
-
 }

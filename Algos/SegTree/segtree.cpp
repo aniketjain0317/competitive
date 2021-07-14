@@ -14,26 +14,18 @@ struct SegTree
   vector<item> tree;
   vector<pi> len;
 
-  // CHANGE NEUTRAL, MERGE, SINGLE only
-  const int NEUTRAL = 0;
+  // CHANGE ITEM, NEUTRAL, MERGE, SINGLE only
+  const int NEUTRAL = INT_MAX;
   item merge(item& a, item& b)
   {
     item ans;
-    ans.lx = a.lx;
-    ans.ans = a.ans + b.ans;
-    ans.clg = a.clg;
-
-    if(b.clg < a.lx)
-    {
-      ans.ans--;
-      if(a.ans = 1 && b.ans = 1) ans.clg = max(a.clg, b.clg);
-    }
+    ans.val = min(a.val, b.val);
     return ans;
   }
 
   item single(int v)
   {
-    return {1, v, clg[v]};
+    return {v};
   }
 
   void init(int sz, int arr[])
@@ -41,9 +33,15 @@ struct SegTree
     n = sz;
     h = ceil(log2(n))+1;
     size = 1LL<<(h-1);
+
     tree.resize(2*size, single(NEUTRAL));
+    fr(i,0,n) tree[n+i] = single(arr[i]);
+    frrb(i,n-1,0) tree[i] = merge(tree[2*x], tree[2*x+1]);
+
+    // length = 1<<(h-floor(log2(x)))
+    // left = (x - 1<<floor(log2(x))) * length
+    // right = left + length
     len.resize(2*size, {0,size});
-    fr(i,0,n) update(i, arr[i]);
     fr(x,1,size)
     {
       int l = len[x].fs, r = len[x].sn;
@@ -71,6 +69,18 @@ struct SegTree
     item left = query(l, r, 2*x);
     item right = query(l, r, 2*x+1);
     return merge(left, right);
+  }
+
+  // [l,r)
+  item iterative_query(int l, int r)
+  {
+    item ans = single(NEUTRAL);
+    for(l+=n, r+=n; l<=r; l>>=1, r>>=1)
+    {
+      if(l&1) ans = merge(ans, tree[l++]); // if l is odd: right one
+      if(r&1) ans = merge(ans, tree[--r]); // if (r-1) is even: left one
+    }
+    return ans;
   }
 
   void printTree();

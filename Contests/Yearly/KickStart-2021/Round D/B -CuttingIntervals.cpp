@@ -11,6 +11,8 @@ using namespace std;
 #define fs first
 #define sn second
 #define gri greater<int>
+#define int long long
+#define intt int32_t
 #define cnl(x) cout << x << endl
 #define csp(x) cout << x << " "
 #define read(x) cin >> x
@@ -50,8 +52,7 @@ template<typename T, typename U> bool chmin(T& a, U b){if (a > b) {a = b; return
 template<typename T, typename U> bool chmax(T& a, U b){if (a < b) {a = b; return true;} return false;}
 
 
-#define intt int32_t
-#define int long long
+
 // #define endl '\n'
 
 typedef long long ll;
@@ -71,5 +72,41 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
-
+  test(t)
+  {
+    int n,c; cin >> n >> c;
+    map<int,int> st;
+    fr(i,0,n)
+    {
+      int l,r; cin >> l >> r;
+      st[l+1]+=1;
+      st[r]-=1;
+    }
+    vpi v;
+    for(auto p: st) if(p.sn) v.pb(p);
+    int m = v.size();
+    map<int,int,gri> mp;
+    cnl(v);
+    int curr = v[0].sn;
+    for(int i = 1; i<m; i++)
+    {
+      mp[curr]+=(v[i].fs-v[i-1].fs);
+      curr+=v[i].sn;
+    }
+    int ans = n;
+    for(auto p: mp)
+    {
+      // csp("AAA"); cnl(p);
+      if(p.sn>=c) {ans+=c*p.fs; break;}
+      ans+=p.fs*p.sn;
+      c-=p.sn;
+    }
+    csp("Case #"<<tno<<":");
+    cnl(ans);
+  }
 }
+// 1[2 3 4]5
+// 1[[2 3]]4
+// 2: 2
+// 4: -2
+//

@@ -11,7 +11,7 @@ public:
   map<pi,bool> visited;
   map<pi,pi> parent;
 
-  Grid(int fn, int fm, vpi fdir)
+  Grid(int fn, int fm, vpi fdir={{-1,0}, {1,0}, {0,-1}, {0,1}})
   {
     n=fn;
     m=fm;

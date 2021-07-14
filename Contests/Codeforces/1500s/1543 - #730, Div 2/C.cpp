@@ -56,13 +56,37 @@ template<typename T, typename U> bool chmax(T& a, U b){if (a < b) {a = b; return
 
 typedef long long ll;
 typedef pair<int,int> pi;
-typedef vector<int> vi;
+typedef vector<double> vi;
 typedef vector<pi> vpi;
 typedef vector<vi> vvi;
 
 const ll MOD = 1000000007;
 const ll INF = 1000000007;
 const int N = 100005;
+
+double x;
+double rec(vi v)
+{
+  cnl(v);
+  double ans = 1;
+  fr(i,0,2)
+  {
+    int j = (i+1)%2;
+    if(v[i]<=x)
+    {
+      double y = v[j] + (v[i]/2);
+      ans += v[i]*(1+y);
+      if(y>x) ans += v[i]*y*x;
+    }
+    else
+    {
+      double y = v[j]+(v[i]-x)/2;
+      ans+= v[i]*rec({x,y});
+    }
+  }
+  // csp(v);  cnl(ans);
+  return ans;
+}
 
 intt main()
 {
@@ -71,5 +95,9 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
-
+  test(t)
+  {
+    double c,m,p; cin >> c >> m >> p >> x;
+    cnl(rec({c,m}));
+  }
 }

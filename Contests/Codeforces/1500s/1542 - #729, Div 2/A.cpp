@@ -71,5 +71,19 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    int n; cin >> n; n*=2;
+    vi arr(n); cin >> arr;
+    int cnt = 0;
+    fr(i,0,n)
+    {
+      if(arr[i]%2) cnt++;
+      else cnt--;
+    }
+    if(!cnt) cnl("Yes");
+    else cnl("No");
 
+  }
 }
+// even + odd
