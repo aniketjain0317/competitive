@@ -52,7 +52,7 @@ template<typename T, typename U> bool chmax(T& a, U b){if (a < b) {a = b; return
 
 #define intt int32_t
 #define int long long
-// #define endl '\n'
+#define endl '\n'
 
 typedef long long ll;
 typedef pair<int,int> pi;
@@ -61,92 +61,9 @@ typedef vector<pi> vpi;
 typedef vector<vi> vvi;
 
 const ll MOD = 1000000007;
-const ll INF = 1LL<<60;
+const ll INF = 1000000007;
 const int N = 100005;
 
-// Range Queries, Point Update
-// updates/queries: 0 indexed, storage array: 1 indexed
-class SegTree
-{
-public:
-  int n, m, h;
-  vector<vector<int>> tree;
-  vector<vector<int>> len; // [left,right)
-
-  // CHANGE ITEM, NEUTRAL, MERGE, SINGLE only
-  const int NEUTRAL = 0;
-  vector<int> merge(vector<int>& a, vector<int>& b)
-  {
-    vector<int> ans;
-    ans[0] = a[0]+b[0];
-    return ans;
-  }
-  item single(int v)
-  {return {v};}
-
-  SegTree(int sz, vector<int> arr)
-  {
-    n = 1, h = 1;
-    while(n<sz) h++, n<<=1; m=n<<1;
-
-    tree.resize(m, single(NEUTRAL));
-    for(int i = 0; i<sz; i++) tree[n+i] = single(arr[i]);
-    for(int i = n-1; i; i--)  tree[i] = merge(tree[2*i], tree[2*i+1]);
-
-    len.resize(m, {0,n});
-    for(int i = n; i<m; i++) len[i][0] = len[i][1] = i;
-    for(int i = 1; i<n; i++) len[i][0] = len[2*i][0], len[i][1] = len[2*i+1][1];
-  }
-
-
-
-  // i is 0-indexed, tree is 1-indexed
-  void update(int i, int v)
-  {
-    tree[i+=n] = single(v);
-    while(i>>=1)
-      tree[i] = merge(tree[2*i], tree[2*i+1]);
-  }
-
-  // [l,r), [lx, rx), 0-indexed
-  vector<int> rec_query(int l, int r, int x=1)
-  {
-    int lx = len[x][0], rx = len[x][1];
-    if(l<=lx && rx<=r) return tree[x];
-    if(l>=rx || lx>=r) return single(NEUTRAL);
-
-    vector<int> left = rec_query(l, r, 2*x);
-    vector<int> right = rec_query(l, r, 2*x+1);
-    return merge(left, right);
-  }
-
-  // [l,r)
-  vector<int> query(int l, int r)
-  {
-    vector<int> ansLeft = single(NEUTRAL), ansRight = single(NEUTRAL);
-    for(l+=n, r+=n; l<r; l>>=1, r>>=1)
-    {
-      if(l&1) ansLeft = merge(ansLeft, tree[l++]);
-      if(r&1) ansRight = merge(tree[--r], ansRight);
-    }
-    return merge(ansLeft, ansRight);
-  }
-
-  void printTree();
-  int find(int k, int x = 1)
-  {
-    // int lx = len[x][0], rx = len[x][1];
-    if(tree[x][0]<k) return -1;
-    if(x>=n) return x-n;
-
-    int ans = find(k,2*x);
-    if(ans==-1) ans = find(k-tree[2*x][0],2*x+1);
-    return ans;
-  }
-};
-
-
-int MAXN = 100000;
 intt main()
 {
   ios_base::sync_with_stdio(false);
@@ -154,4 +71,38 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    int n,m,k; cin >> n >> k; m=n*2;
+    int ch[n][2];
+    fr(i,0,k) cin >> ch[i][0] >>ch[i][1];
+    int used[m+1]={};
+    fr(i,0,k)
+    {
+      used[ch[i][0]]=1;
+      used[ch[i][1]]=1;
+    }
+    int curr = 1;
+    fr(i,0,n-k)
+    {
+      while(used[curr]) curr++;
+      ch[k+i][0]=curr;
+      curr++;
+    }
+    fr(i,0,n-k)
+    {
+      while(used[curr]) curr++;
+      ch[k+i][1]=curr;
+      used[curr]=1;
+      curr++;
+    }
+    fr(i,0,n) if(ch[i][0]>ch[i][1]) swap(ch[i][0],ch[i][1]);
+    int ans = 0;
+    fr(i,0,n) fr(j,i+1,n)
+    {
+      if(ch[i][0] < ch[j][0] && ch[j][0] <ch[i][1] && ch[i][1]<ch[j][1]) ans++;
+      if(ch[i][0] > ch[j][0] && ch[i][0] <ch[j][1] && ch[i][1]> ch[j][1]) ans++;
+    }
+    cnl(ans);
+  }
 }

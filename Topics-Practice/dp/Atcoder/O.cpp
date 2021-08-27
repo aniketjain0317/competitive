@@ -25,7 +25,7 @@ int32_t main()
     while(true)
     {
       for(auto &j: adj[i])
-        if((v&(1<<j))==0) 
+        if((v&(1<<j))==0)
           dp[v|(1<<j)] = (dp[v|(1<<j)]+dp[v])%MOD;
 
       if(v==mx) break;

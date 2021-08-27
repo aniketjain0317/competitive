@@ -62,91 +62,83 @@ typedef vector<vi> vvi;
 
 const ll MOD = 1000000007;
 const ll INF = 1LL<<60;
-const int N = 100005;
+const int N = 1000005;
 
-// Range Queries, Point Update
-// updates/queries: 0 indexed, storage array: 1 indexed
-class SegTree
+class DisjSet
 {
+	int *size, *parent, n;
+
 public:
-  int n, m, h;
-  vector<vector<int>> tree;
-  vector<vector<int>> len; // [left,right)
+	DisjSet(int n)
+	{
+		size = new int[n];
+		parent = new int[n];
+		this->n = n;
+		makeSet();
+	}
 
-  // CHANGE ITEM, NEUTRAL, MERGE, SINGLE only
-  const int NEUTRAL = 0;
-  vector<int> merge(vector<int>& a, vector<int>& b)
-  {
-    vector<int> ans;
-    ans[0] = a[0]+b[0];
-    return ans;
-  }
-  item single(int v)
-  {return {v};}
-
-  SegTree(int sz, vector<int> arr)
-  {
-    n = 1, h = 1;
-    while(n<sz) h++, n<<=1; m=n<<1;
-
-    tree.resize(m, single(NEUTRAL));
-    for(int i = 0; i<sz; i++) tree[n+i] = single(arr[i]);
-    for(int i = n-1; i; i--)  tree[i] = merge(tree[2*i], tree[2*i+1]);
-
-    len.resize(m, {0,n});
-    for(int i = n; i<m; i++) len[i][0] = len[i][1] = i;
-    for(int i = 1; i<n; i++) len[i][0] = len[2*i][0], len[i][1] = len[2*i+1][1];
-  }
-
-
-
-  // i is 0-indexed, tree is 1-indexed
-  void update(int i, int v)
-  {
-    tree[i+=n] = single(v);
-    while(i>>=1)
-      tree[i] = merge(tree[2*i], tree[2*i+1]);
-  }
-
-  // [l,r), [lx, rx), 0-indexed
-  vector<int> rec_query(int l, int r, int x=1)
-  {
-    int lx = len[x][0], rx = len[x][1];
-    if(l<=lx && rx<=r) return tree[x];
-    if(l>=rx || lx>=r) return single(NEUTRAL);
-
-    vector<int> left = rec_query(l, r, 2*x);
-    vector<int> right = rec_query(l, r, 2*x+1);
-    return merge(left, right);
-  }
-
-  // [l,r)
-  vector<int> query(int l, int r)
-  {
-    vector<int> ansLeft = single(NEUTRAL), ansRight = single(NEUTRAL);
-    for(l+=n, r+=n; l<r; l>>=1, r>>=1)
+	void makeSet()
+	{
+		for (int i = 0; i < n; i++)
     {
-      if(l&1) ansLeft = merge(ansLeft, tree[l++]);
-      if(r&1) ansRight = merge(tree[--r], ansRight);
+      parent[i] = i;
+      size[i]=1;
     }
-    return merge(ansLeft, ansRight);
-  }
+	}
 
-  void printTree();
-  int find(int k, int x = 1)
+	int find(int x)
+	{
+		if (parent[x] != x) parent[x] = find(parent[x]);
+		return parent[x];
+	}
+
+	int merge(int x, int y)
+	{
+		int xset = find(x);
+		int yset = find(y);
+
+		if (xset == yset)
+			return 0;
+		if (size[xset] < size[yset]) swap(xset,yset);
+		parent[yset] = xset;
+		size[xset] += size[yset];
+		return 1;
+	}
+
+  int getSize(int x)
   {
-    // int lx = len[x][0], rx = len[x][1];
-    if(tree[x][0]<k) return -1;
-    if(x>=n) return x-n;
-
-    int ans = find(k,2*x);
-    if(ans==-1) ans = find(k-tree[2*x][0],2*x+1);
-    return ans;
+    int xset = find(x);
+    return size[xset];
   }
 };
 
+const long long MAX_SIZE = 1000005;
 
-int MAXN = 100000;
+vector<bool>      isprime(MAX_SIZE , true);
+vector<long long >prime;
+vector<long long >SPF(MAX_SIZE);
+
+void manipulated_seive(int N)
+{
+    isprime[0] = isprime[1] = false ;
+    SPF[1]=1;
+    for (ll i=2; i<N ; i++)
+    {
+        if (isprime[i])
+        {
+            prime.push_back(i);
+            SPF[i] = i;
+        }
+        for (ll j=0;
+             j < (int)prime.size() && i*prime[j] < N && prime[j] <= SPF[i];
+             j++)
+        {
+            isprime[i*prime[j]]=false;
+            SPF[i*prime[j]] = prime[j] ;
+        }
+    }
+}
+
 intt main()
 {
   ios_base::sync_with_stdio(false);
@@ -154,4 +146,42 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  manipulated_seive(MAX_SIZE);
+  test(t)
+  {
+    int n; cin >> n;
+    vi r(n); cin >> r;
+    map<int,int> adj;
+    DisjSet dsu(n);
+    fr(i,0,n)
+    {
+      int ch = r[i];
+      int x = SPF[ch];
+      r[i] = x;
+      while(ch>1)
+      {
+        if(!adj.count(x)) adj[x]=i;
+        else dsu.merge(adj[x],i);
+        while(ch%x==0) ch/=x;
+        x=SPF[ch];
+      }
+    }
+
+    int cnt = 0, ans = 0;
+    bool visited[n]={};
+    for(int i = 0; i<n; i++)
+    {
+      int ch = dsu.find(i);
+      if(!visited[ch]) cnt++;
+      visited[ch]=1;
+    }
+    if(cnt==1) ans = 0;
+    else if(adj.count(2)) ans = (cnt-1)*2;
+    else
+    {
+      if(cnt==2 && adj.count(3)) ans = 3;
+      else ans = cnt*2;
+    }
+    cnl(ans);
+  }
 }

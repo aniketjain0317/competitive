@@ -35,6 +35,9 @@ using namespace std;
 #define maxi(a)    ( max_element((a).begin(), (a).end()) - (a).begin())
 #define lowb(a, x) ( lower_bound((a).begin(), (a).end(), (x)) - (a).begin())
 #define uppb(a, x) ( upper_bound((a).begin(), (a).end(), (x)) - (a).begin())
+#define cp2(x) (__builtin_popcountll(x)==1)
+#define lp2(x) (__builtin_ctzll(x))
+
 
 template<typename T>             vector<T>& operator--            (vector<T> &v){for (auto& i : v) --i;            return  v;}
 template<typename T>             vector<T>& operator++            (vector<T> &v){for (auto& i : v) ++i;            return  v;}
@@ -61,28 +64,48 @@ typedef vector<pi> vpi;
 typedef vector<vi> vvi;
 
 const ll MOD = 1000000007;
-const ll INF = 1LL<<60;
+const ll INF = 1LL<<62;
 const int N = 100005;
 
 // Range Queries, Point Update
 // updates/queries: 0 indexed, storage array: 1 indexed
+
+// [0][0]: - on -
+struct item
+{
+  int val;
+  int len;
+};
+
 class SegTree
 {
 public:
   int n, m, h;
-  vector<vector<int>> tree;
+  vector<item> tree;
   vector<vector<int>> len; // [left,right)
 
   // CHANGE ITEM, NEUTRAL, MERGE, SINGLE only
   const int NEUTRAL = 0;
-  vector<int> merge(vector<int>& a, vector<int>& b)
+  item merge(item& a, item& b)
   {
-    vector<int> ans;
-    ans[0] = a[0]+b[0];
+    item ans;
+    ans.len = a.len+b.len;
+    // ans.vals[0][0] = a.vals[0][0] + b.vals[0][a.len%2];
+    // ans.vals[1][0] = a.vals[1][0] + b.vals[1][a.len%2];
+    // ans.vals[0][1] = a.vals[0][1] + b.vals[0][(1+a.len)%2];
+    // ans.vals[1][1] = a.vals[1][1] + b.vals[1][(1+a.len)%2];
+    ans.val = a.val;
+    if(a.len%2)  ans.val-=b.val;
+    else ans.val+=b.val;
     return ans;
   }
+
   item single(int v)
-  {return {v};}
+  {
+    if(v==1) return {1,1};
+    if(v==-1) return {-1,1};
+    return {0,0};
+  }
 
   SegTree(int sz, vector<int> arr)
   {
@@ -91,39 +114,36 @@ public:
 
     tree.resize(m, single(NEUTRAL));
     for(int i = 0; i<sz; i++) tree[n+i] = single(arr[i]);
-    for(int i = n-1; i; i--)  tree[i] = merge(tree[2*i], tree[2*i+1]);
+    for(int i = n-1; i; i--)  tree[i]   = merge(tree[2*i], tree[2*i+1]);
 
     len.resize(m, {0,n});
-    for(int i = n; i<m; i++) len[i][0] = len[i][1] = i;
+    for(int i = n; i<m; i++) len[i][0] = i-n,         len[i][1] = i-n+1;
     for(int i = 1; i<n; i++) len[i][0] = len[2*i][0], len[i][1] = len[2*i+1][1];
   }
-
-
 
   // i is 0-indexed, tree is 1-indexed
   void update(int i, int v)
   {
     tree[i+=n] = single(v);
-    while(i>>=1)
-      tree[i] = merge(tree[2*i], tree[2*i+1]);
+    while(i>>=1) tree[i] = merge(tree[2*i], tree[2*i+1]);
   }
 
   // [l,r), [lx, rx), 0-indexed
-  vector<int> rec_query(int l, int r, int x=1)
+  item rec_query(int l, int r, int x=1)
   {
     int lx = len[x][0], rx = len[x][1];
     if(l<=lx && rx<=r) return tree[x];
     if(l>=rx || lx>=r) return single(NEUTRAL);
 
-    vector<int> left = rec_query(l, r, 2*x);
-    vector<int> right = rec_query(l, r, 2*x+1);
+    item left = rec_query(l, r, 2*x);
+    item right = rec_query(l, r, 2*x+1);
     return merge(left, right);
   }
 
   // [l,r)
-  vector<int> query(int l, int r)
+  item query(int l, int r)
   {
-    vector<int> ansLeft = single(NEUTRAL), ansRight = single(NEUTRAL);
+    item ansLeft = single(NEUTRAL), ansRight = single(NEUTRAL);
     for(l+=n, r+=n; l<r; l>>=1, r>>=1)
     {
       if(l&1) ansLeft = merge(ansLeft, tree[l++]);
@@ -133,20 +153,14 @@ public:
   }
 
   void printTree();
-  int find(int k, int x = 1)
-  {
-    // int lx = len[x][0], rx = len[x][1];
-    if(tree[x][0]<k) return -1;
-    if(x>=n) return x-n;
-
-    int ans = find(k,2*x);
-    if(ans==-1) ans = find(k-tree[2*x][0],2*x+1);
-    return ans;
-  }
+  int find(int k);
 };
+// length = 1<<(h-floor(log2(x)))
+// left = (x - 1<<floor(log2(x))) * length
+// right = left + length
 
 
-int MAXN = 100000;
+
 intt main()
 {
   ios_base::sync_with_stdio(false);
@@ -154,4 +168,29 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    int n,q; cin >> n >> q;
+    string s; cin >> s;
+    vvi qr(q, vi(2)); cin >> qr;
+
+    vi arr(n);
+    // csp("AAAAAA"); cnl(tno);
+    fr(i,0,n) arr[i] = (s[i]=='+')?1:-1;
+    SegTree st(n,arr);
+    // fr(i,1,st.m)
+    // {
+    //   if(__builtin_popcountll(i)==1) cout << endl;
+    //   csp(st.tree[i].val);
+    // }
+
+    fr(i,0,q)
+    {
+      int ch = st.query(qr[i][0]-1,qr[i][1]).val;
+      // csp("BBB");
+      if(ch==0) cnl(0);
+      else if(ch%2) cnl(1);
+      else cnl(2);
+    }
+  }
 }

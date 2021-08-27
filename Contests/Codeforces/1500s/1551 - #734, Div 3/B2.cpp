@@ -61,92 +61,9 @@ typedef vector<pi> vpi;
 typedef vector<vi> vvi;
 
 const ll MOD = 1000000007;
-const ll INF = 1LL<<60;
+const ll INF = 1000000007;
 const int N = 100005;
 
-// Range Queries, Point Update
-// updates/queries: 0 indexed, storage array: 1 indexed
-class SegTree
-{
-public:
-  int n, m, h;
-  vector<vector<int>> tree;
-  vector<vector<int>> len; // [left,right)
-
-  // CHANGE ITEM, NEUTRAL, MERGE, SINGLE only
-  const int NEUTRAL = 0;
-  vector<int> merge(vector<int>& a, vector<int>& b)
-  {
-    vector<int> ans;
-    ans[0] = a[0]+b[0];
-    return ans;
-  }
-  item single(int v)
-  {return {v};}
-
-  SegTree(int sz, vector<int> arr)
-  {
-    n = 1, h = 1;
-    while(n<sz) h++, n<<=1; m=n<<1;
-
-    tree.resize(m, single(NEUTRAL));
-    for(int i = 0; i<sz; i++) tree[n+i] = single(arr[i]);
-    for(int i = n-1; i; i--)  tree[i] = merge(tree[2*i], tree[2*i+1]);
-
-    len.resize(m, {0,n});
-    for(int i = n; i<m; i++) len[i][0] = len[i][1] = i;
-    for(int i = 1; i<n; i++) len[i][0] = len[2*i][0], len[i][1] = len[2*i+1][1];
-  }
-
-
-
-  // i is 0-indexed, tree is 1-indexed
-  void update(int i, int v)
-  {
-    tree[i+=n] = single(v);
-    while(i>>=1)
-      tree[i] = merge(tree[2*i], tree[2*i+1]);
-  }
-
-  // [l,r), [lx, rx), 0-indexed
-  vector<int> rec_query(int l, int r, int x=1)
-  {
-    int lx = len[x][0], rx = len[x][1];
-    if(l<=lx && rx<=r) return tree[x];
-    if(l>=rx || lx>=r) return single(NEUTRAL);
-
-    vector<int> left = rec_query(l, r, 2*x);
-    vector<int> right = rec_query(l, r, 2*x+1);
-    return merge(left, right);
-  }
-
-  // [l,r)
-  vector<int> query(int l, int r)
-  {
-    vector<int> ansLeft = single(NEUTRAL), ansRight = single(NEUTRAL);
-    for(l+=n, r+=n; l<r; l>>=1, r>>=1)
-    {
-      if(l&1) ansLeft = merge(ansLeft, tree[l++]);
-      if(r&1) ansRight = merge(tree[--r], ansRight);
-    }
-    return merge(ansLeft, ansRight);
-  }
-
-  void printTree();
-  int find(int k, int x = 1)
-  {
-    // int lx = len[x][0], rx = len[x][1];
-    if(tree[x][0]<k) return -1;
-    if(x>=n) return x-n;
-
-    int ans = find(k,2*x);
-    if(ans==-1) ans = find(k-tree[2*x][0],2*x+1);
-    return ans;
-  }
-};
-
-
-int MAXN = 100000;
 intt main()
 {
   ios_base::sync_with_stdio(false);
@@ -154,4 +71,40 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    int n,k; cin >> n >> k;
+    vi arr(n); cin >> arr;
+    map<int,int> cnt, ccnt;
+    map<int,vi, gri> rcnt;
+    map<int,vi> cclr;
+    fr(i,0,n) cnt[arr[i]]++;
+    int val = n;
+    for(auto p: cnt) val-=max(0LL, p.sn-k);
+    val/=k;
+
+    vi colored[k+1];
+    for(auto p: cnt) rcnt[min(p.sn,k)].pb(p.fs);
+    for(auto p: rcnt) for(auto q: p.sn) frr(c,1,p.fs) colored[c].pb(q);
+    // cnl("AAAA");
+    // frr(c,1,k) cnl(colored[c]);
+    int ls = k;
+    frr(c,1,k)
+    {
+      while(colored[c].size()>val)
+      {
+        while(ls && colored[ls].size()>=val) ls--;
+        if(ls>c) colored[ls].pb(colored[c].back());
+        colored[c].pop_back();
+      }
+    }
+    frr(c,1,k) for(auto x: colored[c]) cclr[x].pb(c);
+    vi ans(n,0);
+    fr(i,0,n) if(!cclr[arr[i]].empty())
+    {
+      ans[i] = cclr[arr[i]].back();
+      cclr[arr[i]].pop_back();
+    }
+    cnl(ans);
+  }
 }

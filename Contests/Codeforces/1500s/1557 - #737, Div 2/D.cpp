@@ -62,91 +62,66 @@ typedef vector<vi> vvi;
 
 const ll MOD = 1000000007;
 const ll INF = 1LL<<60;
-const int N = 100005;
+const int sz = 100000;
 
-// Range Queries, Point Update
-// updates/queries: 0 indexed, storage array: 1 indexed
-class SegTree
-{
-public:
-  int n, m, h;
-  vector<vector<int>> tree;
-  vector<vector<int>> len; // [left,right)
+struct segtree {
+   int n, h;
+   vector<int> tree, ex;
+   const static int inf = INT_MAX;
+// 0 - indexed, all method calls for [l, r) range
 
-  // CHANGE ITEM, NEUTRAL, MERGE, SINGLE only
-  const int NEUTRAL = 0;
-  vector<int> merge(vector<int>& a, vector<int>& b)
-  {
-    vector<int> ans;
-    ans[0] = a[0]+b[0];
-    return ans;
-  }
-  item single(int v)
-  {return {v};}
+   void renew(int nn) {
+      n = nn, h = 32 - __builtin_clz(n);
+      tree.resize(n<<1,0); ex.resize(n,0);
+      for(int i=0; i<n; i++) tree[n+i] = tree[i], ex[i] = 0;
+      for(int i=n-1; i>=0; i--) tree[i] = max(tree[i<<1], tree[i<<1|1]);
+   }
 
-  SegTree(int sz, vector<int> arr)
-  {
-    n = 1, h = 1;
-    while(n<sz) h++, n<<=1; m=n<<1;
+   inline void apply(int p, int v) {
+      mxs(tree[p], v);
+      if(p < n) mxs(ex[p], v);
+   }
 
-    tree.resize(m, single(NEUTRAL));
-    for(int i = 0; i<sz; i++) tree[n+i] = single(arr[i]);
-    for(int i = n-1; i; i--)  tree[i] = merge(tree[2*i], tree[2*i+1]);
+   inline void pull(int p) {
+      while(p > 1)
+         p >>= 1, tree[p] = max(max(tree[p<<1], tree[p<<1|1]) , ex[p]);
+   }
 
-    len.resize(m, {0,n});
-    for(int i = n; i<m; i++) len[i][0] = len[i][1] = i;
-    for(int i = 1; i<n; i++) len[i][0] = len[2*i][0], len[i][1] = len[2*i+1][1];
-  }
+   void push(int p) {
+      for(int s=h; s; s--) {
+         int i = p >> s;
+         if(ex[i]) {
+            apply(i<<1, ex[i]);
+            apply(i<<1|1, ex[i]);
+            ex[i] = 0;
+         }
+      }
+   }
 
+   void update(int l, int r, int v) {
+      l += n, r += n;
+      int l0 = l, r0 = r;
+      while(l < r) {
+         if(l&1) apply(l++, v);
+         if(r&1) apply(--r, v);
+         l >>= 1, r >>= 1;
+      }
+      pull(l0), pull(r0 - 1);
+   }
 
-
-  // i is 0-indexed, tree is 1-indexed
-  void update(int i, int v)
-  {
-    tree[i+=n] = single(v);
-    while(i>>=1)
-      tree[i] = merge(tree[2*i], tree[2*i+1]);
-  }
-
-  // [l,r), [lx, rx), 0-indexed
-  vector<int> rec_query(int l, int r, int x=1)
-  {
-    int lx = len[x][0], rx = len[x][1];
-    if(l<=lx && rx<=r) return tree[x];
-    if(l>=rx || lx>=r) return single(NEUTRAL);
-
-    vector<int> left = rec_query(l, r, 2*x);
-    vector<int> right = rec_query(l, r, 2*x+1);
-    return merge(left, right);
-  }
-
-  // [l,r)
-  vector<int> query(int l, int r)
-  {
-    vector<int> ansLeft = single(NEUTRAL), ansRight = single(NEUTRAL);
-    for(l+=n, r+=n; l<r; l>>=1, r>>=1)
-    {
-      if(l&1) ansLeft = merge(ansLeft, tree[l++]);
-      if(r&1) ansRight = merge(tree[--r], ansRight);
-    }
-    return merge(ansLeft, ansRight);
-  }
-
-  void printTree();
-  int find(int k, int x = 1)
-  {
-    // int lx = len[x][0], rx = len[x][1];
-    if(tree[x][0]<k) return -1;
-    if(x>=n) return x-n;
-
-    int ans = find(k,2*x);
-    if(ans==-1) ans = find(k-tree[2*x][0],2*x+1);
-    return ans;
-  }
+   int query(int l, int r) {
+      l += n, r += n;
+      push(l), push(r - 1);   // only for update trees
+      int res = 0;
+      while(l < r) {
+         if(l&1) res = max(res, tree[l++]);
+         if(r&1) res = max(tree[--r], res);
+         l >>= 1, r >>= 1;
+      }
+      return res;
+   }
 };
 
-
-int MAXN = 100000;
 intt main()
 {
   ios_base::sync_with_stdio(false);
@@ -154,4 +129,33 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  int n,m; cin >> n >> m;
+  vvi intervals;
+  set<int> s;
+  fr(i,0,m)
+  {
+    int x,l,r; cin >> x >> l >> r;
+    s.insert(l);
+    s.insert(r);
+    intervals.pb({x,l,r+1});
+  }
+  int curr = 1;
+  map<int,int> idx;
+  vector<vvi> r(n+1);
+  for(auto x: s) idx[x] = curr++;
+  fr(i,0,m) frr(j,1,2) intervals[i][j] = idx[intervals[i][j]];
+  fr(i,0,m) r[intervals[i][0]].push_back(intervals[i]);
+
+  segtree st; st.renew(idx.size()+5);
+  int ans = 0;
+  fr(i,0,n)
+  {
+    int mx = 0;
+    for(auto v: r[i])
+      mxs(mx,st.query(v[1], v[2]));
+    mx++;
+    for(auto v: r[i]) st.update(v[1], v[2], mx);
+    mxs(ans,mx);
+  }
+  cnl(ans);
 }

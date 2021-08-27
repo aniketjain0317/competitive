@@ -61,92 +61,26 @@ typedef vector<pi> vpi;
 typedef vector<vi> vvi;
 
 const ll MOD = 1000000007;
-const ll INF = 1LL<<60;
+const ll INF = 1000000007;
 const int N = 100005;
 
-// Range Queries, Point Update
-// updates/queries: 0 indexed, storage array: 1 indexed
-class SegTree
-{
-public:
-  int n, m, h;
-  vector<vector<int>> tree;
-  vector<vector<int>> len; // [left,right)
+int n,k;
+vector<int> g;
+vector<int> mt;
+vector<bool> used;
 
-  // CHANGE ITEM, NEUTRAL, MERGE, SINGLE only
-  const int NEUTRAL = 0;
-  vector<int> merge(vector<int>& a, vector<int>& b)
-  {
-    vector<int> ans;
-    ans[0] = a[0]+b[0];
-    return ans;
-  }
-  item single(int v)
-  {return {v};}
-
-  SegTree(int sz, vector<int> arr)
-  {
-    n = 1, h = 1;
-    while(n<sz) h++, n<<=1; m=n<<1;
-
-    tree.resize(m, single(NEUTRAL));
-    for(int i = 0; i<sz; i++) tree[n+i] = single(arr[i]);
-    for(int i = n-1; i; i--)  tree[i] = merge(tree[2*i], tree[2*i+1]);
-
-    len.resize(m, {0,n});
-    for(int i = n; i<m; i++) len[i][0] = len[i][1] = i;
-    for(int i = 1; i<n; i++) len[i][0] = len[2*i][0], len[i][1] = len[2*i+1][1];
-  }
-
-
-
-  // i is 0-indexed, tree is 1-indexed
-  void update(int i, int v)
-  {
-    tree[i+=n] = single(v);
-    while(i>>=1)
-      tree[i] = merge(tree[2*i], tree[2*i+1]);
-  }
-
-  // [l,r), [lx, rx), 0-indexed
-  vector<int> rec_query(int l, int r, int x=1)
-  {
-    int lx = len[x][0], rx = len[x][1];
-    if(l<=lx && rx<=r) return tree[x];
-    if(l>=rx || lx>=r) return single(NEUTRAL);
-
-    vector<int> left = rec_query(l, r, 2*x);
-    vector<int> right = rec_query(l, r, 2*x+1);
-    return merge(left, right);
-  }
-
-  // [l,r)
-  vector<int> query(int l, int r)
-  {
-    vector<int> ansLeft = single(NEUTRAL), ansRight = single(NEUTRAL);
-    for(l+=n, r+=n; l<r; l>>=1, r>>=1)
-    {
-      if(l&1) ansLeft = merge(ansLeft, tree[l++]);
-      if(r&1) ansRight = merge(tree[--r], ansRight);
+bool try_kuhn(int v) {
+    if (used[v])
+        return false;
+    used[v] = true;
+    int to = g[v];
+    if (mt[to] == -1 || try_kuhn(mt[to])) {
+        mt[to] = v;
+        return true;
     }
-    return merge(ansLeft, ansRight);
-  }
+    return false;
+}
 
-  void printTree();
-  int find(int k, int x = 1)
-  {
-    // int lx = len[x][0], rx = len[x][1];
-    if(tree[x][0]<k) return -1;
-    if(x>=n) return x-n;
-
-    int ans = find(k,2*x);
-    if(ans==-1) ans = find(k-tree[2*x][0],2*x+1);
-    return ans;
-  }
-};
-
-
-int MAXN = 100000;
 intt main()
 {
   ios_base::sync_with_stdio(false);
@@ -154,4 +88,58 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    cin >> n; k =n+1;
+    g.clear(); g.resize(n);
+    cin >> g;
+    mt.assign(k, -1);
+    for (int v = 0; v < n; ++v) {
+        used.assign(n, false);
+        try_kuhn(v);
+    }
+
+    int cnt = 0;
+    queue<int> q;
+    vi  ans(n,0);
+    for (int i = 1; i < k; ++i)
+    {
+      if(mt[i]==-1) q.push(i);
+      else
+      {
+        cnt++;
+        ans[mt[i]]=i;
+      }
+    }
+    if(q.size()==1 && !ans[q.front()-1])
+    {
+      int i = q.front()-1;
+      ans[i]=i+1;
+      int sw = mt[g[i]];
+      swap(ans[i],ans[sw]);
+      cnl(cnt);
+      cnl(ans);
+      continue;
+    }
+    int ls = 0;
+    for(int i = 0; i<n; i++) if(!ans[i])
+    {
+      if(q.size()==2) ls=i;
+      if((i+1)==q.front())
+      {
+        if(q.size()==1)
+        {
+          ans[i]=ans[ls];
+          ans[ls]=(i+1);
+          continue;
+        }
+        else {q.pop(); q.push(i+1);}
+      }
+      ans[i] = q.front(); q.pop();
+    }
+
+    cnl(cnt);
+    cnl(ans);
+  }
 }
+// bbabaaa

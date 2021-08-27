@@ -1,11 +1,10 @@
 void printTree()
 {
-  cnl("TREEEEEEEEE: ");
-  frr(k,1,h)
+  cout << "TREEEEEEEEE: ";
+  for(int i = 1; i<m; i++)
   {
-// CHANGE THIS IF ITEM.V CANNOT BE PRINTED
-    fr(i,1<<(k-1), 1<<k) csp(tree[i].val);
-    cout << endl;
+    if(__builtin_popcountll(i)==1) cout << endl;
+    cout << tree[i].val << " ";
   }
   cout << endl;
 }

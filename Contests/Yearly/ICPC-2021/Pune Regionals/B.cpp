@@ -64,89 +64,6 @@ const ll MOD = 1000000007;
 const ll INF = 1LL<<60;
 const int N = 100005;
 
-// Range Queries, Point Update
-// updates/queries: 0 indexed, storage array: 1 indexed
-class SegTree
-{
-public:
-  int n, m, h;
-  vector<vector<int>> tree;
-  vector<vector<int>> len; // [left,right)
-
-  // CHANGE ITEM, NEUTRAL, MERGE, SINGLE only
-  const int NEUTRAL = 0;
-  vector<int> merge(vector<int>& a, vector<int>& b)
-  {
-    vector<int> ans;
-    ans[0] = a[0]+b[0];
-    return ans;
-  }
-  item single(int v)
-  {return {v};}
-
-  SegTree(int sz, vector<int> arr)
-  {
-    n = 1, h = 1;
-    while(n<sz) h++, n<<=1; m=n<<1;
-
-    tree.resize(m, single(NEUTRAL));
-    for(int i = 0; i<sz; i++) tree[n+i] = single(arr[i]);
-    for(int i = n-1; i; i--)  tree[i] = merge(tree[2*i], tree[2*i+1]);
-
-    len.resize(m, {0,n});
-    for(int i = n; i<m; i++) len[i][0] = len[i][1] = i;
-    for(int i = 1; i<n; i++) len[i][0] = len[2*i][0], len[i][1] = len[2*i+1][1];
-  }
-
-
-
-  // i is 0-indexed, tree is 1-indexed
-  void update(int i, int v)
-  {
-    tree[i+=n] = single(v);
-    while(i>>=1)
-      tree[i] = merge(tree[2*i], tree[2*i+1]);
-  }
-
-  // [l,r), [lx, rx), 0-indexed
-  vector<int> rec_query(int l, int r, int x=1)
-  {
-    int lx = len[x][0], rx = len[x][1];
-    if(l<=lx && rx<=r) return tree[x];
-    if(l>=rx || lx>=r) return single(NEUTRAL);
-
-    vector<int> left = rec_query(l, r, 2*x);
-    vector<int> right = rec_query(l, r, 2*x+1);
-    return merge(left, right);
-  }
-
-  // [l,r)
-  vector<int> query(int l, int r)
-  {
-    vector<int> ansLeft = single(NEUTRAL), ansRight = single(NEUTRAL);
-    for(l+=n, r+=n; l<r; l>>=1, r>>=1)
-    {
-      if(l&1) ansLeft = merge(ansLeft, tree[l++]);
-      if(r&1) ansRight = merge(tree[--r], ansRight);
-    }
-    return merge(ansLeft, ansRight);
-  }
-
-  void printTree();
-  int find(int k, int x = 1)
-  {
-    // int lx = len[x][0], rx = len[x][1];
-    if(tree[x][0]<k) return -1;
-    if(x>=n) return x-n;
-
-    int ans = find(k,2*x);
-    if(ans==-1) ans = find(k-tree[2*x][0],2*x+1);
-    return ans;
-  }
-};
-
-
-int MAXN = 100000;
 intt main()
 {
   ios_base::sync_with_stdio(false);
@@ -154,4 +71,42 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    int r,c; cin >> r>> c;
+    int x,y; cin >> x>>y; x--, y--;
+    int sw1 = 0, sw2 = 0, cm = 0;
+    if((r%2==0 && c%2==1) || r>c) swap(r,c), swap(x,y), sw1=1;
+    int mat[r][c]={};
+    int curr = 1;
+    if(c%2==1 && c>=7)
+    {
+      fr(i,0,r) mat[i][c-1] = mat[i][c-2] = mat[i][c-3] = curr++;
+      c-=3; cm = 1;
+      if(y>=c) {y=(c-y-1); sw2 = 1;}
+    }
+
+    for(int i = 0; i<r; i++)
+      for(int j = 0; (j+1)<c; j+=2)
+        mat[i][j] = mat[i][j+1] = curr++;
+    if(y!=1 && y!=(c-2) && c%2==0)
+    {
+      if(y%2==0) mat[x][y+1] = mat[x][y+2] = mat[x][y+3] = curr++;
+      else mat[x][y-3] = mat[x][y-2] = mat[x][y-1] = curr++;
+    }
+    else if(y==2 && c%2==0)
+    {
+      int x2 = x-1;
+      if(!x) x2 = x+1;
+      mat[x][0] = mat[x2][0] = curr++;
+      mat[x2][1] = mat[x2][2] = mat[x2][3] = curr++;
+    }
+    else if(y==(c-2) && c%2==0)
+    {
+      int x2 = x-1;
+      if(!x) x2 = x+1;
+      mat[x][c-1] = mat[x2][c-1] = curr++;
+      mat[x2][c-2] = mat[x2][c-3] = mat[x2][c-4] = curr++;
+    }
+  }
 }

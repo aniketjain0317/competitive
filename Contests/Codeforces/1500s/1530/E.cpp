@@ -61,92 +61,9 @@ typedef vector<pi> vpi;
 typedef vector<vi> vvi;
 
 const ll MOD = 1000000007;
-const ll INF = 1LL<<60;
+const ll INF = 1000000007;
 const int N = 100005;
 
-// Range Queries, Point Update
-// updates/queries: 0 indexed, storage array: 1 indexed
-class SegTree
-{
-public:
-  int n, m, h;
-  vector<vector<int>> tree;
-  vector<vector<int>> len; // [left,right)
-
-  // CHANGE ITEM, NEUTRAL, MERGE, SINGLE only
-  const int NEUTRAL = 0;
-  vector<int> merge(vector<int>& a, vector<int>& b)
-  {
-    vector<int> ans;
-    ans[0] = a[0]+b[0];
-    return ans;
-  }
-  item single(int v)
-  {return {v};}
-
-  SegTree(int sz, vector<int> arr)
-  {
-    n = 1, h = 1;
-    while(n<sz) h++, n<<=1; m=n<<1;
-
-    tree.resize(m, single(NEUTRAL));
-    for(int i = 0; i<sz; i++) tree[n+i] = single(arr[i]);
-    for(int i = n-1; i; i--)  tree[i] = merge(tree[2*i], tree[2*i+1]);
-
-    len.resize(m, {0,n});
-    for(int i = n; i<m; i++) len[i][0] = len[i][1] = i;
-    for(int i = 1; i<n; i++) len[i][0] = len[2*i][0], len[i][1] = len[2*i+1][1];
-  }
-
-
-
-  // i is 0-indexed, tree is 1-indexed
-  void update(int i, int v)
-  {
-    tree[i+=n] = single(v);
-    while(i>>=1)
-      tree[i] = merge(tree[2*i], tree[2*i+1]);
-  }
-
-  // [l,r), [lx, rx), 0-indexed
-  vector<int> rec_query(int l, int r, int x=1)
-  {
-    int lx = len[x][0], rx = len[x][1];
-    if(l<=lx && rx<=r) return tree[x];
-    if(l>=rx || lx>=r) return single(NEUTRAL);
-
-    vector<int> left = rec_query(l, r, 2*x);
-    vector<int> right = rec_query(l, r, 2*x+1);
-    return merge(left, right);
-  }
-
-  // [l,r)
-  vector<int> query(int l, int r)
-  {
-    vector<int> ansLeft = single(NEUTRAL), ansRight = single(NEUTRAL);
-    for(l+=n, r+=n; l<r; l>>=1, r>>=1)
-    {
-      if(l&1) ansLeft = merge(ansLeft, tree[l++]);
-      if(r&1) ansRight = merge(tree[--r], ansRight);
-    }
-    return merge(ansLeft, ansRight);
-  }
-
-  void printTree();
-  int find(int k, int x = 1)
-  {
-    // int lx = len[x][0], rx = len[x][1];
-    if(tree[x][0]<k) return -1;
-    if(x>=n) return x-n;
-
-    int ans = find(k,2*x);
-    if(ans==-1) ans = find(k-tree[2*x][0],2*x+1);
-    return ans;
-  }
-};
-
-
-int MAXN = 100000;
 intt main()
 {
   ios_base::sync_with_stdio(false);
@@ -154,4 +71,57 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  test(t)
+  {
+    string s; cin >> s;
+    sort(all(s));
+    int n = s.size();
+    map<char,int> mp;
+    for(auto x: s) mp[x]++;
+    vpi v(mp.begin(), mp.end());
+    string ans(n,v[0].fs);
+    int a  = v[0].sn, curr;
+
+    // case where min f(t)==0 (one char is unique)
+    // baaaacddefg...
+    for(auto p: v) if(p.sn==1)
+    {
+      ans.clear();
+      ans+=p.fs;
+      for(auto c: s) if(c!=p.fs) ans+=c;
+      goto end;
+    }
+    if(v.size()==1) ans = s; // case of only one char
+    else if(n>=(2*a-2)) // case where (aa.a.a.a.) strategy works
+    {
+      curr = a;
+      fr(i,0,n)
+      {
+        if(a && (i%2==1 || !i)) ans[i]=v[0].fs, a--;
+        else ans[i]=s[curr++];
+      }
+    }
+    else if(v.size()==2) frr(i,1,v[1].sn) ans[i]=v[1].fs; // abbbaaaaaaaa....
+    else // abaaaaacbcdd...
+    {
+      ans[1]=v[1].fs, v[1].sn--;
+      ans[a+1]=v[2].fs, v[2].sn--;
+      curr=a+2;
+      fr(i,1,v.size()) fr(j,0,v[i].sn) ans[curr++]=v[i].fs;
+    }
+
+    end:
+    cnl(ans);
+  }
 }
+first sort s. then:
+1. s = "aacdd" // atleast 1 character occours only once
+      ans = "caadd" // push that char to front.
+2. s = "aaaaaaaaa" // only 1 char present
+      ans = "aaaaaaaaa"
+3. s = "aaaabbccdd" // no(first char)-2>=no(rest chars)
+      ans = "aababacacdd" //aa.a.a.a...
+4. s = "aaaaaaaabbb" // only 2 chars present
+      ans = "abbbaaaaaaaa"
+5. s = "aaaaaaaabbccdd" //rest of the cases
+      ans = "abaaaaaaacbcdd"

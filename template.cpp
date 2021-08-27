@@ -35,6 +35,9 @@ using namespace std;
 #define maxi(a)    ( max_element((a).begin(), (a).end()) - (a).begin())
 #define lowb(a, x) ( lower_bound((a).begin(), (a).end(), (x)) - (a).begin())
 #define uppb(a, x) ( upper_bound((a).begin(), (a).end(), (x)) - (a).begin())
+#define cp2(x) (__builtin_popcountll(x)==1)
+#define lp2(x) (__builtin_ctzll(x))
+
 
 template<typename T>             vector<T>& operator--            (vector<T> &v){for (auto& i : v) --i;            return  v;}
 template<typename T>             vector<T>& operator++            (vector<T> &v){for (auto& i : v) ++i;            return  v;}
@@ -61,7 +64,7 @@ typedef vector<pi> vpi;
 typedef vector<vi> vvi;
 
 const ll MOD = 1000000007;
-const ll INF = 1000000007;
+const ll INF = 1LL<<62;
 const int N = 100005;
 
 intt main()

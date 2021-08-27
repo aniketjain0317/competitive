@@ -11,6 +11,7 @@ class SegTree
 public:
   int n, m, h;
   vector<item> tree;
+  vector<int> lazy;
   vector<vector<int>> len; // [left,right)
 
   // CHANGE ITEM, NEUTRAL, MERGE, SINGLE only
@@ -30,6 +31,7 @@ public:
     while(n<sz) h++, n<<=1; m=n<<1;
 
     tree.resize(m, single(NEUTRAL));
+    lazy.resize(m,0);
     for(int i = 0; i<sz; i++) tree[n+i] = single(arr[i]);
     for(int i = n-1; i; i--)  tree[i]   = merge(tree[2*i], tree[2*i+1]);
 
@@ -67,6 +69,11 @@ public:
       if(r&1) ans = merge(tree[--r], ansRight);
     }
     return merge(ansLeft, ansRight);
+  }
+
+  void update(int l, int r, int v)
+  {
+    
   }
 
   void printTree();

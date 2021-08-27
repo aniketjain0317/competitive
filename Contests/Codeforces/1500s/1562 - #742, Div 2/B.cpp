@@ -35,6 +35,9 @@ using namespace std;
 #define maxi(a)    ( max_element((a).begin(), (a).end()) - (a).begin())
 #define lowb(a, x) ( lower_bound((a).begin(), (a).end(), (x)) - (a).begin())
 #define uppb(a, x) ( upper_bound((a).begin(), (a).end(), (x)) - (a).begin())
+#define cp2(x) (__builtin_popcountll(x)==1)
+#define lp2(x) (__builtin_ctzll(x))
+
 
 template<typename T>             vector<T>& operator--            (vector<T> &v){for (auto& i : v) --i;            return  v;}
 template<typename T>             vector<T>& operator++            (vector<T> &v){for (auto& i : v) ++i;            return  v;}
@@ -61,92 +64,9 @@ typedef vector<pi> vpi;
 typedef vector<vi> vvi;
 
 const ll MOD = 1000000007;
-const ll INF = 1LL<<60;
+const ll INF = 1LL<<62;
 const int N = 100005;
 
-// Range Queries, Point Update
-// updates/queries: 0 indexed, storage array: 1 indexed
-class SegTree
-{
-public:
-  int n, m, h;
-  vector<vector<int>> tree;
-  vector<vector<int>> len; // [left,right)
-
-  // CHANGE ITEM, NEUTRAL, MERGE, SINGLE only
-  const int NEUTRAL = 0;
-  vector<int> merge(vector<int>& a, vector<int>& b)
-  {
-    vector<int> ans;
-    ans[0] = a[0]+b[0];
-    return ans;
-  }
-  item single(int v)
-  {return {v};}
-
-  SegTree(int sz, vector<int> arr)
-  {
-    n = 1, h = 1;
-    while(n<sz) h++, n<<=1; m=n<<1;
-
-    tree.resize(m, single(NEUTRAL));
-    for(int i = 0; i<sz; i++) tree[n+i] = single(arr[i]);
-    for(int i = n-1; i; i--)  tree[i] = merge(tree[2*i], tree[2*i+1]);
-
-    len.resize(m, {0,n});
-    for(int i = n; i<m; i++) len[i][0] = len[i][1] = i;
-    for(int i = 1; i<n; i++) len[i][0] = len[2*i][0], len[i][1] = len[2*i+1][1];
-  }
-
-
-
-  // i is 0-indexed, tree is 1-indexed
-  void update(int i, int v)
-  {
-    tree[i+=n] = single(v);
-    while(i>>=1)
-      tree[i] = merge(tree[2*i], tree[2*i+1]);
-  }
-
-  // [l,r), [lx, rx), 0-indexed
-  vector<int> rec_query(int l, int r, int x=1)
-  {
-    int lx = len[x][0], rx = len[x][1];
-    if(l<=lx && rx<=r) return tree[x];
-    if(l>=rx || lx>=r) return single(NEUTRAL);
-
-    vector<int> left = rec_query(l, r, 2*x);
-    vector<int> right = rec_query(l, r, 2*x+1);
-    return merge(left, right);
-  }
-
-  // [l,r)
-  vector<int> query(int l, int r)
-  {
-    vector<int> ansLeft = single(NEUTRAL), ansRight = single(NEUTRAL);
-    for(l+=n, r+=n; l<r; l>>=1, r>>=1)
-    {
-      if(l&1) ansLeft = merge(ansLeft, tree[l++]);
-      if(r&1) ansRight = merge(tree[--r], ansRight);
-    }
-    return merge(ansLeft, ansRight);
-  }
-
-  void printTree();
-  int find(int k, int x = 1)
-  {
-    // int lx = len[x][0], rx = len[x][1];
-    if(tree[x][0]<k) return -1;
-    if(x>=n) return x-n;
-
-    int ans = find(k,2*x);
-    if(ans==-1) ans = find(k-tree[2*x][0],2*x+1);
-    return ans;
-  }
-};
-
-
-int MAXN = 100000;
 intt main()
 {
   ios_base::sync_with_stdio(false);
@@ -154,4 +74,66 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
+  vector<string> ch({"22","25","27","32","33","35","52","55","57","72","75","77"});
+  test(t)
+  {
+    int k; cin >> k;
+    string s; cin >> s;
+    int ans = 3;
+    string sa = "737";
+    // fr(i,0,k)
+    // {
+    //   int f = 0;
+    //   string cch = "737";
+    //   fr(j,0,3)
+    //   {
+    //     if((i+j)>=k) {f=1; break;}
+    //     if(s[i+j]!=cch[j]) f=1;
+    //   }
+    //   if(!f) ans = 3, sa = cch;
+    // }
+    fr(i,0,k)
+    {
+      string cch = "14689";
+      fr(j,0,5) if(s[i]==cch[j])
+      {
+        ans = 1; sa = cch[j];
+        break;
+      }
+      if(ans==1) break;
+    }
+    if(ans==1)
+    {
+      cnl(ans); cnl(sa);
+      continue;
+    }
+    map<char,int> mp;
+    fr(i,0,k)
+    {
+      if(mp.count(s[i]))
+      {
+        ans = 2;
+        sa.clear(); sa+=s[i]; sa+=s[i];
+        break;
+      }
+      else mp[s[i]]=i;
+    }
+    if(ans!=2)
+    {
+      for(auto str: ch)
+      {
+        if(mp.count(str[0]) && mp.count(str[1]) && (mp[str[0]]<mp[str[1]]))
+        {
+          ans =2; sa = str; break;
+        }
+      }
+    }
+    cnl(ans); cnl(sa);
+  }
 }
+// 1 4 6 8 9
+// 2 3 5 7
+//
+// 22, 25, 27,  32, 33, 35,  52, 55, 57,  72, 75, 77
+// 3737
+// 23, 37, 53, 73
