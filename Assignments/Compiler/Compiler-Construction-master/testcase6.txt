@@ -1,0 +1,40 @@
+_readMarks input parameter list[int b7]
+output parameter list [ record #marks b3c45];
+	read(b3c45.maths);
+	read(b3c45.physics);
+	read(b3c45.chemistry);
+	return [b3c45];
+end
+
+_main
+	record #marks
+		type real : maths;
+		type real: physics;
+		type real: chemistry;
+	endrecord;
+
+    type record #marks : d4;
+	type record #marks : d5;
+
+	d4.maths <--- d4 * d5.chemistry;
+
+	type int : b5;
+	type int : d5cb34567;
+	type record #marks : b5c6;
+
+	b5 <--- 1;
+	read(d5cb34567);
+	b5c6.maths <--- 0.00;
+	b5c6.physics <--- 0.00;
+	b5c6.chemistry <---0.00;
+	while(b5<1)
+		[d4] <--- call _readMarks with parameters [b5];
+		b5c6 <--- b5c6 + d4;
+		% above displays the sum of records
+	endwhile
+	d4 <--- b5c6 / d5cb34567;
+	write(d4.maths);
+	write(d4.physics);
+	write(d4.chemistry);
+	return;
+end

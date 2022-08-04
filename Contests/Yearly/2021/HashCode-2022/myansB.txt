@@ -1,0 +1,219 @@
+run_no: 0
+run_no: 2, ans.score: 734556
+ordProj: 78 87 3 27 11 39 60 82 84 24 77 21 23 26 32 12 67 1 4 9 22 72 14 15 34 6 33 38 61 48 65 69 10 73 74 2 13 37 58 7 80 90 83 16 93 94 30 19 25 79 76 35 36 41 42 43 45 53 54 56 68 92 95 97 98 0 5 8 17 18 20 28 29 31 40 44 46 47 49 50 51 52 55 57 59 62 63 64 66 70 71 75 81 85 86 88 89 91 96 99 
+run_no: 5, ans.score: 759916
+ordProj: 78 87 3 27 11 39 60 82 84 24 77 21 23 26 32 12 67 1 4 33 69 19 48 72 7 34 14 13 38 25 65 2 37 61 73 74 90 15 58 22 83 9 79 16 94 10 30 6 93 80 76 35 36 41 42 43 45 53 54 56 68 92 95 97 98 0 5 8 17 18 20 28 29 31 40 44 46 47 49 50 51 52 55 57 59 62 63 64 66 70 71 75 81 85 86 88 89 91 96 99 
+run_no: 11, ans.score: 764648
+ordProj: 78 87 3 27 11 39 60 82 84 24 77 21 23 26 32 33 7 25 69 48 67 14 34 19 37 72 4 12 65 13 38 1 2 61 73 74 90 15 58 22 83 9 79 16 94 10 30 6 93 80 76 35 36 41 42 43 45 53 54 56 68 92 95 97 98 0 5 8 17 18 20 28 29 31 40 44 46 47 49 50 51 52 55 57 59 62 63 64 66 70 71 75 81 85 86 88 89 91 96 99 
+run_no: 19, ans.score: 764650
+ordProj: 78 87 3 27 11 39 60 82 84 24 77 21 23 26 32 33 7 25 69 48 67 14 34 19 37 72 4 12 65 13 38 1 2 61 73 74 90 15 58 22 83 9 79 16 94 10 30 6 93 80 76 53 43 8 44 68 18 20 41 31 0 97 42 45 17 28 56 29 5 40 95 92 36 54 98 35 46 47 49 50 51 52 55 57 59 62 63 64 66 70 71 75 81 85 86 88 89 91 96 99 
+run_no: 27, ans.score: 767760
+ordProj: 78 87 3 27 11 39 60 82 84 26 7 33 25 77 21 48 69 23 24 32 67 14 34 19 37 72 4 12 65 13 38 1 2 61 73 74 90 15 58 22 83 9 79 16 94 10 30 6 93 80 76 53 43 8 44 68 18 20 41 31 0 97 42 45 17 28 56 29 5 40 95 92 36 54 98 35 46 47 49 50 51 52 55 57 59 62 63 64 66 70 71 75 81 85 86 88 89 91 96 99 
+run_no: 35, ans.score: 783674
+ordProj: 78 87 3 27 11 39 60 82 84 26 7 33 25 77 90 34 2 10 44 38 6 74 80 14 68 79 48 32 18 4 16 76 69 15 30 37 21 9 19 58 83 43 93 94 24 53 73 12 1 67 8 72 22 13 61 23 65 20 41 31 0 97 42 45 17 28 56 29 5 40 95 92 36 54 98 35 46 47 49 50 51 52 55 57 59 62 63 64 66 70 71 75 81 85 86 88 89 91 96 99 
+run_no: 36, ans.score: 783676
+ordProj: 78 87 3 27 11 39 60 82 84 26 7 33 25 77 90 34 2 10 44 38 76 67 16 30 37 4 79 12 8 6 94 93 69 83 24 53 73 14 43 74 19 9 68 80 18 1 21 15 48 58 32 72 22 13 61 23 65 20 41 31 0 97 42 45 17 28 56 29 5 40 95 92 36 54 98 35 46 47 49 50 51 52 55 57 59 62 63 64 66 70 71 75 81 85 86 88 89 91 96 99 
+run_no: 44, ans.score: 794445
+ordProj: 78 87 3 27 11 39 60 82 84 26 7 33 25 77 90 34 2 10 44 38 76 67 16 30 37 4 79 12 8 6 94 93 69 83 24 53 73 14 43 74 19 9 68 80 18 1 21 15 48 58 32 72 22 13 61 23 65 20 41 31 0 97 42 45 17 28 56 29 5 40 95 92 36 54 98 35 46 47 49 50 51 52 66 55 70 57 63 64 62 71 59 75 81 85 86 88 89 91 96 99 
+run_no: 56, ans.score: 795963
+ordProj: 78 87 3 27 11 39 60 82 84 26 7 33 25 77 90 34 2 10 44 38 76 67 16 30 37 4 79 12 8 6 94 93 69 83 24 53 73 14 43 74 19 9 68 80 18 1 21 15 48 58 32 36 65 97 45 17 13 5 22 40 72 95 29 20 92 23 61 0 41 31 42 56 28 54 98 35 46 47 49 50 51 52 66 55 70 57 63 64 62 71 59 75 81 85 86 88 89 91 96 99 
+run_no: 81, ans.score: 800797
+ordProj: 78 87 3 27 11 39 60 82 84 26 7 33 25 77 90 34 36 67 44 32 97 18 73 93 21 69 45 5 79 13 40 8 37 43 14 72 83 9 12 30 10 16 22 53 58 19 1 38 76 4 74 95 68 94 17 48 65 80 6 24 15 2 29 20 92 23 61 0 41 31 42 56 28 54 98 35 46 47 49 50 51 52 66 55 70 57 63 64 62 71 59 75 81 85 86 88 89 91 96 99 
+run_no: 109, ans.score: 811563
+ordProj: 78 87 3 27 11 39 60 82 84 26 7 33 25 77 90 34 36 73 83 43 5 45 72 9 22 21 53 97 30 58 67 93 12 44 37 13 8 40 10 18 19 16 32 14 79 69 1 38 76 4 74 95 68 94 17 48 65 80 6 24 15 2 29 20 92 23 61 0 41 31 42 56 28 54 98 35 46 47 49 50 51 52 66 55 70 57 63 64 62 71 59 75 81 85 86 88 89 91 96 99 
+run_no: 121, ans.score: 840604
+ordProj: 78 87 3 27 11 39 60 82 84 26 7 33 25 77 90 34 36 73 83 43 5 45 72 9 22 21 53 97 30 58 67 93 12 44 37 13 23 19 64 1 69 50 98 0 16 32 92 56 55 65 20 6 52 79 80 76 62 41 95 70 24 94 47 63 8 74 14 29 10 42 66 49 48 18 71 57 4 59 38 15 40 35 68 81 2 61 31 28 46 51 75 17 54 85 86 88 89 91 96 99 
+run_no: 500
+run_no: 536, ans.score: 862153
+ordProj: 78 87 3 27 11 39 60 82 84 26 7 33 25 77 90 34 36 73 83 43 5 45 72 9 22 21 53 97 30 58 67 93 12 44 37 13 23 19 64 1 69 50 98 0 16 32 92 56 55 65 20 6 52 79 80 76 62 41 95 70 24 94 47 63 8 74 4 10 71 57 81 49 59 35 66 2 38 18 40 68 42 61 48 29 14 15 31 28 46 51 75 17 54 85 86 88 89 91 96 99 
+run_no: 545, ans.score: 862157
+ordProj: 78 87 3 27 11 39 60 82 84 26 7 33 25 77 90 34 36 73 83 43 5 45 72 9 22 21 53 97 30 58 67 93 12 44 37 13 23 19 64 1 69 50 98 0 16 32 92 56 55 65 20 6 52 79 80 76 62 41 95 70 24 94 47 63 8 74 4 10 71 57 81 49 59 35 66 2 38 68 40 48 42 18 61 29 14 15 31 28 46 51 75 17 54 85 86 88 89 91 96 99 
+run_no: 566, ans.score: 862159
+ordProj: 78 87 3 27 11 39 60 82 84 26 7 33 25 77 90 34 36 73 83 43 5 45 72 9 22 21 53 97 30 58 67 93 12 44 37 13 23 19 64 1 69 50 98 0 16 32 92 56 55 65 20 6 52 79 80 76 62 41 10 74 94 8 95 71 4 57 47 24 70 63 81 49 59 35 66 2 38 68 40 48 42 18 61 29 14 15 31 28 46 51 75 17 54 85 86 88 89 91 96 99 
+run_no: 626, ans.score: 862166
+ordProj: 78 87 3 27 11 39 60 82 84 26 7 33 25 77 90 34 36 73 83 43 5 45 72 9 22 21 53 97 30 58 67 93 12 44 37 13 23 19 64 1 69 98 55 16 56 50 0 92 65 32 20 6 52 79 80 76 62 41 10 74 94 8 95 71 4 57 47 24 70 63 81 49 59 35 66 2 38 68 40 48 42 18 61 29 14 15 31 28 46 51 75 17 54 85 86 88 89 91 96 99 
+run_no: 653, ans.score: 862167
+ordProj: 78 87 60 39 82 3 27 11 84 26 7 33 25 77 90 34 36 73 83 43 5 45 72 9 22 21 53 97 30 58 67 93 12 44 37 13 23 19 64 1 69 98 55 16 56 50 0 92 65 32 20 6 52 79 80 76 62 41 10 74 94 8 95 71 4 57 47 24 70 63 81 49 59 35 66 2 38 68 40 48 42 18 61 29 14 15 31 28 46 51 75 17 54 85 86 88 89 91 96 99 
+run_no: 1000
+run_no: 1500
+run_no: 1836, ans.score: 880365
+ordProj: 78 87 60 39 82 3 27 11 84 26 7 33 25 77 90 34 36 73 83 43 5 45 72 9 22 21 53 97 30 58 67 93 12 44 37 13 23 19 64 1 69 98 55 16 56 50 0 92 65 32 20 6 52 79 80 76 62 41 10 74 94 8 95 71 4 70 89 81 40 35 29 15 38 2 14 68 28 51 88 49 75 66 18 31 61 59 54 91 48 86 46 85 63 47 57 42 24 17 96 99 
+run_no: 1937, ans.score: 880370
+ordProj: 78 87 60 39 82 3 27 11 84 26 7 33 25 77 90 34 36 73 83 43 5 45 72 9 22 21 53 97 30 58 67 93 12 44 37 13 23 19 64 1 69 98 55 56 20 52 92 16 50 32 65 0 6 79 80 76 62 41 10 74 94 8 95 71 4 70 89 81 40 35 29 15 38 2 14 68 28 51 88 49 75 66 18 31 61 59 54 91 48 86 46 85 63 47 57 42 24 17 96 99 
+run_no: 2000
+run_no: 2500
+run_no: 3000
+run_no: 3500
+run_no: 4000
+run_no: 4500
+run_no: 5000
+run_no: 5500
+run_no: 6000
+run_no: 6500
+run_no: 7000
+run_no: 7500
+run_no: 7578, ans.score: 896286
+ordProj: 78 87 60 77 36 39 25 45 26 33 3 82 83 5 43 84 72 90 11 73 27 7 34 9 22 21 53 97 30 58 67 93 12 44 37 13 23 19 64 1 69 98 55 56 20 52 92 16 50 32 65 0 6 79 80 76 62 41 10 74 94 8 95 71 4 70 89 81 40 35 29 15 38 2 14 68 28 51 88 49 75 66 18 31 61 59 54 91 48 86 46 85 63 47 57 42 24 17 96 99 
+run_no: 8000
+run_no: 8500
+run_no: 9000
+run_no: 9500
+78 87 60 77 36 39 25 45 26 33 3 82 83 5 43 84 72 90 11 73 27 7 34 9 22 21 53 97 30 58 67 93 12 44 37 13 23 19 64 1 69 98 55 56 20 52 92 16 50 32 65 0 6 79 80 76 62 41 10 74 94 8 95 71 4 70 89 81 40 35 29 15 38 2 14 68 28 51 88 49 75 66 18 31 61 59 54 91 48 86 46 85 63 47 57 42 24 17 96 99 
+896286
+78
+GmailLitev9
+PhilippP PetarF ThomasK StefanQ BakhodirG MatasW LarryX HiroshiF BakhodirA SergeyN 
+CastOSLitev5
+BakhodirD PhilippH ClementM BakhodirG 
+SmartSv2
+FionaF BakhodirW PhilippK BenjaminT FionaN 
+DuoZv4
+ThomasK SundarP LarryX ClementT PhilippK RuthX ThomasM 
+ChromeOSLitev3
+PhilippP HiroshiW PhilippY 
+StreetViewProv9
+SundarA MatasC ClementE MatasW HiroshiB PhilippK NellyY LarryO 
+DaydreamLitev7
+BenjaminO 
+CollectionsNextv1
+TatiyanaC SergeyN MatasW PhilippH 
+ChatXv5
+BakhodirA PhilippK MichalB LarryO HiroshiF SundarP BenjaminT SergeyU StefanQ BenjaminO 
+MarsUltrav8
+PhilippI SergeyU SusanQ PhilippP StefanQ BenjaminT RuthX BakhodirG MatasW 
+StreamXv9
+LarryO 
+DuoZv2
+PhilippY SundarP FionaF 
+CastOSXv6
+LarryO SundarP BakhodirA BakhodirG StefanQ ClementL SundarA 
+ExploreUltrav8
+BakhodirD ClementM SundarL HiroshiF ClementT SusanQ ClementE 
+MapsProv8
+HiroshiW SergeyT LarryX 
+CastOSProv6
+LarryX 
+AndroidTVNextv1
+MatasC NellyX SergeyV LarryO PhilippP ThomasM SergeyU SundarL 
+SearchNextv1
+SergeyV ThomasM MichalB SundarP ThomasK 
+GmailSv4
+BakhodirG NellyY 
+ReleaseUltrav1
+ClementT BakhodirD 
+WebserverProv6
+PhilippP 
+ConnectLitev9
+SundarA 
+ChromeOSUltrav5
+HiroshiB PhilippH SergeyU HiroshiW PhilippK ClementL 
+ChromeNextv7
+JenG BakhodirD PhilippY 
+ClassroomMaxv2
+TatiyanaC SusanQ 
+WearOSLitev5
+NellyY BakhodirD TatiyanaC JenK PhilippI 
+ShortsNextv7
+FionaF PhilippY PrabhakarR 
+SlidesNextv2
+JenZ PhilippH 
+GameLitev8
+PhilippP PhilippK MatasW SergeyN 
+FeedBurnerMaxv1
+MichalB ThomasK ClementL HiroshiF 
+DreamSv2
+SusanQ PhilippP SergeyN LarryO PhilippI MatasW 
+ResearchXv8
+SundarP ClementM BenjaminO JenK ClementE 
+GlassOSLitev9
+ClementT BakhodirG SundarA PhilippK HiroshiF PhilippH 
+BuildMaxv1
+MichalB RuthX NellyY BakhodirG SergeyV 
+CollectionsZv7
+HiroshiW SundarL BakhodirD PhilippI SundarA SergeyN ClementT 
+MarsLitev5
+BakhodirD TatiyanaC 
+AssistantUltrav2
+MatasC SergeyU StefanQ MichalP BenjaminO PhilippP 
+AndroidAutoZv2
+PhilippH HiroshiB PhilippI LarryX SergeyU 
+FeedBurnerMaxv3
+TatiyanaC LarryO 
+MapsUltrav3
+TatiyanaC HiroshiW PhilippP 
+DataZv2
+SusanQ ThomasM ClementM FionaF SergeyT PhilippH SergeyN StefanQ 
+FuchsiaLitev6
+PhilippY BenjaminT ThomasK ClementT BenjaminO PhilippI SergeyV 
+ShoppingProv8
+FionaN PhilippI 
+FuchsiaXv6
+SundarL SundarA 
+GlassOSSv3
+MatasW JenZ 
+SantaTrackerXv4
+HiroshiW ThomasM ClementE BakhodirG ClementL ClementT SergeyU PhilippH SusanQ MichalP 
+GameProv6
+LarryO SusanQ StefanQ 
+DocsNextv2
+SundarP HiroshiB ClementL 
+MarsXv1
+HiroshiF ClementT MichalB MatasH 
+StreamXv6
+BenjaminO HiroshiB SergeyN ClementM ClementT 
+SmartLitev9
+JenZ ThomasK PhilippP 
+WebserverProv4
+HiroshiF NellyX PhilippP PhilippI PhilippH ClementE SergeyU MatasW PhilippY 
+SkyLitev6
+TatiyanaC ThomasM PhilippI 
+GameProv3
+PhilippY 
+VideoUltrav1
+JenG PhilippP ClementM ClementT BenjaminO SundarA MichalB PetarF 
+SitesSv1
+SergeyU ClementL 
+MapsSv7
+SundarA PhilippK FionaF LarryO ClementM ThomasK MatasW BakhodirD ClementE LarryX 
+DuoMaxv1
+ClementT NellyY PhilippI PhilippP ClementL 
+CalendarNextv8
+BakhodirG MichalB 
+CastOSNextv8
+LarryO LarryX ClementM BakhodirG ThomasM BenjaminO NellyY TatiyanaC 
+CultureProv7
+MatasW TatiyanaC PhilippY SergeyU ClementT ThomasM BenjaminO ClementE 
+StreetViewXv1
+TatiyanaC HiroshiB FionaF 
+AndroidTVMaxv5
+HiroshiF SundarP PhilippK 
+LoggingLitev6
+ClementM ClementL JenG LarryO SergeyN BenjaminO ClementE HiroshiF SundarP SusanQ 
+StadiaZv1
+TatiyanaC ClementM BenjaminT PhilippP 
+BloggerNextv8
+PhilippP ClementE MatasW SundarL 
+PhotoProv3
+StefanQ HiroshiF BakhodirD SusanQ MichalP SergeyV SergeyU 
+BuildLitev6
+BakhodirG TatiyanaC HiroshiB PhilippI MichalB NellyY SergeyU FionaN PhilippK PhilippH 
+VoiceProv8
+MatasW ClementE HiroshiB ClementM TatiyanaC 
+KeepXv5
+PhilippP HiroshiF MichalP 
+PhoneUltrav1
+BenjaminO LarryO ThomasM BakhodirW StefanQ 
+StreetViewNextv3
+SusanQ PhilippH JenZ 
+SitesUltrav5
+SergeyU PhilippI MatasW TatiyanaC LarryX SergeyT PhilippY SundarP 
+AlertsLitev7
+SergeyN HiroshiF StefanQ BenjaminT 
+MoonMaxv4
+MichalP HiroshiW FionaF SundarA BenjaminO ThomasM StefanQ ThomasK HiroshiF BakhodirD 
+ChatSv4
+TatiyanaC BakhodirG PhilippP JenZ 
+WearOSProv2
+FionaN NellyY SergeyV PhilippY ClementT ThomasM MatasW PhilippH StefanQ 
+StadiaZv2
+BakhodirG JenZ MichalP FionaF ThomasK MatasH 

@@ -37,12 +37,17 @@ using namespace std;
 #define uppb(a, x) ( upper_bound((a).begin(), (a).end(), (x)) - (a).begin())
 #define cp2(x) (__builtin_popcountll(x)==1)
 #define lp2(x) (__builtin_ctzll(x))
+#define tc(tno) cout << "Case #" << tno << ": "
+#define dsp(x) cout << #x << ": " << x << ", "
+#define dnl(x) cout << #x << ": " << x << endl
+#define cnlret(x) {cnl(x); return;}
 
 
 template<typename T>             vector<T>& operator--            (vector<T> &v){for (auto& i : v) --i;            return  v;}
 template<typename T>             vector<T>& operator++            (vector<T> &v){for (auto& i : v) ++i;            return  v;}
 template<typename T>             istream& operator>>(istream& is,  vector<T> &v){for (auto& i : v) is >> i;        return is;}
 template<typename T>             ostream& operator<<(ostream& os,  vector<T>  v){for (auto& i : v) os << i << ' '; return os;}
+template<typename T>             ostream& operator<<(ostream& os,  set<T>  v)   {os<<"{"; for (auto& i : v) os << i << ','; os<<"}"; return os;}
 template<typename T, typename U> pair<T,U>& operator--           (pair<T, U> &p){--p.first; --p.second;            return  p;}
 template<typename T, typename U> pair<T,U>& operator++           (pair<T, U> &p){++p.first; ++p.second;            return  p;}
 template<typename T, typename U> istream& operator>>(istream& is, pair<T, U> &p){is >> p.first >> p.second;        return is;}
@@ -62,10 +67,14 @@ typedef pair<int,int> pi;
 typedef vector<int> vi;
 typedef vector<pi> vpi;
 typedef vector<vi> vvi;
-
 const ll MOD = 1000000007;
 const ll INF = 1LL<<62;
 const int N = 100005;
+
+void solve()
+{
+
+}
 
 intt main()
 {
@@ -74,5 +83,9 @@ intt main()
   cout.precision(numeric_limits<double>::max_digits10);
   // freopen("myans.txt","w",stdout);
   // freopen("input.txt","r",stdin);
-
+  test(t)
+  {
+    //tc(tno);
+    solve();
+  }
 }

@@ -11,15 +11,18 @@ int32_t main()
   int MAXV = 0;
   for(int i = 1; i<=n; i++) MAXV += val[i];
 
-  int dp[n+1][MAXV+1]={};
+  vector<int> dp(MAXV+1,0);
   for(int j=1; j<=MAXV; j++) dp[0][j]=w+1;
-  for(int i = 1; i<=n; i++) for(int j = 0; j<=MAXV; j++)
+  for(int i = 1; i<=n; i++)
   {
-    dp[i][j] = dp[i-1][j];
-    if(j-val[i]>=0) dp[i][j] = min(dp[i][j], dp[i-1][j-val[i]]+wt[i]);
+    for(int j = 0; j<=MAXV; j++)
+    {
+      if(j-val[i]>=0) dp[j] = min(dp[j], dp[j-val[i]]+wt[i]);
+    }
+    dp = nw;
   }
 
   int ans = 0;
-  for(int j = 0; j<=MAXV; j++) if(dp[n][j]<=w) ans = j;
+  for(int j = 0; j<=MAXV; j++) if(dp[j]<=w) ans = j;
   cout << ans << endl;
 }

@@ -63,3 +63,4 @@ intt main()
   if(dp[k]) cnl("Second");
   else cnl("First");
 }
+// state: N or P

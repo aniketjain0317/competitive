@@ -8,11 +8,6 @@ public:
 		rank = new int[n];
 		parent = new int[n];
 		this->n = n;
-		makeSet();
-	}
-
-	void makeSet()
-	{
 		for (int i = 0; i < n; i++) parent[i] = i;
 	}
 
@@ -26,10 +21,8 @@ public:
 	{
 		int xset = find(x);
 		int yset = find(y);
-
 		if (xset == yset)
 			return;
-
 		if (rank[xset] < rank[yset])    	parent[xset] = yset;
 		else if (rank[xset] > rank[yset])	parent[yset] = xset;
 		else

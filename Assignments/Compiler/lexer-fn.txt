@@ -1,0 +1,4 @@
+isalpha - normal
+isalpha1 - a,e-z
+isalpha2 - !isalpha1
+isnum1 - 2-7

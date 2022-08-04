@@ -63,8 +63,8 @@ public:
     item ansLeft = single(NEUTRAL), ansRight = single(NEUTRAL);
     for(l+=n, r+=n; l<r; l>>=1, r>>=1)
     {
-      if(l&1) ans = merge(ansLeft, tree[l++]);
-      if(r&1) ans = merge(tree[--r], ansRight);
+      if(l&1) ansLeft = merge(ansLeft, tree[l++]);
+      if(r&1) ansRight = merge(tree[--r], ansRight);
     }
     return merge(ansLeft, ansRight);
   }

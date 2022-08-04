@@ -7,7 +7,7 @@ const int MAXV = 1LL<<60;
 int32_t main()
 {
   int n; cin >> n;
-  int arr[n+2]={};
+  int arr[n+2]={};aA
   for(int i =1; i<=n; i++) cin >> arr[i];
   int cum[n+1]={};
   for(int i =1; i<=n; i++) cum[i] = cum[i-1]+arr[i];
@@ -23,3 +23,4 @@ int32_t main()
   cout << dp[1][n] << endl;
 }
 // dp[i][j] = min(dp[i][j-k] + dp[j-k][j]) + cum[i][j]
+// MCM

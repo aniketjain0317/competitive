@@ -35,7 +35,7 @@ int32_t main()
     for(int r=0; r<d; r++)
       dp[i][r]=(dp[i][r]+dp[i-1][r])%MOD;
 
-      for(int i = 0; i<=n; i++) cout << dp[i][0] << endl;
+  // for(int i = 0; i<=n; i++) cout << dp[i][0] << endl;
   reverse(s.begin(), s.end());
   int ans = 0, curr = 0;
   for(int i = n; i; i--)

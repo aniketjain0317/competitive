@@ -48,3 +48,7 @@ int32_t main()
   for(int i =0; i<n; i++) ans = (ans + rec(i,kk))%MOD;
   cout << ans << endl;
 }
+// x^(2^i),
+// x^(2^(i+1)) = x^(2^i) op x^(2^i)
+// dp[i][j][k] = no of ways to go from i to j in 2^k steps;
+// dp[][][k] = op(dp[][][k-1], dp[][][k-1]);

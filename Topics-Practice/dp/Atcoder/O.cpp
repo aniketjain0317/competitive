@@ -20,6 +20,8 @@ int32_t main()
 
   for(int i = 1; i<n; i++)
   {
+    // masks s.t. i bits set
+    // 11100000
     unsigned int v = (1<<i) - 1, mx = v;
     while(mx<m) mx<<=1; mx>>=1;
     while(true)

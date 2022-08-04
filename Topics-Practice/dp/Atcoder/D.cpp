@@ -9,11 +9,15 @@ int32_t main()
   vector<int> wt(n+1,0), val(n+1,0);
   for(int i = 1; i<=n; i++) cin>> wt[i] >> val[i];
 
-  int dp[n+1][w+1]={};
-  for(int i =1; i<=n; i++) for(int j = 0; j<=w; j++)
+  vector<int> dp(w+1,0);
+  for(int i =1; i<=n; i++)
   {
-    dp[i][j] = dp[i-1][j];
-    if(j-wt[i]>=0) dp[i][j] = max(dp[i][j], dp[i-1][j-wt[i]]+val[i]);
+    vector<int> nw(dp);
+    for(int j = 0; j<=w; j++)
+    {
+      // dp[i][j] = dp[i-1][j];
+      if(j-wt[i]>=0) nw[j] = max(nw[j], dp[j-wt[i]]+val[i]);
+    }
   }
-  cout << dp[n][w] << endl;
+  cout << dp[w] << endl;
 }
